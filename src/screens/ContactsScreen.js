@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Search from '../components/Search';
 
-export default function ContactsScreen() {
+export default function ContactsScreen({navigation}) {
   return (
-    <View style={styles.container}>
+    <View>
+      <Search />
       <Text>Danh Bạ</Text>
     </View>
   );

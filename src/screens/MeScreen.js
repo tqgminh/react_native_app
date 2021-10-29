@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { API_URL } from '../api/config';
 import { setToken, setLogin } from '../redux/actions/userAction';
 import ApiService from '../api/APIService';
+import Search from '../components/Search';
 
 export default function MeScreen({navigation}) {
   const {token} = useSelector(state=>state.userReducer);
@@ -47,20 +48,20 @@ export default function MeScreen({navigation}) {
   };
 
   return (
-    <View style={styles.container}>
+    <View>
+      <Search />
+      <View style={styles.container}>
       <TouchableOpacity style={{backgroundColor: '#00bfff'}} onPress={onLogoutPressed}>
-          <Text>
-              Đăng xuất
-          </Text>
+          <Text>Đăng xuất</Text>
       </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center'
   }
