@@ -14,13 +14,15 @@ import MeScreen from '../screens/MeScreen';
 import ContactsScreen from '../screens/ContactsScreen';
 import DiscoveryScreen from '../screens/DiscoveryScreen';
 import TimelineScreen from '../screens/TimelineScreen';
+import ChatScreen from '../screens/ChatScreen';
+import OptionsScreen from '../screens/OptionsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function Home() {
   return (
-    <Tab.Navigator initialRouteName='MessagesScreen'>
+    <Tab.Navigator initialRouteName='MessagesScreen' screenOptions={{ headerShown: false }}>
       <Tab.Screen name='MessagesScreen' component={MessagesScreen}
         options={{
           tabBarLabel: "Tin nhắn",
@@ -86,7 +88,9 @@ const RootNavigator = () => {
         <Stack.Screen name='RegisterNameScreen' component={RegisterNameScreen} />
         <Stack.Screen name='RegisterPhoneScreen' component={RegisterPhoneScreen} />
         <Stack.Screen name='RegisterPasswordScreen' component={RegisterPasswordScreen} />
-
+        <Stack.Screen name='MessagesScreen' component={MessagesScreen} />
+        <Stack.Screen name='ChatScreen' component={ChatScreen} />
+        <Stack.Screen name='OptionsScreen' component={OptionsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

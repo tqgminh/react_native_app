@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import Search from '../components/Search';
 
-export default function DiscoveryScreen() {
+export default function DiscoveryScreen({navigation}) {
   return (
-    <View style={styles.container}>
+    <View>
+      <Search />
       <Text>khám phá</Text>
     </View>
   );
