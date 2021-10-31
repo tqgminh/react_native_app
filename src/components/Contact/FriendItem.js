@@ -6,12 +6,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 function FriendItem(props){
 
-    const {name, imageUri} = props
+    const {name, imageUri,iconActivate} = props
     return (
 
         <View style={styles.container}>
                 <View style={styles.lefContainer}>
                     <Image source={{ uri: imageUri }} style={styles.avatar} />
+                    {iconActivate && <View style={styles.iconActivate}/>}
+                    {!iconActivate && <View style={styles.iconInActivate}/>}
                     <View style={styles.midContainer}>
                         <Text style={styles.username}>{name}</Text>
                     </View>
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
     username: {
         fontWeight: 'bold',
         fontSize: 16,
+        left:-5
     },
     status: {
         fontSize: 16,
@@ -62,6 +65,22 @@ const styles = StyleSheet.create({
     time: {
         fontSize: 14,
         color: 'grey',
+    },
+    iconActivate:{
+        width: 12,
+        height: 12,
+        backgroundColor:'green',
+        borderRadius:6,
+        left:-20,
+        bottom:-40,
+    },
+    iconInActivate:{
+        width: 12,
+        height: 12,
+        // backgroundColor:'green',
+        borderRadius:6,
+        left:-20,
+        bottom:-40,
     }
 })
 

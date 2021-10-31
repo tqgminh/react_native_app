@@ -68,7 +68,7 @@ function ActiveFriend({ navigation }){
                         <TouchableOpacity onPress={() =>
                           navigation.navigate('ChatScreen', {name: item.partner.name, imageUri: item.partner.imageUri})}>
 
-                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} />
+                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} iconActivate={1} />
                         </TouchableOpacity>
                       )
                     }}
@@ -80,7 +80,15 @@ function ActiveFriend({ navigation }){
                   <Text style={styles.header}>Tất cả bạn bè</Text>
                   <FlatList
                     data={ListPeople}
-                    renderItem={({item}) => <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} />}
+                    renderItem={({item}) => {
+                      return (
+                        <TouchableOpacity onPress={() =>
+                          navigation.navigate('ChatScreen', {name: item.partner.name, imageUri: item.partner.imageUri})}>
+
+                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} />
+                        </TouchableOpacity>
+                      )
+                    }}
                     
                   />
                 </View>
