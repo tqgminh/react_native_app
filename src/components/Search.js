@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function Search() {
+export default function Search(props) {
 
     const [searchInput, setSearchInput] = useState('');
+    const typeDisplay  = props.type
 
     return (
         <View style={styles.container}>
@@ -18,7 +19,9 @@ export default function Search() {
                 onChangeText={setSearchInput}
             />
             <TouchableOpacity>
-                <MaterialIcons style={[styles.icon, {paddingRight: 10}]} name='qr-code' size={25} color='white'/>
+                {!typeDisplay && <MaterialIcons style={[styles.icon, {paddingRight: 10}]} name='qr-code' size={25} color='white'/>}
+                {typeDisplay && <MaterialIcons style={[styles.icon, {paddingRight: 10}]} name='person-add' size={25} color='white'/>}
+
             </TouchableOpacity>
         </View>
     );

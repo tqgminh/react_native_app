@@ -91,6 +91,7 @@ const RootNavigator = () => {
         <Stack.Screen name='MessagesScreen' component={MessagesScreen} />
         <Stack.Screen name='ChatScreen' component={ChatScreen} />
         <Stack.Screen name='OptionsScreen' component={OptionsScreen} />
+        <Stack.Screen name='AddFriendScreen' component={OptionsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
