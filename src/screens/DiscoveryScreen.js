@@ -5,7 +5,7 @@ import Search from '../components/Search';
 export default function DiscoveryScreen({navigation}) {
   return (
     <View>
-      <Search />
+      <Search navigation = {navigation} />
       <Text>khám phá</Text>
     </View>
   );

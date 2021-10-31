@@ -49,7 +49,7 @@ export default function MeScreen({navigation}) {
 
   return (
     <View>
-      <Search />
+      <Search navigation = {navigation}/>
       <View style={styles.container}>
       <TouchableOpacity style={{backgroundColor: '#00bfff'}} onPress={onLogoutPressed}>
           <Text>Đăng xuất</Text>

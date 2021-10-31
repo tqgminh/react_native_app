@@ -16,6 +16,7 @@ import DiscoveryScreen from '../screens/DiscoveryScreen';
 import TimelineScreen from '../screens/TimelineScreen';
 import ChatScreen from '../screens/ChatScreen';
 import OptionsScreen from '../screens/OptionsScreen';
+import SearchDetail from '../components/SearchDetail/SearchDetail';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -91,7 +92,7 @@ const RootNavigator = () => {
         <Stack.Screen name='MessagesScreen' component={MessagesScreen} />
         <Stack.Screen name='ChatScreen' component={ChatScreen} />
         <Stack.Screen name='OptionsScreen' component={OptionsScreen} />
-        <Stack.Screen name='AddFriendScreen' component={OptionsScreen} />
+        <Stack.Screen name='SearchDetail' component={SearchDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

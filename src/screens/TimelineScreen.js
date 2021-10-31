@@ -5,7 +5,7 @@ import Search from '../components/Search';
 export default function TimelineScreen({navigation}) {
   return (
     <View>
-      <Search />
+      <Search navigation = {navigation} />
       <Text>Time</Text>
     </View>
   );

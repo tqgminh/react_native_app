@@ -58,12 +58,12 @@ function ActiveFriend({ navigation }){
     const activePeople = ListPeople.filter(people => people.activate === 1)
     return (
         
-            <ScrollView>
+            <View>
                 <View style={styles.containerActivate}>
                   <Text style={styles.header}>Bạn bè mới truy cập</Text>
-                  <FlatList
-                    data={activePeople}
-                    renderItem={({item}) => {
+
+                  {
+                    activePeople.map(item =>{
                       return (
                         <TouchableOpacity onPress={() =>
                           navigation.navigate('ChatScreen', {name: item.partner.name, imageUri: item.partner.imageUri})}>
@@ -71,29 +71,27 @@ function ActiveFriend({ navigation }){
                             <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} iconActivate={1} />
                         </TouchableOpacity>
                       )
-                    }}
-                    
-                  />
+                    })
+                  }
+
                 </View>
 
                 <View style={styles.containerActivate}>
                   <Text style={styles.header}>Tất cả bạn bè</Text>
-                  <FlatList
-                    data={ListPeople}
-                    renderItem={({item}) => {
+                  {
+                    ListPeople.map(item =>{
                       return (
                         <TouchableOpacity onPress={() =>
                           navigation.navigate('ChatScreen', {name: item.partner.name, imageUri: item.partner.imageUri})}>
 
-                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} />
+                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri}/>
                         </TouchableOpacity>
                       )
-                    }}
-                    
-                  />
+                    })
+                  }
                 </View>
 
-            </ScrollView>
+            </View>
 
             
         

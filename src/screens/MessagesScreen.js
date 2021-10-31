@@ -80,7 +80,7 @@ export default function MessagesScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Search />
+      <Search navigation = {navigation}/>
       <FlatList
         style={{width: '100%'}}
         data={conversations}
