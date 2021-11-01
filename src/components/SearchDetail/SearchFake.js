@@ -2,25 +2,22 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function Search(props) {
+export default function SearchFake(props) {
 
     const [searchInput, setSearchInput] = useState('');
     const typeDisplay  = props.type
-    const navigation = props.navigation
     return (
         <View style={styles.container}>
             <TouchableOpacity>
                 <MaterialIcons style={[styles.icon, {marginLeft: 20}]} name='search' size={30} color='white'/>
             </TouchableOpacity>
             <TextInput
+                autoFocus = {true}
                 placeholder={"Tìm kiếm bạn bè, tin nhắn..."}
                 style={styles.textInput}
                 value={searchInput}
                 onChangeText={(name)=>setSearchInput(name)}
-                onFocus={()=> {
-                    navigation.navigate('SearchDetail')
-                }}
-                // navigation.navigate('SearchDetail')
+                
                 
             />
             <TouchableOpacity>
