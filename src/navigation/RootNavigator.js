@@ -29,7 +29,7 @@ const Tab = createBottomTabNavigator();
 function Home() {
   return (
     <Tab.Navigator
-      initialRouteName="MessagesScreen"
+      initialRouteName="MeScreen"
       screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
@@ -92,7 +92,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="FriendsInvitationScreen"
+        initialRouteName="Home"
         /* tabBarOptions={tabBarOptions}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color }) => screenOptions(route, color)
