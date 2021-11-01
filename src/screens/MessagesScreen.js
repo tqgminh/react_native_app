@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Divider } from 'react-native-paper';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from "@react-navigation/native";
 import Search from '../components/Search';
 import NewMessageButton from '../components/NewMessageButton';
 import AddFriendButton from '../components/AddFriendButton';
