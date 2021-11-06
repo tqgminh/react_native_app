@@ -13,7 +13,7 @@ function UpdateFriend(){
         <View style={styles.container}>
            <Text style={styles.title}>Nhanh chóng thêm bạn vào Zalo từ danh bạ điện thoại</Text>
            <TouchableOpacity activeOpacity={0.5} style={styles.middle}>
-                <Text style={styles.text}>TÌM BẠN BÈ</Text>
+                <Text style={styles.text}>Cập nhật</Text>
            </TouchableOpacity>
         </View>
         

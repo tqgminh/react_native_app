@@ -99,15 +99,15 @@ function ActiveFriend({ navigation }){
                     arrSortPeople.map((item,index) =>{
                       return (
                         <View key ={index} style={styles.headerFriend}>
-                          <Text >{item.startName}</Text>
+                          <Text style={styles.textCategory}>{item.startName}</Text>
                           {
                             item.data.map((data,index2)=>{
                               return (
                                 <TouchableOpacity key ={index2} onPress={() =>
                                   navigation.navigate('ChatScreen', {name: data.partner.name, imageUri: data.partner.imageUri})}>
         
-                                    <FriendItem name={data.partner.name} imageUri = {data.partner.imageUri}/>
-                                  </TouchableOpacity>
+                                  <FriendItem name={data.partner.name} imageUri = {data.partner.imageUri}/>
+                                </TouchableOpacity>
                               )
                             })
                           }
@@ -157,5 +157,9 @@ const styles = StyleSheet.create({
     headerFriend:{
       borderBottomWidth:2 ,
       borderBottomColor: '#DCDCDC'
+    },
+    textCategory:{
+      paddingLeft:10,
+      // marginTop:1
     }
 })

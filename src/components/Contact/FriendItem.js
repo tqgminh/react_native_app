@@ -11,18 +11,25 @@ function FriendItem(props){
     return (
 
         <View style={styles.container}>
-                <View style={styles.lefContainer}>
-                    <Image source={{ uri: imageUri }} style={styles.avatar} />
-                    {iconActivate && <View style={styles.iconActivate}/>}
-                    {!iconActivate && <View style={styles.iconInActivate}/>}
-                    <View style={styles.midContainer}>
-                        <Text style={styles.username}>{name}</Text>
-                    </View>
+            <View style={styles.lefContainer}>
+                <Image source={{ uri: imageUri }} style={styles.avatar} />
+                {iconActivate && <View style={styles.iconActivate}/>}
+                {!iconActivate && <View style={styles.iconInActivate}/>}
+                <View style={styles.midContainer}>
+                    <Text style={styles.username}>{name}</Text>
                 </View>
-                <View style={styles.devices}>
-                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='call' size={20} color={defaultColor}/>
-                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='video-call' size={20} color={defaultColor}/>
-                </View>
+            </View>
+            <View style={styles.devices}>
+                <TouchableOpacity onPress={()=>console.log('call')} >
+                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='call' size={20} color={defaultColor} 
+                        />
+                </TouchableOpacity>
+
+                <TouchableOpacity  onPress={()=>console.log('call')} >
+                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='video-call' size={20} color={defaultColor} 
+                        />
+                </TouchableOpacity>
+            </View>
         </View>
 
         
@@ -41,6 +48,9 @@ const styles = StyleSheet.create({
     devices:{
         flexDirection: 'row',
         alignItems:'center',
+        width:'20%',
+        justifyContent: "space-between",
+        marginRight:10
     },
     lefContainer: {
         flexDirection: 'row',
