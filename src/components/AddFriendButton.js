@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button } from "react-native";
+import { defaultColor } from "../styles";
 
 
 const AddFriendButton = () => {
@@ -20,7 +21,7 @@ export default AddFriendButton;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#00bfff',
+        backgroundColor: defaultColor,
         marginLeft: '30%',
         marginRight: '30%',
         height: 40,

@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Search from '../components/Search';
 import NewMessageButton from '../components/NewMessageButton';
 import AddFriendButton from '../components/AddFriendButton';
+import { defaultColor } from '../styles';
 
 const conversations = [{
   id: '1',
@@ -88,7 +89,7 @@ export default function MessagesScreen({ navigation }) {
           var colorSeen;
           if(index < item.numNewMessage) {
             fontSeen = 'bold';
-            colorSeen = '#00bfff'
+            colorSeen = defaultColor
           } else {
             fontSeen = 'normal';
             colorSeen = 'black';
@@ -110,7 +111,7 @@ export default function MessagesScreen({ navigation }) {
                     {moment(item.lastMessage.createdAt).fromNow()}
                   </Text>
                 </View>
-                <Divider style={{borderBottomColor: '#00bfff'}} />
+                <Divider style={{borderBottomColor: defaultColor}} />
               </TouchableOpacity>
               {(index == conversations.length-1) &&
               <View>

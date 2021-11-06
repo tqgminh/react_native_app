@@ -4,6 +4,7 @@ import { Divider } from 'react-native-paper';
 import OptionsBar from '../components/OptionsBar';
 import { MaterialIcons } from "@expo/vector-icons";
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { defaultColor } from '../styles';
 
 const options = [{
   id: '1',
@@ -44,7 +45,7 @@ export default function OptionsScreen({navigation, route}) {
         <Image source={{uri:imageUri}} style={styles.avatar} />
         <Text style={styles.textName}>{name}</Text>
       </View>
-      <Divider style={{borderBottomColor: '#00bfff'}} />
+      <Divider style={{borderBottomColor: defaultColor}} />
       <FlatList
         style={{width: '100%'}}
         data={options}
@@ -55,7 +56,7 @@ export default function OptionsScreen({navigation, route}) {
                 <MaterialIcons style={[{margin: 12}]} name={item.icon} size={25} color={item.color} />
                 <Text style={{fontSize: 20, color: item.color, margin: 10}}>{item.name}</Text>
               </View>
-              <Divider style={{borderBottomColor: '#00bfff'}} />
+              <Divider style={{borderBottomColor: defaultColor}} />
             </TouchableOpacity>
           )
         }}

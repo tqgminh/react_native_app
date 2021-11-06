@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
+import { defaultColor } from "../styles";
 
 
 const NewMessageButton = () => {
@@ -23,7 +24,7 @@ export default NewMessageButton;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#00bfff',
+        backgroundColor: defaultColor,
         width: 60,
         height: 60,
         borderRadius: 25,

@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import {defaultColor} from '../../styles'
 
 
 function RequestFriend(){
@@ -12,7 +13,7 @@ function RequestFriend(){
 
         <TouchableOpacity activeOpacity={0.5} style={styles.container}>
             <View style={styles.view}>
-                <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='group-add' size={40} color='blue'/>
+                <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='group-add' size={40} color={defaultColor}/>
                 <Text style={styles.text} >Lời mời kết bạn</Text>
             </View>
         </TouchableOpacity>

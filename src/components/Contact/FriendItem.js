@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button,Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import {defaultColor} from '../../styles';
 
 
 function FriendItem(props){
@@ -19,8 +20,8 @@ function FriendItem(props){
                     </View>
                 </View>
                 <View style={styles.devices}>
-                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='call' size={20} color='blue'/>
-                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='video-call' size={20} color='blue'/>
+                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='call' size={20} color={defaultColor}/>
+                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='video-call' size={20} color={defaultColor}/>
                 </View>
         </View>
 

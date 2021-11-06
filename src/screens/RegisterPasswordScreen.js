@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { defaultColor } from '../styles';
 import BackButton from '../components/BackButton';
 import NotifiBar from '../components/NotifiBar';
 import TitleBar from '../components/TitleBar';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign,Feather } from '@expo/vector-icons';
 import { API_URL } from '../api/config';
 import ApiService from '../api/APIService';
 import { setToken, setNumberPhone, setUsername, setLogin } from '../redux/actions/userAction';
@@ -24,6 +25,8 @@ export default function RegisterPasswordScreen({ navigation, route }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [err, setErr] = useState('');
+    const [hidePassword, setHidePassword] = useState(true);
+    const [nameHidePassword, setNameHidePassword] = useState('eye');
 
     const onLoginPressed = () => {
         const passwordError = passwordValidator(password);
@@ -64,12 +67,27 @@ export default function RegisterPasswordScreen({ navigation, route }) {
             });
     };
 
+    const showHidePassword = () => {
+        if(hidePassword){
+          setNameHidePassword('eye-off');
+        }else{
+          setNameHidePassword('eye');
+        }
+        setHidePassword(!hidePassword);
+        
+      }
+      const PasswordDisplay = ({ data }) => {
+        return (
+        <TouchableOpacity style={{ marginLeft: -30 }} onPress={showHidePassword}>
+          <Feather name={data.nameIcon} size={24} color={data.color} />
+        </TouchableOpacity>
+        );
+    
+      }
+
     return (
         <View style={styles.container}>
-            <View style={styles.title}>
-                <BackButton goBack={navigation.goBack} />
-                <TitleBar text='Tạo tài khoản' />
-            </View>
+            <TitleBar navigation={navigation} data={{text: 'Tạo tài khoản'}} />
 
             <NotifiBar text='Nhập mật khẩu của bạn.' />
 
@@ -81,8 +99,9 @@ export default function RegisterPasswordScreen({ navigation, route }) {
                     returnKeyType="done"
                     value={password.value}
                     onChangeText={(text) => setPassword(text)}
-                    secureTextEntry
+                    secureTextEntry={hidePassword}
                 />
+                <PasswordDisplay data={{ nameIcon:nameHidePassword, color: defaultColor }} />
             </View>
             <View style={styles.main}>
                 <TextInput
@@ -92,7 +111,7 @@ export default function RegisterPasswordScreen({ navigation, route }) {
                     returnKeyType="done"
                     value={password.value2}
                     onChangeText={(text) => setConfirmPassword(text)}
-                    secureTextEntry
+                    secureTextEntry={hidePassword}
                 />
             </View>
 
@@ -102,7 +121,7 @@ export default function RegisterPasswordScreen({ navigation, route }) {
                 <View style={{ width: '80%' }}></View>
                 <View style={styles.btn}>
                     <TouchableOpacity mode="contained" onPress={onLoginPressed}>
-                        <AntDesign name="rightcircle" size={50} color="#00bfff" />
+                        <AntDesign name="rightcircle" size={50} color={defaultColor} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -119,18 +138,9 @@ const styles = StyleSheet.create({
         // justifyContent: 'center'
     },
 
-    title: {
-        backgroundColor: '#00bfff',
-        flexDirection: 'row',
-        paddingLeft: 10,
-        paddingTop: 20,
-        height: 70,
-        alignItems: 'center',
-
-    },
-
     main: {
-        alignItems: 'center'
+        alignItems: 'center',
+        flexDirection: "row"
     },
 
     input: {

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { defaultColor } from '../styles';
 
 export default function StartScreen({ navigation }) {
   return (
     <View style={styles.container}>
 
       <View style={styles.above}>
-        <Text style={{ fontSize: 100, color: '#00bfff', textAlign: 'center' }}>Zalo</Text>
+        <Text style={{ fontSize: 100, color: defaultColor, textAlign: 'center' }}>Zalo</Text>
       </View>
 
       <View style={styles.between}>
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingTop: 13,
     paddingBottom: 13,
-    backgroundColor: '#00bfff',
+    backgroundColor: defaultColor,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: '#fff',

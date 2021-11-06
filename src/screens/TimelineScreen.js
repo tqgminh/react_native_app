@@ -50,7 +50,7 @@ export default function TimelineScreen({navigation}) {
 
   return (
     <ScrollView style={{backgroundColor: '#4d4d4d'}}>
-        <Search />
+        <Search navigation = {navigation}/>
         <FlatList
             data = {data}
             renderItem = {({item}) => {

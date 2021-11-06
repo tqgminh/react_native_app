@@ -12,46 +12,10 @@ import { API_URL } from "../api/config";
 import { setToken, setLogin } from "../redux/actions/userAction";
 import ApiService from "../api/APIService";
 import Search from "../components/Search";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import { defaultColor } from "../styles";
 export default function MeScreen({ navigation }) {
-  const { token } = useSelector((state) => state.userReducer);
-
-  const dispatch = useDispatch();
-  const deleteToken = (new_token) => dispatch(setToken(new_token));
-  const deleteLogin = (isLogin) => dispatch(setLogin(isLogin));
-
-  const onLogoutPressed = () => {
-    postToLoginAPI(navigation);
-  };
-
-  const postToLoginAPI = (navigation) => {
-    ApiService.post(API_URL + "/users/logout", {
-      token: token,
-    })
-      .then(function (response) {
-        // handle success
-        deleteToken("");
-        deleteLogin("false");
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "StartScreen" }],
-        });
-      })
-      .catch(function (error) {
-        // handle error
-        // do chưa có api logout để tạm như này
-        deleteToken("");
-        deleteLogin("false");
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "StartScreen" }],
-        });
-        return;
-
-        setErr("Có lỗi xảy ra!");
-      });
-  };
-
+  
   return (
     <View>
       <Search navigation={navigation} />
@@ -87,14 +51,14 @@ export default function MeScreen({ navigation }) {
               </View>
               <View style={{ marginLeft: 10, marginTop: 20 }}>
                 <Text
-                  style={{ fontSize: 20, color: "Black", fontWeight: "bold" }}
+                  style={{ fontSize: 20, color: "black", fontWeight: "bold" }}
                 >
                   Bui Viet Hoang
                 </Text>
                 <Text
                   style={{ color: "gray", fontSize: 14, fontWeight: "200" }}
                 >
-                  Xem trang ca nhan
+                  Xem trang cá nhân
                 </Text>
               </View>
             </View>
@@ -112,8 +76,8 @@ export default function MeScreen({ navigation }) {
           // justifyContent: "center",
         }}
       >
-        <MaterialIcons name={"qr-code"} size={30} color="#00bfff" />
-        <Text style={{ marginLeft: 20 }}>QR cua toi</Text>
+        <MaterialIcons name={"qr-code"} size={30} color={defaultColor} />
+        <Text style={{ marginLeft: 20 }}>QR của tôi</Text>
       </View>
       <View
         style={{
@@ -134,41 +98,44 @@ export default function MeScreen({ navigation }) {
           }}
         >
           <View style={{}}>
-            <MaterialIcons name={"cloud"} size={30} color={"#00bfff"} />
+            <MaterialIcons name={"cloud"} size={30} color={defaultColor} />
           </View>
           <View style={{ marginLeft: 20 }}>
             <Text style={{ fontSize: 20, color: "Black", fontWeight: "200" }}>
-              Cloud cua toi
+              Cloud của tôi
             </Text>
             <Text style={{ color: "gray", fontSize: 14, fontWeight: "200" }}>
-              Luu tru cac tin nhan quan trong
+              Lưu trữ các tin quan trọng
             </Text>
           </View>
         </View>
       </View>
+      <TouchableOpacity onPress={()=>{navigation.navigate('AccAndSecScreen')}}>
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 10,
+            paddingLeft: 10,
+            backgroundColor: "white",
+            height: 60,
+            alignItems: "center",
+            // justifyContent: "center",
+          }}
+        >
+          <MaterialIcons name={"security"} size={30} color={defaultColor} />
+          <Text style={{ marginLeft: 20, fontWeight: '200' }}>Tài khoản và bảo mật</Text>
+          <AntDesign
+            name={"right"}
+            size={24}
+            style={{ position: "absolute", right: 0, marginRight: 20 }}
+            color={defaultColor}
+          />
+        </View>
+      </TouchableOpacity>
       <View
         style={{
           flexDirection: "row",
           marginTop: 10,
-          paddingLeft: 10,
-          backgroundColor: "white",
-          height: 60,
-          alignItems: "center",
-          // justifyContent: "center",
-        }}
-      >
-        <MaterialIcons name={"security"} size={30} color="#00bfff" />
-        <Text style={{ marginLeft: 20 }}>Tai khoan va bao mat</Text>
-        <MaterialIcons
-          name={"arrow-right"}
-          size={30}
-          style={{ position: "absolute", right: 0 }}
-        />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          marginTop: 10,
           backgroundColor: "white",
           height: 60,
           alignItems: "center",
@@ -176,12 +143,13 @@ export default function MeScreen({ navigation }) {
           // justifyContent: "center",
         }}
       >
-        <MaterialIcons name={"privacy-tip"} size={30} color="#00bfff" />
-        <Text style={{ marginLeft: 20 }}>Quyen rieng tu</Text>
-        <MaterialIcons
-          name={"arrow-right"}
-          size={30}
-          style={{ position: "absolute", right: 0 }}
+        <MaterialIcons name={"privacy-tip"} size={30} color={defaultColor} />
+        <Text style={{ marginLeft: 20 }}>Quyền riêng tư</Text>
+        <AntDesign
+          name={"right"}
+          size={24}
+          style={{ position: "absolute", right: 0, marginRight: 20 }}
+          color={defaultColor}
         />
       </View>
     </View>

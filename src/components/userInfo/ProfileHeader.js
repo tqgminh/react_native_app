@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { defaultColor } from "../../styles";
 
 export default function ProfileHeader({ navigation, name }) {
   return (
@@ -21,7 +22,7 @@ export default function ProfileHeader({ navigation, name }) {
 const styles = StyleSheet.create({
   container: {
     height: 50,
-    backgroundColor: "#00bfff",
+    backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "flex-start",
   },

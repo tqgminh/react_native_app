@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { defaultColor } from "../styles";
+import BackButton from "./BackButton";
 
 export default function Search(props) {
 
@@ -8,7 +10,7 @@ export default function Search(props) {
     const typeDisplay  = props.type
     const navigation = props.navigation
     return (
-        <View style={styles.container}>
+        <View style={styles.container}> 
             <TouchableOpacity>
                 <MaterialIcons style={[styles.icon, {marginLeft: 20}]} name='search' size={30} color='white'/>
             </TouchableOpacity>
@@ -18,7 +20,7 @@ export default function Search(props) {
                 value={searchInput}
                 onChangeText={(name)=>setSearchInput(name)}
                 onFocus={()=> {
-                    navigation.navigate('SearchDetail')
+                    navigation.navigate('SearchScreen')
                 }}
                 // navigation.navigate('SearchDetail')
                 
@@ -36,7 +38,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 80,
-        backgroundColor: '#00bfff',
+        backgroundColor: defaultColor,
         flexDirection: 'row',
     },
     textInput: {

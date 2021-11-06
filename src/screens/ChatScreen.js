@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/core';
 import moment from 'moment';
 import Inbox from '../components/Inbox';
 import ChatBar from '../components/ChatBar';
+import { defaultColor } from '../styles';
 
 const chat = {
 	id: '1',
@@ -93,7 +94,7 @@ export default function ChatScreen({ route, navigation }) {
                             {!isMyMessage() && <Image source={{uri:imageUri}} style={styles.avatar} />}
                             <View style={[
                                 styles.messageBox, {
-                                    backgroundColor: isMyMessage() ? '#00bfff' : 'white',
+                                    backgroundColor: isMyMessage() ? defaultColor : 'white',
                                     width: isMyMessage() ? '85%' : '80%',
                                     marginLeft: isMyMessage() ? '15%': 5,
                                 }

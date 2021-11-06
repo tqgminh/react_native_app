@@ -5,6 +5,7 @@ import NotifiBar from '../components/NotifiBar';
 import TitleBar from '../components/TitleBar';
 import { AntDesign } from '@expo/vector-icons';
 import { API_URL } from '../api/config';
+import { defaultColor } from '../styles';
 import axios from 'axios';
 
 import { phoneValidator } from '../helpers/phoneValidator';
@@ -48,10 +49,7 @@ export default function RegisterPhoneScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.title}>
-                <BackButton goBack={navigation.goBack} />
-                <TitleBar text='Tạo tài khoản' />
-            </View>
+            <TitleBar navigation={navigation} data={{text: 'Tạo tài khoản'}} />
 
             <NotifiBar text='Nhập số điện thoại của bạn để tạo tài khoản mới.' />
 
@@ -73,7 +71,7 @@ export default function RegisterPhoneScreen({ navigation, route }) {
                 <View style={{ width: '80%' }}></View>
                 <View style={styles.btn}>
                     <TouchableOpacity mode="contained" onPress={onLoginPressed}>
-                        <AntDesign name="rightcircle" size={50} color="#00bfff" />
+                        <AntDesign name="rightcircle" size={50} color={defaultColor} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -88,16 +86,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         // alignItems: 'center',
         // justifyContent: 'center'
-    },
-
-    title: {
-        backgroundColor: '#00bfff',
-        flexDirection: 'row',
-        paddingLeft: 10,
-        paddingTop: 20,
-        height: 70,
-        alignItems: 'center',
-
     },
 
     main: {

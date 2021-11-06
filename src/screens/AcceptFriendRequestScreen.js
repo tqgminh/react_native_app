@@ -6,6 +6,7 @@ import AcceptFriendRequestHeader from "../components/invitation/AcceptFriendRequ
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Toggle from "../components/invitation/Toggle";
+import { defaultColor } from "../styles";
 export default function FriendsRequestScreen({ navigation }) {
   const [checked, setChecked] = useState(false);
   return (
@@ -78,7 +79,7 @@ export default function FriendsRequestScreen({ navigation }) {
             style={{
               width: "95%",
               height: 40,
-              backgroundColor: "#00bfff",
+              backgroundColor: defaultColor,
               textAlign: "center",
               color: "white",
               fontWeight: "800",
@@ -97,7 +98,7 @@ export default function FriendsRequestScreen({ navigation }) {
 }
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#00bfff",
+    backgroundColor: defaultColor,
     // width: "90%",
     borderRadius: 30,
     height: 40,
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    color: "#00bfff",
+    color: defaultColor,
     fontFamily: "Times New Roman",
     paddingLeft: 30,
     paddingRight: 30,

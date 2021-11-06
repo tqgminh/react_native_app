@@ -1,6 +1,7 @@
 import { FontAwesome5, MaterialCommunityIcons, Entypo, Fontisto, MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { defaultColor } from "../styles";
 
 const Inbox = () => {
 
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonContainer: {
-        backgroundColor: '#00bfff',
+        backgroundColor: defaultColor,
         borderRadius: 50,
         width: 50,
         height: 50,

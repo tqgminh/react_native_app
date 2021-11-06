@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { defaultColor } from "../../styles";
 
 export default function SearchFake(props) {
 
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 80,
-        backgroundColor: '#00bfff',
+        backgroundColor: defaultColor,
         flexDirection: 'row',
     },
     textInput: {

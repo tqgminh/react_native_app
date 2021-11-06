@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import BackButton from '../components/BackButton';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import ApiService from '../api/APIService';
-
+import { defaultColor } from '../styles';
 import { phoneValidator } from '../helpers/phoneValidator'
 import { passwordValidator } from '../helpers/passwordValidator';
 import TitleBar from '../components/TitleBar';
 import NotifiBar from '../components/NotifiBar';
 import { API_URL } from '../api/config';
-import { setToken, setNumberPhone, setUsername,setLogin } from '../redux/actions/userAction';
+import { setToken, setNumberPhone, setUsername, setLogin, login } from '../redux/actions/userAction';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -25,6 +24,8 @@ export default function LoginScreen({ navigation }) {
   const [phone, setPhone] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
   const [err, setErr] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
+  const [nameHidePassword, setNameHidePassword] = useState('eye');
 
   const onLoginPressed = () => {
     const phoneError = phoneValidator(phone.value)
@@ -61,12 +62,27 @@ export default function LoginScreen({ navigation }) {
       });
   };
 
+  const showHidePassword = () => {
+    if(hidePassword){
+      setNameHidePassword('eye-off');
+    }else{
+      setNameHidePassword('eye');
+    }
+    setHidePassword(!hidePassword);
+    
+  }
+  const PasswordDisplay = ({ data }) => {
+    return (
+    <TouchableOpacity style={{ marginLeft: -30 }} onPress={showHidePassword}>
+      <Feather name={data.nameIcon} size={24} color={data.color} />
+    </TouchableOpacity>
+    );
+
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.title}>
-        <BackButton goBack={navigation.goBack} />
-        <TitleBar text='Đăng nhập' />
-      </View>
+      <TitleBar navigation={navigation} data={{text: 'Đăng nhập'}} />
 
       <NotifiBar text='Vui lòng nhập số điện thoại và mật khẩu để đăng nhập' />
 
@@ -92,9 +108,9 @@ export default function LoginScreen({ navigation }) {
           returnKeyType="done"
           value={password.value}
           onChangeText={(text) => setPassword({ value: text, error: '' })}
-          secureTextEntry
+          secureTextEntry={hidePassword}
         />
-
+        <PasswordDisplay data={{ nameIcon:nameHidePassword, color: defaultColor }} />
       </View>
       <Text style={styles.text_err}>{password.error}</Text>
       <Text style={styles.text_err}>{err}</Text>
@@ -103,13 +119,10 @@ export default function LoginScreen({ navigation }) {
         <View style={{ width: '80%' }}></View>
         <View style={styles.btn_login}>
           <TouchableOpacity mode="contained" onPress={onLoginPressed}>
-            <AntDesign name="rightcircle" size={50} color="#00bfff" />
+            <AntDesign name="rightcircle" size={50} color={defaultColor} />
           </TouchableOpacity>
         </View>
-
       </View>
-
-
     </View>
   );
 }
@@ -122,19 +135,9 @@ const styles = StyleSheet.create({
     //justifyContent: 'center'
   },
 
-  title: {
-    backgroundColor: '#00bfff',
-    flexDirection: 'row',
-    paddingLeft: 10,
-    paddingTop: 20,
-    height: 70,
-    alignItems: 'center',
-
-  },
-
-
   main: {
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: "row"
   },
 
   phone_input: {

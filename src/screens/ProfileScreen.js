@@ -6,6 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import ProfileHeader from "../components/userInfo/ProfileHeader";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { defaultColor } from "../styles";
 const personal = [
   {
     id: "1",
@@ -119,7 +120,7 @@ export default function ProfileScreen({ navigation, route }) {
                   {item.name}
                 </Text>
               </View>
-              <Divider style={{ borderBottomColor: "#00bfff" }} />
+              <Divider style={{ borderBottomColor: defaultColor }} />
             </TouchableOpacity>
           );
         }}
@@ -145,7 +146,7 @@ export default function ProfileScreen({ navigation, route }) {
                   {item.name}
                 </Text>
               </View>
-              <Divider style={{ borderBottomColor: "#00bfff" }} />
+              <Divider style={{ borderBottomColor: defaultColor }} />
             </TouchableOpacity>
           );
         }}
@@ -157,7 +158,7 @@ export default function ProfileScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   text: {
-    color: "#00bfff",
+    color: defaultColor,
     marginVertical: 20,
     fontSize: 20,
     marginLeft: 10,

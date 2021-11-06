@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     right: 10,
     top: -20,
     color: "#c1c1c1",
-    opacity: "20%",
+    opacity: 0.2,
   },
   avatar: {
     width: 100,

@@ -4,6 +4,7 @@ import BackButton from '../components/BackButton';
 import NotifiBar from '../components/NotifiBar';
 import TitleBar from '../components/TitleBar';
 import { AntDesign } from '@expo/vector-icons';
+import { defaultColor } from '../styles';
 
 import { nameValidator } from '../helpers/nameValidator';
 
@@ -25,10 +26,8 @@ export default function RegisterNameScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.title}>
-        <BackButton goBack={navigation.goBack} />
-        <TitleBar text='Tạo tài khoản' />
-      </View>
+
+      <TitleBar navigation={navigation} data={{text: 'Tạo tài khoản'}} />
 
       <NotifiBar text='Sử dụng tên thật giúp bạn bè dễ nhận ra bạn.' />
 
@@ -49,7 +48,7 @@ export default function RegisterNameScreen({ navigation }) {
         <View style={{ width: '80%' }}></View>
         <View style={styles.btn}>
           <TouchableOpacity mode="contained" onPress={onLoginPressed}>
-            <AntDesign name="rightcircle" size={50} color="#00bfff" />
+            <AntDesign name="rightcircle" size={50} color={defaultColor} />
           </TouchableOpacity>
         </View>
       </View>
@@ -64,16 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     // justifyContent: 'center'
-  },
-
-  title: {
-    backgroundColor: '#00bfff',
-    flexDirection: 'row',
-    paddingLeft: 10,
-    paddingTop: 20,
-    height: 70,
-    alignItems: 'center',
-
   },
 
   main: {

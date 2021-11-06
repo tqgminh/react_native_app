@@ -1,24 +1,11 @@
 import React from "react";
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import {TouchableOpacity} from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-export default function BackButton({goBack}){
-    return(
-        <TouchableOpacity onPress={goBack} style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require('../assets/icons/arrow_back.png')}
-      />
+export default function BackButton({ goBack }) {
+  return (
+    <TouchableOpacity onPress={goBack}>
+      <Ionicons name="arrow-back" size={24} color="white" />
     </TouchableOpacity>
-    );
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      
-    },
-    image: {
-      width: 24,
-      height: 24,
-    },
-  });

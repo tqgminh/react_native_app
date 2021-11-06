@@ -4,6 +4,7 @@ import { Button } from "react-native-paper";
 import FriendsRequestHeader from "../components/invitation/FriendsRequestHeader";
 import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { defaultColor } from "../styles";
 export default function FriendsRequestScreen({ navigation }) {
   return (
     <View style={styles.container}>
@@ -68,7 +69,7 @@ export default function FriendsRequestScreen({ navigation }) {
 }
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#00bfff",
+    backgroundColor: defaultColor,
     // width: "90%",
     borderRadius: 30,
     height: 40,
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    color: "#00bfff",
+    color: defaultColor,
     fontFamily: "Times New Roman",
     paddingLeft: 30,
     paddingRight: 30,
