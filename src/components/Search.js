@@ -20,9 +20,8 @@ export default function Search(props) {
                 value={searchInput}
                 onChangeText={(name)=>setSearchInput(name)}
                 onFocus={()=> {
-                    navigation.navigate('SearchScreen')
+                    navigation.navigate('SearchDetail')
                 }}
-                // navigation.navigate('SearchDetail')
                 
             />
             <TouchableOpacity>

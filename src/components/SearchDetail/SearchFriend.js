@@ -1,14 +1,27 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React,{ useState}  from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import {ListPeople} from './data.js'
 
 function SearchFriend({keySearch}){
+    const arrResult = ListPeople.filter(people=>{
+        const arrComName = people.partner.name.split(' ')
+        if(arrComName.includes(keySearch)){
+            return 1
+        }
+        return 0
+    })
+
+    let result
+    if(arrResult.length!=0)
+        result = arrResult[0].partner.name
+
     return (
 
         <View>
             <Text>Bạn bè</Text>
+            <Text>{result}</Text>
         </View>
     )
 }

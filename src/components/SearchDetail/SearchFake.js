@@ -1,25 +1,35 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { defaultColor } from "../../styles";
 
 export default function SearchFake(props) {
 
-    const [searchInput, setSearchInput] = useState('');
+    // const [searchInput, setSearchInput] = useState('');
     const typeDisplay  = props.type
+    const {navigation} = props
+
+    // callback get search
+    const {searchInput,hanleChangeValue} = props
+
+
+    const goBack = () => {
+        navigation.goBack();
+    }
+
     return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={goBack} >
+                <MaterialIcons style={[styles.icon, {marginLeft: 10}]} name='arrow-back' size={30} color='white'/>
+            </TouchableOpacity>
             <TouchableOpacity>
-                <MaterialIcons style={[styles.icon, {marginLeft: 20}]} name='search' size={30} color='white'/>
+                <MaterialIcons style={[styles.icon, {marginLeft: 5}]} name='search' size={30} color='white'/>
             </TouchableOpacity>
             <TextInput
-                autoFocus = {true}
                 placeholder={"Tìm kiếm bạn bè, tin nhắn..."}
                 style={styles.textInput}
                 value={searchInput}
-                onChangeText={(name)=>setSearchInput(name)}
-                
-                
+                onChangeText={name=>hanleChangeValue(name)}        
             />
             <TouchableOpacity>
                 {!typeDisplay && <MaterialIcons style={[styles.icon, {paddingRight: 10}]} name='qr-code' size={25} color='white'/>}
@@ -29,6 +39,7 @@ export default function SearchFake(props) {
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {

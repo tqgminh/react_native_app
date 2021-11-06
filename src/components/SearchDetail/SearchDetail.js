@@ -1,18 +1,22 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React,{useState} from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import SearchFriend from "./SearchFriend";
 import SearchMessages from "./SearchMessages";
 import SearchFake from "./SearchFake";
 
-function SearchDetail(){
+function SearchDetail({navigation}){
+    const [searchInput, setSearchInput] = useState('');
 
+    const hanleChangeValue = (event)=>{
+        setSearchInput(event)
+    }
     return (
 
         <View>
-            <SearchFake/>
-            <SearchFriend/>
+            <SearchFake navigation={navigation} searchInput={searchInput} hanleChangeValue = {hanleChangeValue}/>
+            <SearchFriend keySearch={searchInput}/>
         </View>
     )
 }

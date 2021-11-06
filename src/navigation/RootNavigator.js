@@ -93,7 +93,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="StartScreen"
+        initialRouteName="TimelineScreen"
         /* tabBarOptions={tabBarOptions}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color }) => screenOptions(route, color)

@@ -56,16 +56,32 @@ function ActiveFriend({ navigation }){
     ]
 
     const activePeople = ListPeople.filter(people => people.activate === 1)
+    const sortPeople = ListPeople.sort((a,b)=>a.partner.name > b.partner.name)
+
+    const upperCaseAlp = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    let arrSortPeople =[]
+    const renderFriendByName = (sortPeople)=>{
+        for(const i of upperCaseAlp){
+          const listName = sortPeople.filter(item => item.partner.name[0] == i || item.partner.name[0].toUpperCase() ==i )
+          if(listName.length!=0)
+          arrSortPeople.push({
+            startName:i,
+            data:listName
+          })
+        }
+    }
+    renderFriendByName(sortPeople)
+
     return (
         
-            <View>
+            <View style={styles.container}>
                 <View style={styles.containerActivate}>
                   <Text style={styles.header}>Bạn bè mới truy cập</Text>
 
                   {
                     activePeople.map(item =>{
                       return (
-                        <TouchableOpacity onPress={() =>
+                        <TouchableOpacity key ={item.id}  onPress={() =>
                           navigation.navigate('ChatScreen', {name: item.partner.name, imageUri: item.partner.imageUri})}>
 
                             <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} iconActivate={1} />
@@ -76,16 +92,26 @@ function ActiveFriend({ navigation }){
 
                 </View>
 
-                <View style={styles.containerActivate}>
-                  <Text style={styles.header}>Tất cả bạn bè</Text>
-                  {
-                    ListPeople.map(item =>{
-                      return (
-                        <TouchableOpacity onPress={() =>
-                          navigation.navigate('ChatScreen', {name: item.partner.name, imageUri: item.partner.imageUri})}>
+                <View>
+                  <Text style={styles.header2}>Tất cả bạn bè</Text>
+                  { 
 
-                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri}/>
-                        </TouchableOpacity>
+                    arrSortPeople.map((item,index) =>{
+                      return (
+                        <View key ={index} style={styles.headerFriend}>
+                          <Text >{item.startName}</Text>
+                          {
+                            item.data.map((data,index2)=>{
+                              return (
+                                <TouchableOpacity key ={index2} onPress={() =>
+                                  navigation.navigate('ChatScreen', {name: data.partner.name, imageUri: data.partner.imageUri})}>
+        
+                                    <FriendItem name={data.partner.name} imageUri = {data.partner.imageUri}/>
+                                  </TouchableOpacity>
+                              )
+                            })
+                          }
+                        </View>
                       )
                     })
                   }
@@ -102,6 +128,7 @@ export default ActiveFriend;
 
 const styles = StyleSheet.create({
     container: {
+      // marginBottom:'30%'
        
     },
     text: {
@@ -116,6 +143,19 @@ const styles = StyleSheet.create({
       fontSize:15,
       marginHorizontal:10,
       marginTop:5,
-      fontWeight:'800'
+      fontWeight:'800',
+    },
+    header2:{
+      fontSize:15,
+      paddingHorizontal:10,
+      marginTop:5,
+      fontWeight:'800',
+      borderBottomWidth:2 ,
+      borderBottomColor: '#DCDCDC'
+
+    },
+    headerFriend:{
+      borderBottomWidth:2 ,
+      borderBottomColor: '#DCDCDC'
     }
 })
