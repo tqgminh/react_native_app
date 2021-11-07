@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "flex-start",
-    paddingTop: Platform.OS === "android" ? 30 : 0,
   },
   icon: {
     marginTop: 10,

@@ -55,7 +55,7 @@ export default function AccAndSecScreen({ navigation }) {
     }
 
     const ChangePasswordPress = () => {
-        navigation.navigate("ChangePasswordScreen");
+        navigation.navigate("UpdatePasswordScreen");
     }
 
 

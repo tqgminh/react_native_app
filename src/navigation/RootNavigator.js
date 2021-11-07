@@ -24,6 +24,7 @@ import FriendsInvitationScreen from "../screens/FriendsInvitationScreen";
 import SearchDetail from "../components/SearchDetail/SearchDetail";
 import SearchScreen from "../screens/SearchScreen";
 import AccAndSecScreen from "../screens/AccAndSecScreen";
+import UpdatePasswordScreen from "../screens/UpdatePasswordScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -93,7 +94,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="FriendsRequestScreen"
+        initialRouteName="StartScreen"//"AccAndSecScreen"
         /* tabBarOptions={tabBarOptions}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color }) => screenOptions(route, color)
@@ -109,18 +110,9 @@ const RootNavigator = () => {
         />
         <Stack.Screen name="StartScreen" component={StartScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen
-          name="RegisterNameScreen"
-          component={RegisterNameScreen}
-        />
-        <Stack.Screen
-          name="RegisterPhoneScreen"
-          component={RegisterPhoneScreen}
-        />
-        <Stack.Screen
-          name="RegisterPasswordScreen"
-          component={RegisterPasswordScreen}
-        />
+        <Stack.Screen name="RegisterNameScreen" component={RegisterNameScreen} />
+        <Stack.Screen name="RegisterPhoneScreen" component={RegisterPhoneScreen}/>
+        <Stack.Screen name="RegisterPasswordScreen" component={RegisterPasswordScreen}/>
         <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
@@ -128,19 +120,11 @@ const RootNavigator = () => {
         <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
-        <Stack.Screen
-          name="FriendsRequestScreen"
-          component={FriendsRequestScreen}
-        />
-        <Stack.Screen
-          name="AcceptFriendRequestScreen"
-          component={AcceptFriendRequestScreen}
-        />
-        <Stack.Screen
-          name="FriendsInvitationScreen"
-          component={FriendsInvitationScreen}
-        />
+        <Stack.Screen name="FriendsRequestScreen" component={FriendsRequestScreen}/>
+        <Stack.Screen name="AcceptFriendRequestScreen" component={AcceptFriendRequestScreen}/>
+        <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen}/>
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
