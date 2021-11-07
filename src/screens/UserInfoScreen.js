@@ -27,9 +27,7 @@ export default function UserInfoScreen({ navigation }) {
       <ScrollView vertical={true} showVerticalScrollIndicator={false}>
         <View>
           <Image
-            source={{
-              uri: require("../assets/images/anh_bia.jpeg"),
-            }}
+            source={require("../assets/images/nguoi.jpeg")}
             style={styles.background_image}
           />
           <TouchableOpacity>
@@ -90,7 +88,6 @@ export default function UserInfoScreen({ navigation }) {
                 color: "white",
                 marginLeft: 20,
                 fontSize: 20,
-                fontFamily: "Helvetica",
               }}
             >
               Them bai viet
@@ -285,7 +282,6 @@ const styles = StyleSheet.create({
     // backgroundColor: "#c1c1c1",
   },
   text: {
-    fontFamily: "Helvetica",
     color: "#52575d",
   },
   background_image: {

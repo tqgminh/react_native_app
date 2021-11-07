@@ -96,7 +96,7 @@ export default function ProfileScreen({ navigation, route }) {
   const { name } = route.params;
   console.log(name);
   return (
-    <ScrollView>
+    <View>
       <View>
         <ProfileHeader navigation={navigation} name={name} />
       </View>
@@ -152,7 +152,7 @@ export default function ProfileScreen({ navigation, route }) {
         }}
         keyExtractor={(item) => item.id}
       />
-    </ScrollView>
+    </View>
   );
 }
 
@@ -161,8 +161,6 @@ const styles = StyleSheet.create({
     color: defaultColor,
     marginVertical: 20,
     fontSize: 20,
-    marginLeft: 10,
-    fontFamily: "Helvetica",
     fontWeight: "800",
   },
 });

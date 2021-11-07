@@ -15,7 +15,6 @@ import Search from "../components/Search";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { defaultColor } from "../styles";
 export default function MeScreen({ navigation }) {
-  
   return (
     <View>
       <Search navigation={navigation} />
@@ -101,7 +100,7 @@ export default function MeScreen({ navigation }) {
             <MaterialIcons name={"cloud"} size={30} color={defaultColor} />
           </View>
           <View style={{ marginLeft: 20 }}>
-            <Text style={{ fontSize: 20, color: "Black", fontWeight: "200" }}>
+            <Text style={{ fontSize: 20, color: "#000000", fontWeight: "200" }}>
               Cloud của tôi
             </Text>
             <Text style={{ color: "gray", fontSize: 14, fontWeight: "200" }}>
@@ -110,7 +109,11 @@ export default function MeScreen({ navigation }) {
           </View>
         </View>
       </View>
-      <TouchableOpacity onPress={()=>{navigation.navigate('AccAndSecScreen')}}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("AccAndSecScreen");
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -123,7 +126,9 @@ export default function MeScreen({ navigation }) {
           }}
         >
           <MaterialIcons name={"security"} size={30} color={defaultColor} />
-          <Text style={{ marginLeft: 20, fontWeight: '200' }}>Tài khoản và bảo mật</Text>
+          <Text style={{ marginLeft: 20, fontWeight: "200" }}>
+            Tài khoản và bảo mật
+          </Text>
           <AntDesign
             name={"right"}
             size={24}
