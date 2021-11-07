@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   text: {
-    fontFamily: "Helvetica",
     color: "#52575d",
   },
   background_image: {

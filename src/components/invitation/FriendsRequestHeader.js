@@ -7,7 +7,9 @@ export default function FriendsRequestHeader({ navigation }) {
   return (
     <View>
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate("UserInfoScreen")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("FriendsInvitationScreen")}
+        >
           <MaterialIcons
             style={[styles.icon, { marginLeft: 20 }]}
             name="arrow-back"
@@ -31,7 +33,6 @@ export default function FriendsRequestHeader({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
     backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -42,8 +43,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "800",
-    marginVertical: 15,
+    marginVertical: 10,
   },
 });

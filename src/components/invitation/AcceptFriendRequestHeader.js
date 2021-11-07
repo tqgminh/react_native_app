@@ -25,10 +25,11 @@ export default function FriendsRequestHeader({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    // height: 50,
     backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "flex-start",
+    paddingTop: Platform.OS === "android" ? 30 : 0,
   },
   icon: {
     marginTop: 10,
@@ -36,8 +37,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 20,
-    fontWeight: "800",
-    marginVertical: 15,
+    fontSize: 24,
+    fontWeight: "900",
+    marginVertical: 10,
   },
 });

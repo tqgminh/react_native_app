@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "flex-start",
+    alignItems: "center",
   },
   icon: {
     marginTop: 10,
@@ -32,8 +33,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "800",
-    marginVertical: 15,
+    textAlign: "center",
   },
 });

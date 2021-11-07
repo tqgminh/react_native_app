@@ -42,7 +42,7 @@ export default function FriendsRequestScreen({ navigation }) {
             />
           </View>
           <View style={{ marginLeft: 10, marginTop: 20 }}>
-            <Text style={{ fontSize: 20, color: "Black", fontWeight: "bold" }}>
+            <Text style={{ fontSize: 20, color: "black", fontWeight: "bold" }}>
               Bui Viet Hoang
             </Text>
             <Text style={{ color: "gray", fontSize: 14, fontWeight: "200" }}>
@@ -54,31 +54,33 @@ export default function FriendsRequestScreen({ navigation }) {
       <View style={{ marginTop: 20, borderTopWidth: 1, marginLeft: 10 }}>
         <View style={{ marginTop: 10 }}>
           <View>
-            <Text style={{ marginVertical: 5 }}>Ten goi nho: </Text>
+            <Text style={{ marginVertical: 5, color: "#1a1a1a" }}>
+              Ten goi nho:{" "}
+            </Text>
             <TextInput
               placeholder={"Nhap ten goi nho"}
-              style={{ height: 50, borderRadius: 5 }}
+              style={{ height: 50, borderRadius: 5, color: "#323533" }}
             ></TextInput>
           </View>
         </View>
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
             alignItems: "center",
             // justifyContent: "center",
             marginTop: 10,
-            marginBottom: 10,
           }}
         >
-          <Text style={{}}>Chan nguoi nay xem nhat ki cua toi</Text>
-          <Toggle />
+          <Text style={{ color: "#1a1a1a" }}>
+            Chan nguoi nay xem nhat ki cua toi
+          </Text>
+          <Toggle style={{ marginTop: 30 }} />
         </View>
         <TouchableOpacity>
           <Text
             style={{
               width: "95%",
-              height: 40,
+              height: 50,
               backgroundColor: defaultColor,
               textAlign: "center",
               color: "white",
@@ -99,7 +101,6 @@ export default function FriendsRequestScreen({ navigation }) {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: defaultColor,
-    // width: "90%",
     borderRadius: 30,
     height: 40,
     color: "white",

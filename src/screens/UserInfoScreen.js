@@ -12,6 +12,8 @@ import UserHeader from "../components/userInfo/UserHeader.js";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, Divider } from "react-native-paper";
+import SafeViewAndroid from "../components/SafeViewAndroid";
+import { defaultColor } from "../styles";
 const userinfo = [
   {
     id: "1",
@@ -24,7 +26,11 @@ export default function UserInfoScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <UserHeader navigation={navigation} name={userinfo[0].name} />
-      <ScrollView vertical={true} showVerticalScrollIndicator={false}>
+      <ScrollView
+        vertical={true}
+        showVerticalScrollIndicator={false}
+        style={{ backgroundColor: "#fafafa" }}
+      >
         <View>
           <Image
             source={require("../assets/images/nguoi.jpeg")}
@@ -38,7 +44,12 @@ export default function UserInfoScreen({ navigation }) {
             />
           </TouchableOpacity>
         </View>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Image
             source={{
               uri: "https://scontent.fhph1-3.fna.fbcdn.net/v/t1.6435-9/54524031_435375897022452_1255296843290509312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-Fh1ptSCHgwAX-oJCI7&_nc_ht=scontent.fhph1-3.fna&oh=782b737a7021379d0d5cc7c895f351b0&oe=619F8B7A",
@@ -95,7 +106,7 @@ export default function UserInfoScreen({ navigation }) {
           </View>
         </TouchableOpacity>
         <View style={{ marginTop: 32 }}>
-          <ScrollView horizontal={true} showHorizontalScrollIndicator={false}>
+          <ScrollView horizontal={true}>
             <TouchableOpacity>
               <View style={styles.mediaImageContainer}>
                 <Image
@@ -218,13 +229,17 @@ export default function UserInfoScreen({ navigation }) {
             </TouchableOpacity>
           </ScrollView>
           <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
             <View style={styles.newPost}>
               <View style={{ width: "50%" }}>
                 <Text
                   style={{
-                    backgroundColor: "gray",
+                    backgroundColor: "white",
                     borderRadius: 10,
                     width: "80%",
                     textAlign: "center",
@@ -234,7 +249,12 @@ export default function UserInfoScreen({ navigation }) {
                   12/06/2000 at 16:11
                 </Text>
               </View>
-              <View style={{ flexDirection: "row", width: "80%" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}
+              >
                 <Text
                   style={{ textAlign: "left", marginTop: 20, width: "50%" }}
                 >
@@ -243,11 +263,8 @@ export default function UserInfoScreen({ navigation }) {
                 </Text>
                 <View
                   style={{
-                    width: "50%",
-                    flex: 1,
                     alignItems: "center",
                     justifyContent: "center",
-                    paddingLeft: 60,
                   }}
                 >
                   <Image
@@ -279,7 +296,8 @@ export default function UserInfoScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#c1c1c1",
+    backgroundColor: defaultColor,
+    paddingTop: Platform.OS === "android" ? 30 : 0,
   },
   text: {
     color: "#52575d",
@@ -332,10 +350,11 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
   },
   newPost: {
-    width: "90%",
+    marginTop: 20,
+    width: "100%",
     borderRadius: 5,
-    backgroundColor: "#c1c1c1",
-    padding: 3,
+    backgroundColor: "#ececec",
+    padding: 10,
   },
   interact: {
     borderTopWidth: 2,

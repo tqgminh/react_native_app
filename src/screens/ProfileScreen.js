@@ -96,71 +96,79 @@ export default function ProfileScreen({ navigation, route }) {
   const { name } = route.params;
   console.log(name);
   return (
-    <View>
-      <View>
-        <ProfileHeader navigation={navigation} name={name} />
+    <View style={styles.container}>
+      <View style={{ backgroundColor: "#fafafa", flex: 1 }}>
+        <View>
+          <ProfileHeader navigation={navigation} name={name} />
+        </View>
+        <Text style={styles.text}>Ca Nhan</Text>
+        <FlatList
+          style={{ width: "100%" }}
+          data={personal}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity onPress={item.event}>
+                <View
+                  style={{ flexDirection: "row", height: 50, marginLeft: 10 }}
+                >
+                  <MaterialIcons
+                    style={[{ margin: 12 }]}
+                    name={item.icon}
+                    size={25}
+                    color={item.color}
+                  />
+                  <Text style={{ fontSize: 20, color: item.color, margin: 10 }}>
+                    {item.name}
+                  </Text>
+                </View>
+                <Divider style={{ borderBottomColor: defaultColor }} />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
+        <Text style={styles.text}>Cai dat chung</Text>
+        <FlatList
+          style={{ width: "100%" }}
+          data={generalsetting}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity onPress={item.event}>
+                <View
+                  style={{ flexDirection: "row", height: 50, marginLeft: 10 }}
+                >
+                  <MaterialIcons
+                    style={[{ margin: 12 }]}
+                    name={item.icon}
+                    size={25}
+                    color={item.color}
+                  />
+                  <Text style={{ fontSize: 20, color: item.color, margin: 10 }}>
+                    {item.name}
+                  </Text>
+                </View>
+                <Divider style={{ borderBottomColor: defaultColor }} />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        />
       </View>
-      <Text style={styles.text}>Ca Nhan</Text>
-      <FlatList
-        style={{ width: "100%" }}
-        data={personal}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity onPress={item.event}>
-              <View
-                style={{ flexDirection: "row", height: 50, marginLeft: 10 }}
-              >
-                <MaterialIcons
-                  style={[{ margin: 12 }]}
-                  name={item.icon}
-                  size={25}
-                  color={item.color}
-                />
-                <Text style={{ fontSize: 20, color: item.color, margin: 10 }}>
-                  {item.name}
-                </Text>
-              </View>
-              <Divider style={{ borderBottomColor: defaultColor }} />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-      />
-      <Text style={styles.text}>Cai dat chung</Text>
-      <FlatList
-        style={{ width: "100%" }}
-        data={generalsetting}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity onPress={item.event}>
-              <View
-                style={{ flexDirection: "row", height: 50, marginLeft: 10 }}
-              >
-                <MaterialIcons
-                  style={[{ margin: 12 }]}
-                  name={item.icon}
-                  size={25}
-                  color={item.color}
-                />
-                <Text style={{ fontSize: 20, color: item.color, margin: 10 }}>
-                  {item.name}
-                </Text>
-              </View>
-              <Divider style={{ borderBottomColor: defaultColor }} />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: defaultColor,
+    paddingTop: Platform.OS === "android" ? 30 : 0,
+  },
   text: {
     color: defaultColor,
     marginVertical: 20,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "800",
+    marginLeft: 20,
   },
 });
