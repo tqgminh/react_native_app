@@ -9,7 +9,7 @@ import ApiService from '../api/APIService';
 
 export default function AccAndSecScreen({ navigation }) {
 
-    const { token } = useSelector(state => state.userReducer);
+    const { token, isLogin } = useSelector(state => state.userReducer);
 
     const dispatch = useDispatch();
     const deleteToken = new_token => dispatch(setToken(new_token));
@@ -28,21 +28,21 @@ export default function AccAndSecScreen({ navigation }) {
             .then(function (response) {
                 // handle success
                 deleteToken('');
-                deleteLogin('false');
-                navigation.reset({
+                deleteLogin(false);
+                /* navigation.reset({
                     index: 0,
                     routes: [{ name: 'StartScreen' }],
-                });
+                }); */
             })
             .catch(function (error) {
                 // handle error
                 // do chưa có api logout để tạm như này
                 deleteToken('');
-                deleteLogin('false');
-                navigation.reset({
+                deleteLogin(false);
+                /* navigation.reset({
                     index: 0,
                     routes: [{ name: 'StartScreen' }],
-                });
+                }); */
                 return;
 
                 setErr("Có lỗi xảy ra!");

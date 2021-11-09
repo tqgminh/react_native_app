@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { AntDesign } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 
 import StartScreen from "../screens/StartScreen";
 import LoginScreen from "../screens/LoginScreen";
@@ -90,44 +91,75 @@ function Home() {
   );
 }
 
+
+
 const RootNavigator = () => {
+  const { token, phone, username, isLogin } = useSelector(state => state.userReducer);
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="StartScreen"//"AccAndSecScreen"
-        /* tabBarOptions={tabBarOptions}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color }) => screenOptions(route, color)
-        })} */
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="StartScreen" component={StartScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegisterNameScreen" component={RegisterNameScreen} />
-        <Stack.Screen name="RegisterPhoneScreen" component={RegisterPhoneScreen}/>
-        <Stack.Screen name="RegisterPasswordScreen" component={RegisterPasswordScreen}/>
-        <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
-        <Stack.Screen name="ChatScreen" component={ChatScreen} />
-        <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
-        <Stack.Screen name="SearchDetail" component={SearchDetail} />
-        <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-        <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
-        <Stack.Screen name="FriendsRequestScreen" component={FriendsRequestScreen}/>
-        <Stack.Screen name="AcceptFriendRequestScreen" component={AcceptFriendRequestScreen}/>
-        <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen}/>
-        <Stack.Screen name="SearchScreen" component={SearchScreen} />
-        <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
-      </Stack.Navigator>
+      {isLogin == false ? (
+        <Stack.Navigator screenOptions={{headerShown: false, }}>
+          <Stack.Screen name="StartScreen" component={StartScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="RegisterNameScreen" component={RegisterNameScreen} />
+          <Stack.Screen name="RegisterPhoneScreen" component={RegisterPhoneScreen} />
+          <Stack.Screen name="RegisterPasswordScreen" component={RegisterPasswordScreen} />
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator screenOptions={{headerShown: false, }}>
+          <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
+          <Stack.Screen name="ChatScreen" component={ChatScreen} />
+          <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
+          <Stack.Screen name="SearchDetail" component={SearchDetail} />
+          <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
+          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+          <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
+          <Stack.Screen name="FriendsRequestScreen" component={FriendsRequestScreen} />
+          <Stack.Screen name="AcceptFriendRequestScreen" component={AcceptFriendRequestScreen} />
+          <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen} />
+          <Stack.Screen name="SearchScreen" component={SearchScreen} />
+          <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
-  );
+  )
 };
+
+
+/* return (
+  <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName="StartScreen"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="StartScreen" component={StartScreen} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegisterNameScreen" component={RegisterNameScreen} />
+      <Stack.Screen name="RegisterPhoneScreen" component={RegisterPhoneScreen} />
+      <Stack.Screen name="RegisterPasswordScreen" component={RegisterPasswordScreen} />
+      <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} />
+      <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
+      <Stack.Screen name="SearchDetail" component={SearchDetail} />
+      <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
+      <Stack.Screen name="FriendsRequestScreen" component={FriendsRequestScreen} />
+      <Stack.Screen name="AcceptFriendRequestScreen" component={AcceptFriendRequestScreen} />
+      <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
+}; */
 
 export default RootNavigator;

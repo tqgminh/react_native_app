@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
   const [hidePassword, setHidePassword] = useState(true);
   const [nameHidePassword, setNameHidePassword] = useState('eye');
 
-  const onLoginPressed = () => {
+  const onLoginPressed = async () => {
     const phoneError = phoneValidator(phone.value)
     const passwordError = passwordValidator(password.value)
     if (phoneError || passwordError) {
@@ -35,7 +35,20 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError })
       return;
     }
-    postToLoginAPI(navigation);
+
+    const data= {phone: phone.value, password: password.value}
+
+    const x = await login(data);
+    if(x.success){
+      /* addToken(x.data.token);
+      addPhone(x.data.data.phonenumber);
+      addUsername(x.data.data.username);
+      addLogin(true);  */
+    }else{
+      setErr("Số điện thoại hoặc mật khẩu không đúng!");
+    }
+
+   // postToLoginAPI(navigation);
   };
 
   const postToLoginAPI = (navigation) => {
@@ -49,11 +62,11 @@ export default function LoginScreen({ navigation }) {
         addToken(response.data.token);
         addPhone(response.data.data.phonenumber);
         addUsername(response.data.data.username);
-        addLogin('true');
-        navigation.reset({
+        addLogin(true);
+        /* navigation.reset({
           index: 0,
           routes: [{ name: 'Home' }],
-        });
+        }); */
       })
       .catch(function (error) {
         // handle error

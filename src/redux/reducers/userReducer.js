@@ -1,10 +1,11 @@
 import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN } from "../actions/types";
 
 const initialState = {
-  isLogin: 'false',
+  isLogin: false,
   phone: '',
   username: '',
   token: '',
+  id:'',
 };
 
 

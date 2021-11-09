@@ -15,6 +15,8 @@ import Search from "../components/Search";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { defaultColor } from "../styles";
 export default function MeScreen({ navigation }) {
+  const { token, phone, username, isLogin } = useSelector(state => state.userReducer);
+
   return (
     <View>
       <Search navigation={navigation} />
@@ -52,7 +54,7 @@ export default function MeScreen({ navigation }) {
                 <Text
                   style={{ fontSize: 20, color: "black", fontWeight: "bold" }}
                 >
-                  Bui Viet Hoang
+                  {username}
                 </Text>
                 <Text
                   style={{ color: "gray", fontSize: 14, fontWeight: "200" }}
