@@ -10,7 +10,7 @@ export default function ContactsScreen({ navigation }) {
     <View style={styles.container}>
       <Search type={1} navigation={navigation} />
       <ScrollView>
-        <RequestFriend />
+        <RequestFriend navigation={navigation} />
         <ActiveFriend navigation={navigation} />
         <UpdateFriend />
       </ScrollView>

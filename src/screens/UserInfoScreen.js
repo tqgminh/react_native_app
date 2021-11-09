@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,8 @@ import {
   ImageBackground,
   FlatList,
   Image,
+  Modal,
+  Pressable,
 } from "react-native";
 import OptionsBar from "../components/OptionsBar";
 import UserHeader from "../components/userInfo/UserHeader.js";
@@ -22,6 +24,7 @@ const userinfo = [
 ];
 
 export default function UserInfoScreen({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
   // console.log(userinfo[0].name);
   return (
     <View style={styles.container}>
@@ -31,7 +34,12 @@ export default function UserInfoScreen({ navigation }) {
         showVerticalScrollIndicator={false}
         style={{ backgroundColor: "#fafafa" }}
       >
-        <View>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Image
             source={require("../assets/images/nguoi.jpeg")}
             style={styles.background_image}
@@ -43,6 +51,52 @@ export default function UserInfoScreen({ navigation }) {
               style={styles.adding_camera}
             />
           </TouchableOpacity>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
+              <View
+                style={{
+                  backgroundColor: "#ffffff",
+                  marginTop: 50,
+                  padding: 40,
+                  borderRadius: 10,
+                  flex: 1,
+                }}
+              >
+                <Text style={{ fontSize: 50 }}>Hello World!</Text>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Hide Modal</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+          <TouchableOpacity
+            style={{}}
+            onPress={() => setModalVisible(!modalVisible)}
+          >
+            <Image
+              source={{
+                uri: "https://scontent.fhph1-3.fna.fbcdn.net/v/t1.6435-9/54524031_435375897022452_1255296843290509312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-Fh1ptSCHgwAX-oJCI7&_nc_ht=scontent.fhph1-3.fna&oh=782b737a7021379d0d5cc7c895f351b0&oe=619F8B7A",
+              }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                top: -50,
+                // position: "absolute",
+              }}
+            />
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -50,16 +104,10 @@ export default function UserInfoScreen({ navigation }) {
             alignItems: "center",
           }}
         >
-          <Image
-            source={{
-              uri: "https://scontent.fhph1-3.fna.fbcdn.net/v/t1.6435-9/54524031_435375897022452_1255296843290509312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-Fh1ptSCHgwAX-oJCI7&_nc_ht=scontent.fhph1-3.fna&oh=782b737a7021379d0d5cc7c895f351b0&oe=619F8B7A",
-            }}
-            style={styles.avatar}
-          />
           <Text
             style={{
               fontWeight: "bold",
-              marginTop: 60,
+              // marginTop: 10,
               fontSize: 20,
               // color: "white",
             }}
@@ -304,20 +352,21 @@ const styles = StyleSheet.create({
   background_image: {
     width: "100%",
     height: 200,
+    position: "absolute",
   },
   adding_camera: {
     position: "absolute",
     right: 10,
     top: -20,
     color: "#c1c1c1",
-    opacity: 0.2,
+    // opacity: 0.2,
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
     position: "absolute",
-    top: -50,
+    // top: -50,
   },
   mediaImageContainer: {
     width: 150,
@@ -367,5 +416,47 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     opacity: 0.8,
     color: "red",
+  },
+  //
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
