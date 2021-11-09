@@ -38,7 +38,7 @@ export default function LoginScreen({ navigation }) {
 
     const data= {phone: phone.value, password: password.value}
 
-    const x = await login(data);
+    const x = await login(data, dispatch);
     if(x.success){
       /* addToken(x.data.token);
       addPhone(x.data.data.phonenumber);

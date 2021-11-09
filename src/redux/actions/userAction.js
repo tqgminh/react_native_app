@@ -62,7 +62,7 @@ export const login = async (data, dispatch) =>{
   if(rs.success){
     dispatch(setLogin(true));
     dispatch(setUsername(rs.data.data.username));
-    dispatch(setUs)
+    dispatch(setToken(rs.data.token));
   }
 
   return x;
