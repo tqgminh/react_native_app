@@ -8,35 +8,36 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.9",
-    "@react-navigation/bottom-tabs": "^6.0.7",
-    "@react-navigation/native": "^6.0.4",
-    "@react-navigation/stack": "^6.0.9",
+    "@react-native-async-storage/async-storage": "^1.15.11",
+    "@react-navigation/bottom-tabs": "^6.0.9",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/stack": "^6.0.11",
     "axios": "^0.22.0",
     "dotenv": "^10.0.0",
-    "expo": "~42.0.1",
-    "expo-cli": "^4.12.10",
+    "expo": "^42.0.5",
+    "expo-cli": "^4.12.12",
+    "expo-image-picker": "^11.0.3",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
-    "react-native-dotenv": "^3.2.0",
+    "react-native-dotenv": "^3.3.0",
     "react-native-flash-message": "^0.2.0",
     "react-native-gesture-handler": "^1.10.3",
-    "react-native-paper": "^4.9.2",
-    "react-native-screens": "^3.8.0",
+    "react-native-paper": "^4.10.0",
+    "react-native-screens": "^3.9.0",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-svg": "^12.1.1",
     "react-native-ui-kitten": "^4.4.1",
     "react-native-web": "^0.17.5",
-    "react-redux": "^7.2.5",
-    "redux": "^4.1.1",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.16.0"
   },
   "private": true
 }

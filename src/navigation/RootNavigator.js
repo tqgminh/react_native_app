@@ -25,6 +25,9 @@ import SearchDetail from "../components/SearchDetail/SearchDetail";
 import SearchScreen from "../screens/SearchScreen";
 import AccAndSecScreen from "../screens/AccAndSecScreen";
 import UpdatePasswordScreen from "../screens/UpdatePasswordScreen";
+import PostScreen from "../screens/PostScreen";
+import addPostScreen from "../screens/addPostScreen";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +97,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="StartScreen"//"AccAndSecScreen"
+        initialRouteName="addPostScreen"//"AccAndSecScreen"
         /* tabBarOptions={tabBarOptions}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color }) => screenOptions(route, color)
@@ -125,6 +128,8 @@ const RootNavigator = () => {
         <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen}/>
         <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+        <Stack.Screen name="PostScreen" component={PostScreen} />
+        <Stack.Screen name="addPostScreen" component={addPostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
