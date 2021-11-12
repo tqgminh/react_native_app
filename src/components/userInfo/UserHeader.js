@@ -34,13 +34,13 @@ export default function UserHeader({ navigation, name }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    height: 80,
     backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "space-between",
   },
   icon: {
-    marginTop: 10,
+    marginTop: 40,
     marginHorizontal: 10,
   },
 });
