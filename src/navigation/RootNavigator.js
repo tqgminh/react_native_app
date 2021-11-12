@@ -25,6 +25,7 @@ import SearchDetail from "../components/SearchDetail/SearchDetail";
 import SearchScreen from "../screens/SearchScreen";
 import AccAndSecScreen from "../screens/AccAndSecScreen";
 import UpdatePasswordScreen from "../screens/UpdatePasswordScreen";
+import PhotoAlbumScreen from "../screens/PhotoAlbumScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +95,7 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="TimelineScreen" //"AccAndSecScreen"
+        initialRouteName="StartScreen" //"AccAndSecScreen"
         /* tabBarOptions={tabBarOptions}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color }) => screenOptions(route, color)
@@ -146,6 +147,7 @@ const RootNavigator = () => {
           name="UpdatePasswordScreen"
           component={UpdatePasswordScreen}
         />
+        <Stack.Screen name="PhotoAlbumScreen" component={PhotoAlbumScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
