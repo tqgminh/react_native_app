@@ -4,6 +4,7 @@ import Search from "../components/Search";
 import RequestFriend from "../components/Contact/RequestFriend";
 import ActiveFriend from "../components/Contact/ActiveFriend";
 import UpdateFriend from "../components/Contact/UpdateFriend";
+import SuggestFriend from "../components/SuggestFriend"
 
 export default function ContactsScreen({ navigation }) {
   return (
@@ -11,6 +12,7 @@ export default function ContactsScreen({ navigation }) {
       <Search type={1} navigation={navigation} />
       <ScrollView>
         <RequestFriend navigation={navigation} />
+        <SuggestFriend navigation={navigation}/>
         <ActiveFriend navigation={navigation} />
         <UpdateFriend />
       </ScrollView>
