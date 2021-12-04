@@ -39,6 +39,10 @@ function SearchDetail({navigation}){
         }
     }
 
+    const handleRemove = function(friendId){
+        setlistFriendSearch(listFriendSearch.filter(people => people[0].id!=friendId))
+    }
+
 
 
 
@@ -65,7 +69,7 @@ function SearchDetail({navigation}){
             </View>
             }
             {
-                searchInput==''&& <SearchRecently listFriendSearch={listFriendSearch}/>
+                searchInput==''&& <SearchRecently listFriendSearch={listFriendSearch} handleRemove={handleRemove}/>
             }
         </View>
     )
