@@ -22,7 +22,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import FriendsRequestScreen from "../screens/FriendsRequestScreen";
 import AcceptFriendRequestScreen from "../screens/AcceptFriendRequestScreen";
 import FriendsInvitationScreen from "../screens/FriendsInvitationScreen";
-import SearchDetail from "../components/SearchDetail/SearchDetail";
+import SearchDetailScreen from "../screens/SearchDetailScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AccAndSecScreen from "../screens/AccAndSecScreen";
 import UpdatePasswordScreen from "../screens/UpdatePasswordScreen";
@@ -112,7 +112,7 @@ const RootNavigator = () => {
           <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
           <Stack.Screen name="ChatScreen" component={ChatScreen} />
           <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
-          <Stack.Screen name="SearchDetail" component={SearchDetail} />
+          <Stack.Screen name="SearchDetailScreen" component={SearchDetailScreen} />
           <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
           <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
