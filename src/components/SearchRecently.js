@@ -1,9 +1,10 @@
 import { View, StyleSheet, Text, TouchableOpacity, Button, ViewBase } from "react-native";
 import React,{useState,useEffect} from "react";
-import FriendItem from "./Contact/FriendItem";
 import { MaterialIcons } from "@expo/vector-icons";
+import FriendOnly from "./FriendOnly"
+import {defaultColor} from '../styles';
 
-function SearchRecently({listFriendSearch}){
+function SearchRecently({listFriendSearch,handleRemove}){
 
     return (
         <View>
@@ -16,9 +17,14 @@ function SearchRecently({listFriendSearch}){
             {
                 listFriendSearch.map(item =>{
                     return (
-                    <TouchableOpacity key ={item[0].id}>
-                        <FriendItem name={item[0].partner.name} imageUri = {item[0].partner.imageUri} iconActivate={1} />
-                    </TouchableOpacity>
+                    <View key ={item[0].id} style={styles.content}>
+                        <TouchableOpacity style={styles.friendOnly}>
+                            <FriendOnly name={item[0].partner.name} imageUri = {item[0].partner.imageUri} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>handleRemove(item[0].id)}>
+                            <MaterialIcons style={styles.icon} name='highlight-remove' size={25} color={defaultColor} />
+                        </TouchableOpacity>
+                    </View>
                     )
                 })
             }
@@ -45,5 +51,16 @@ const styles = StyleSheet.create({
     },
     secondeInfo:{
         marginLeft:190
+    },
+    content:{
+        flexDirection:'row',
+        alignItems:'center'
+        
+    },
+    friendOnly:{
+        width:'80%'
+    },
+    icon:{
+        marginLeft:20
     }
 });
