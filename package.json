@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@baronha/react-native-multiple-image-picker": "^0.4.8",
     "@react-native-async-storage/async-storage": "^1.15.9",
     "@react-navigation/bottom-tabs": "^6.0.7",
     "@react-navigation/native": "^6.0.4",
@@ -16,6 +17,10 @@
     "dotenv": "^10.0.0",
     "expo": "~42.0.1",
     "expo-cli": "^4.12.10",
+    "expo-file-system": "^13.0.3",
+    "expo-image-manipulator": "^10.1.2",
+    "expo-image-picker": "^11.0.3",
+    "expo-image-picker-multiple": "^1.4.1",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
     "react": "16.13.1",
@@ -23,7 +28,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-dotenv": "^3.2.0",
     "react-native-flash-message": "^0.2.0",
+    "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-crop-picker": "^0.37.2",
     "react-native-paper": "^4.9.2",
     "react-native-screens": "^3.8.0",
     "react-native-status-bar-height": "^2.6.0",
@@ -33,7 +40,10 @@
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "unimodules-permissions-interface": "^6.1.0",
+    "with-rn-image-crop-picker": "^0.2.0",
+    "write-file-atomic": "^3.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

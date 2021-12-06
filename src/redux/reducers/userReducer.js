@@ -1,11 +1,21 @@
-import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN } from "../actions/types";
+import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN, SET_ID, SET_AVATAR, SET_COVER_IMAGE } from "../actions/types";
 
 const initialState = {
   isLogin: false,
   phone: '',
   username: '',
   token: '',
-  id:'',
+  id: '',
+  avatar: {
+    type: '',
+    _id: '',
+    fileName: ''
+  },
+  coverImage: {
+    type: '',
+    _id: '',
+    fileName: ''
+  }
 };
 
 
@@ -13,6 +23,8 @@ function userReducer(state = initialState, action) {
   switch (action.type) {
     /* case POST_LOGIN:
       return { ...state, isLogin: true, phone: action.payload.data.phonenumber, username: action.payload.data.name, token: action.payload.token }; */
+    case SET_ID:
+      return { ...state, id: action.payload };
     case SET_TOKEN:
       return { ...state, token: action.payload };
     case SET_LOGIN:
@@ -21,6 +33,10 @@ function userReducer(state = initialState, action) {
       return { ...state, username: action.payload };
     case SET_PHONE:
       return { ...state, phone: action.payload };
+    case SET_AVATAR:
+      return { ...state, avatar: action.payload };
+    case SET_COVER_IMAGE:
+      return { ...state, coverImage: action.payload };
     /* case REMOVE_FROM_BOOKMARK_LIST:
       return {
         ...state,

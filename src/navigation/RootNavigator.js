@@ -26,6 +26,10 @@ import SearchDetail from "../components/SearchDetail/SearchDetail";
 import SearchScreen from "../screens/SearchScreen";
 import AccAndSecScreen from "../screens/AccAndSecScreen";
 import UpdatePasswordScreen from "../screens/UpdatePasswordScreen";
+import AddPostScreen from "../screens/AddPostScreen";
+import ImageBrowserScreen from "../screens/ImageBrowserScreen";
+//import DemoPost from "../screens/DemoPost";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -120,6 +124,14 @@ const RootNavigator = () => {
           <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+          <Stack.Screen name="AddPostScreen" component={AddPostScreen} />
+          {/* <Stack.Screen name="DemoPost" component={DemoPost} /> */}
+          <Stack.Screen name='ImageBrowserScreen' component={ImageBrowserScreen}
+          options={{
+            headerShown: true,
+            title: 'Selected 0 files',
+          }}
+        />
         </Stack.Navigator>
       )}
     </NavigationContainer>

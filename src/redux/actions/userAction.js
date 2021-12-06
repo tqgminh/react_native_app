@@ -1,38 +1,20 @@
-import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN } from "./types";
+import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN, SET_ID, SET_AVATAR, SET_COVER_IMAGE } from "./types";
 import axios from 'axios';
 import { API_URL } from '../../api/config';
 import ApiService from "../../api/APIService";
 import { useSelector, useDispatch } from 'react-redux';
 
-
-/* export const postLogin = (phone, password) => {
-    try {
-        return async dispatch => {
-            await axios.post(API_URL + '/users/login', {
-                phonenumber: phone,
-                password: password,
-            })
-                .then(function (response) {
-                    dispatch({
-                        type: POST_LOGIN,
-                        payload: response.data
-                    });
-                })
-                .catch(function (error) {
-                    // handle error
-                    alert(JSON.stringify(error.response.data));
-                });
-        };
-    } catch (error) {
-        // Add custom logic to handle errors
-        console.log(error);
-    }
-}; */
-
 export const setToken = token => dispatch => {
   dispatch({
     type: SET_TOKEN,
     payload: token
+  });
+};
+
+export const setId = id => dispatch => {
+  dispatch({
+    type: SET_ID,
+    payload: id
   });
 };
 
@@ -57,20 +39,39 @@ export const setUsername = username => dispatch => {
   });
 };
 
-export const login = async (data, dispatch) =>{
-  let rs = await loginToService(data.phone, data.password);
-  if(rs.success){
-    dispatch(setLogin(true));
-    dispatch(setUsername(rs.data.data.username));
-    dispatch(setToken(rs.data.token));
-  }
+export const setAvatar = avatar => dispatch => {
+  dispatch({
+    type: SET_AVATAR,
+    payload:avatar 
+  });
+};
 
-  return x;
-  
+export const setCoverImage = coverImage => dispatch => {
+  dispatch({
+    type: SET_COVER_IMAGE,
+    payload: coverImage
+  });
+};
+
+export const login = async (data, dispatch) =>{
+  let loginRs = await loginAPI(data.phone, data.password);
+  if(loginRs.success){
+    let showRs = await showAPI(loginRs.data.token);
+    if(showRs.success){
+      dispatch(setToken(loginRs.data.token));
+      dispatch(setId(loginRs.data.data.id));
+      dispatch(setNumberPhone(showRs.data.data.phonenumber));
+      dispatch(setUsername(showRs.data.data.username));
+      dispatch(setAvatar(showRs.data.data.avatar));
+      dispatch(setCoverImage(showRs.data.data.cover_image));
+      dispatch(setLogin(true));
+     }
+    return showRs;
+  } else return loginRs;  
 };
 
 
-export async function loginToService(phone, password) {
+export async function loginAPI(phone, password) {
   return new Promise(async resolve => {
     await ApiService.post(API_URL + '/users/login', {
       phonenumber: phone,
@@ -87,8 +88,32 @@ export async function loginToService(phone, password) {
         return resolve({
           success: false,
           data: null,
-          error: error,
+          error: error.response,
         });
       });
   });
+}
+
+
+  export async function showAPI(token) {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
+    return new Promise(async resolve => {
+      await axios.get(API_URL + '/users/show', config)
+        .then(response => {
+          return resolve({
+            success: true,
+            data: response.data,
+            error: null,
+          });
+        })
+        .catch(error => {
+          return resolve({
+            success: false,
+            data: null,
+            error: error.response,
+          });
+        });
+    });
 }

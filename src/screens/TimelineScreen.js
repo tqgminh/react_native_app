@@ -1,185 +1,326 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Dimensions} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
 import Search from '../components/Search';
+import { useSelector } from 'react-redux';
+import { FILE_URL } from '../api/config';
+import { Ionicons, FontAwesome, Entypo, FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { getList } from '../api/PostAPI';
+import { showMessage } from 'react-native-flash-message';
 
-const data = [
-    {
-    id: 1,
-    username: 'trannguyenhan',
-    avatarURI:
-      'https://i.pinimg.com/originals/de/61/7d/de617d1ce71f621bbeba8b293996e9fc.jpg',
-    imageURI:
-      'https://i.pinimg.com/originals/ee/83/49/ee8349d0a2166192988ecc3854924f18.jpg',
-    status:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    likes: 12
-  },
-  {
-    id: 2,
-    username: 'thanhnv',
-    avatarURI:
-      'https://i.pinimg.com/originals/ee/83/49/ee8349d0a2166192988ecc3854924f18.jpg',
-    imageURI:
-      'https://i.pinimg.com/originals/de/61/7d/de617d1ce71f621bbeba8b293996e9fc.jpg',
-    status:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-    likes: 14
-  }
-]
+export default function TimelineScreen({ navigation }) {
+  const { token, phone, username, isLogin, avatar } = useSelector(state => state.userReducer);
+  const [listPosts, setListPosts] = useState([]);
 
-function tapToLike(likeIcon) {
-  if (likeIcon % 2 === 0) {
-    return require('../assets/images/redHeart.png');
-  } else {
-    return require('../assets/images/like.png');
+  useEffect(() => {
+    getList(token)
+      .then(res => {
+        if (res.success) {
+          console.log(JSON.stringify(res.data.data))
+          setListPosts(res.data.data);
+        } else {
+          showMessage({
+            title: 'get list Post fail!',
+            message: 'Có lỗi xảy ra vui lòng thử lại!',
+            type: 'fail',
+          });
+        }
+      })
+    //return () => mounted = false;
+  }, []);
+
+  const likePress = () => {
+
   }
+
+  const renderDemo = ({item}) =>{
+    return (<View><Text>{item.described}</Text></View>);
+  }
+
+
+  const RenderImg = ({photos}) => {
+    let count = photos.length;
+
+    if (count == 1) {
+        return (
+            <View style={{ justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+                <Image style={styles.image}
+                    source={{ uri: FILE_URL + photos[0].fileName }}
+                    key={count}>
+                </Image>
+            </View>
+        );
+    } if (count == 2) {
+        return (
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+                <View style={{ width: '50%' }}>
+                    <Image style={styles.image}
+                        source={{ uri: FILE_URL + photos[0].fileName }}
+                        key={1}>
+                    </Image>
+                </View>
+                <View style={{ width: '50%' }}>
+                    <Image style={styles.image}
+                        source={{ uri: FILE_URL + photos[1].fileName }}
+                        key={2}>
+                    </Image>
+                </View>
+            </View>
+        );
+    }
+    if (count == 3) {
+        return (
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+                <View style={{ width: '50%' }}>
+                    <Image style={styles.image}
+                        source={{ uri: FILE_URL + photos[0].fileName }}
+                        key={1}>
+                    </Image>
+                </View>
+                <View style={{ width: '50%' }}>
+                    <View style={{ width: '100%' }}>
+                        <Image style={styles.image2}
+                            source={{ uri: FILE_URL + photos[1].fileName }}
+                            key={2}>
+                        </Image>
+                    </View>
+                    <View style={{ width: '100%' }}>
+                        <Image style={styles.image2}
+                            source={{ uri: FILE_URL + photos[2].fileName }}
+                            key={3}>
+                        </Image>
+                    </View>
+
+                </View>
+            </View>
+        );
+    }
+    if (count == 4) {
+        return (
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+                <View style={{ width: '50%' }}>
+                    <View style={{ width: '100%' }}>
+                        <Image style={styles.image2}
+                            source={{ uri: FILE_URL + photos[0].fileName }}
+                            key={1}>
+                        </Image>
+                    </View>
+                    <View style={{ width: '100%' }}>
+                        <Image style={styles.image2}
+                            source={{ uri: FILE_URL + photos[1].fileName }}
+                            key={2}>
+                        </Image>
+                    </View>
+
+                </View>
+                <View style={{ width: '50%' }}>
+                    <View style={{ width: '100%' }}>
+                        <Image style={styles.image2}
+                            source={{ uri: FILE_URL + photos[2].fileName }}
+                            key={3}>
+                        </Image>
+                    </View>
+                    <View style={{ width: '100%' }}>
+                        <Image style={styles.image2}
+                            source={{ uri: FILE_URL + photos[3].fileName }}
+                            key={4}>
+                        </Image>
+                    </View>
+
+                </View>
+            </View>
+        );
+    }
+    else {
+        return (<View></View>);
+    }
 }
 
-function tapToBookmark(bookmarkIcon) {
-  if (bookmarkIcon % 2 === 0) {
-    return require('../assets/images/bookmarkWhite.png');
-  } else {
-    return require('../assets/images/bookmark.png');
-  }
-}
+  const renderPosts = ({item}) => {
+    <View style={{ borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)', padding: 15 }}>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ width: '20%' }}>
+          <Image
+            source={{ uri: FILE_URL + "avatar_2.png" }}
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: 50,
+              marginLeft: 5,
+            }}
+          />
+        </View>
 
-export default function TimelineScreen({navigation}) {
-  const [likeIcon, setLikeIcon] = React.useState(1);
-  const [bookmarkIcon, setBookmarkIcon] = React.useState(1);
+        <TouchableOpacity style={{ width: '70%' }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.author.username}</Text>
+          <Text>{item.createdAt}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ width: '10%' }}>
+          <Entypo name="dots-three-horizontal" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={{ borderBottomWidth: 2, borderBottomColor: 'rgb(230,230,230)' }}>
+        <View>
+          <Text style={{ fontSize: 20 }}>{item.described}</Text>
+        </View>
+
+        {/* <View>
+          <RenderImg photos={item.images}/>
+        </View> */}
+      </View>
+
+      <View style={{ flexDirection: 'row', fontSize: 20 }}>
+        <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }}>
+          <AntDesign name="heart" size={24} color="red" />
+          <Text style={{ marginLeft: 10, fontSize: 20 }}>{item.like.length}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }}>
+          <FontAwesome5 name="comment-dots" size={24} color="black" />
+          <Text style={{ marginLeft: 10, fontSize: 20 }}>{item.countComments}</Text>
+        </View>
+      </View>
+
+    </View>
+  }
 
   return (
-    <ScrollView style={{backgroundColor: '#4d4d4d'}}>
-        <Search navigation = {navigation}/>
-        <FlatList
-            data = {data}
-            renderItem = {({item}) => {
-              return (
-                <View>
-                    {/* header: include username, more button, avatar, post*/}
-                    <View style={styleTimeline.container}>
-                        <View style={styleTimeline.nameContainer}>
-                            <Image
-                                source={{uri: item.avatarURI}}
-                                style={styleTimeline.avatar}
-                            />
-                            <Text style={styleTimeline.username}>{item.username}</Text>
-                        </View>
-                        <View>
-                            <TouchableOpacity>
-                                <Image source={require('../assets/images/more.png')} style={styleTimeline.iconMore} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <Image 
-                        source={{uri: item.imageURI}}
-                        style={styleTimeline.post}
-                    />
-
-                    {/*body: like button, bookmark, comment button */}
-                    <View style={styleAction.container}>
-                        {/*like icon and comment icon*/}
-                        <View style={{flexDirection:'row', justifyContent: 'flex-start'}}>
-                            <TouchableOpacity onPress={() => setLikeIcon(likeIcon + 1)}>
-                                <Image source={tapToLike(likeIcon)} style={styleAction.actionIcon} />                            
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Image source={require('../assets/images/comment.png')} style={styleAction.actionIcon} />
-                            </TouchableOpacity>
-                        </View>
-                        
-                        {/*bookmark icon*/}
-                        <TouchableOpacity onPress={() => setBookmarkIcon(bookmarkIcon+1)} >
-                            <Image source={tapToBookmark(bookmarkIcon)} style={styleAction.actionIcon} />
-                        </TouchableOpacity>
-                    </View>
-                        
-                    {/*number of like post*/}
-                    <View>
-                        <TouchableOpacity style={{marginLeft: 15, marginTop: 10, marginEnd: 15}} >
-                            <Text style={{color: '#fff', fontWeight: 'bold'}} >
-                                {item.likes} likes{' '}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {/*status of post*/}
-                    <View 
-                        style={{
-                            marginStart: 15,
-                            marginEnd: 15,
-                            flexDirection: 'column',
-                            marginTop: 10
-                        }}>
-                        <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 13}}>
-                            {item.status}
-                        </Text>
-                    </View>
-                </View>
-              )
+    <View style={{ flex: 1 }}>
+      <Search navigation={navigation} />
+      <View style={{ width: '100%' }}>
+        <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', borderTopWidth: 7, borderTopColor: 'rgb(230,230,230)', padding: 10, borderBottomWidth: 1 }}>
+          <Image
+            source={{ uri: FILE_URL + avatar.fileName }}
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 50,
+              marginLeft: 5,
             }}
-            keyExtractor={item => item.id}
-            showsHorizontalScrollIndicator={false}
+          />
+          <TouchableOpacity style={{ width: '80%', paddingLeft: 10 }}>
+            <Text style={{ fontSize: 17, color: 'rgb(100,100,100)' }}>Hôm nay bạn thế nào?</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ width: '100%', flexDirection: 'row', borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)' }}>
+          <TouchableOpacity style={styles.post_icon}>
+            <Ionicons name="image" size={24} color="#006400" />
+            <Text style={styles.post_icon_text}>Đăng ảnh</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.post_icon]}>
+            <FontAwesome name="video-camera" size={24} color="#e9967a" />
+            <Text style={styles.post_icon_text}>Đăng video</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.post_icon]}>
+            <Ionicons name="cloud-circle-sharp" size={24} color="#1e90ff" />
+            <Text style={styles.post_icon_text}>Tạo album</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={listPosts}
+          renderItem={renderDemo}
+          keyExtractor={item => item._id}
         />
-    </ScrollView>
+      </SafeAreaView>
+
+      <View style={{ borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)', padding: 15 }}>
+        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+          <View style={{ width: '20%' }}>
+            <Image
+              source={{ uri: FILE_URL + avatar.fileName }}
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 50,
+                marginLeft: 5,
+              }}
+            />
+          </View>
+
+          <TouchableOpacity style={{ width: '70%' }}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Nguyễn Văn Thanh</Text>
+            <Text>7/11 lúc 9:13</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ width: '10%' }}>
+            <Entypo name="dots-three-horizontal" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ borderBottomWidth: 2, borderBottomColor: 'rgb(230,230,230)' }}>
+          <View>
+            <Text style={{ fontSize: 20 }}>
+              Hôm nay thật buồn!
+            </Text>
+          </View>
+
+          <View>
+            <Image
+              source={{ uri: FILE_URL + avatar.fileName }}
+              style={{
+                width: 200,
+                height: 200,
+                borderRadius: 50,
+                marginLeft: 5,
+              }}
+            />
+          </View>
+        </View>
+
+        <View style={{ flexDirection: 'row', fontSize: 20 }}>
+          <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }}>
+            <AntDesign name="heart" size={24} color="red" />
+            <Text style={{ marginLeft: 10, fontSize: 20 }}>10</Text>
+          </View>
+          <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }}>
+            <FontAwesome5 name="comment-dots" size={24} color="black" />
+            <Text style={{ marginLeft: 10, fontSize: 20 }}>100</Text>
+          </View>
+        </View>
+
+      </View>
+    </View>
   );
 }
 
-const styleAction = StyleSheet.create({
-    container: {
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        marginEnd: 15,
-        marginTop: 15
-    },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
 
-    actionIcon: {
-        width: 23,
-        height: 23,
-        marginStart: 15
-    }
+  post_icon: {
+    width: '33.33%',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderLeftWidth: 1
+  },
+
+  post_icon_text: {
+    paddingLeft: 5,
+    fontWeight: 'bold'
+  },
+
+  image: {
+    flex: 1,
+    width: '100%',
+    height: 400,
+    resizeMode: 'cover',
+    borderWidth: 2,
+    borderColor: "rgb(200,200,200)",
+    borderRadius: 10,
+    overflow: "hidden",
+},
+
+image2: {
+    flex: 1,
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
+    borderWidth: 2,
+    borderColor: "rgb(200,200,200)",
+    borderRadius: 10,
+    overflow: "hidden",
+},
 });
-
-
-const styleTimeline = StyleSheet.create({
-    avatar:{
-        width: 30,
-        height: 30,
-        borderRadius: 30,
-    },
-
-    username: {
-        color: '#fff',
-        marginStart: 10,
-        fontWeight: 'bold'
-    },
-
-    container:{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginTop: 12,
-        marginBottom: 6,
-        marginStart: 10, 
-        marginEnd: 10,
-        backgroundColor: '#4d4d4d'
-    },
-
-    nameContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start'
-    },
-
-    post:{
-        height: Dimensions.get('screen').height / 3,
-        width: Dimensions.get('screen').width,
-        resizeMode: 'contain'
-    },
-
-    iconMore: {
-        height: 15,
-        width: 15,
-        marginLeft: 5
-    }
-})

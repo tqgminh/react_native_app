@@ -16,11 +16,6 @@ export default function LoginScreen({ navigation }) {
   //const { phone } = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
 
-  const addToken = new_token => dispatch(setToken(new_token));
-  const addPhone = new_phone => dispatch(setNumberPhone(new_phone));
-  const addUsername = new_username => dispatch(setUsername(new_username));
-  const addLogin = isLogin => dispatch(setLogin(isLogin));
-
   const [phone, setPhone] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
   const [err, setErr] = useState('');
@@ -38,41 +33,15 @@ export default function LoginScreen({ navigation }) {
 
     const data= {phone: phone.value, password: password.value}
 
-    const x = await login(data, dispatch);
-    if(x.success){
-      /* addToken(x.data.token);
-      addPhone(x.data.data.phonenumber);
-      addUsername(x.data.data.username);
-      addLogin(true);  */
+    const rs = await login(data, dispatch);
+    if(rs.success){
+      return;
     }else{
-      setErr("Số điện thoại hoặc mật khẩu không đúng!");
-    }
-
-   // postToLoginAPI(navigation);
-  };
-
-  const postToLoginAPI = (navigation) => {
-    ApiService
-      .post(API_URL+ '/users/login', {
-        phonenumber: phone.value,
-        password: password.value,
-      })
-      .then(function (response) {
-        // handle success
-        addToken(response.data.token);
-        addPhone(response.data.data.phonenumber);
-        addUsername(response.data.data.username);
-        addLogin(true);
-        /* navigation.reset({
-          index: 0,
-          routes: [{ name: 'Home' }],
-        }); */
-      })
-      .catch(function (error) {
-        // handle error
-        alert(JSON.stringify(error));
+      if(rs.error.message=='Username or password incorrect')
         setErr("Số điện thoại hoặc mật khẩu không đúng!");
-      });
+      else
+      setErr("Có lỗi xảy ra vui lòng thử lại!");
+    }
   };
 
   const showHidePassword = () => {

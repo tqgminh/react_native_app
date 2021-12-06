@@ -14,8 +14,9 @@ import ApiService from "../api/APIService";
 import Search from "../components/Search";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { defaultColor } from "../styles";
+import { FILE_URL } from "../api/config";
 export default function MeScreen({ navigation }) {
-  const { token, phone, username, isLogin } = useSelector(state => state.userReducer);
+  const { token, phone, username, isLogin, avatar } = useSelector(state => state.userReducer);
 
   return (
     <View>
@@ -41,7 +42,7 @@ export default function MeScreen({ navigation }) {
             >
               <View style={{}}>
                 <Image
-                  source={require("../assets/images/dao.jpg")}
+                  source={{uri: FILE_URL + avatar.fileName}}
                   style={{
                     width: 80,
                     height: 80,
