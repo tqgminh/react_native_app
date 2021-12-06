@@ -3,25 +3,31 @@ import React,{ useState}  from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import {ListPeople} from './data.js'
+import FriendItem from "../Contact/FriendItem.js";
 
-function SearchFriend({keySearch}){
-    const arrResult = ListPeople.filter(people=>{
-        const arrComName = people.partner.name.split(' ')
-        if(arrComName.includes(keySearch)){
-            return 1
-        }
-        return 0
-    })
+function SearchFriend({arrFriend}){
+    const [listFriendSearch, setlistFriendSearch] = useState([]);
 
-    let result
-    if(arrResult.length!=0)
-        result = arrResult[0].partner.name
+    const handleGetSearchFriend = function(friendId){
+        let getFriend = arrFriend.filter(people=>people.id== friendId)
+        // setlistFriendSearch(getFriend)
+        console.log('nkm')
+
+    }
 
     return (
 
         <View>
-            <Text>Bạn bè</Text>
-            <Text>{result}</Text>
+            <Text>Liên hệ</Text>
+            {
+                arrFriend.map(item =>{
+                    return (
+                    <TouchableOpacity key ={item.id} onPress={()=>handleGetSearchFriend(item.id)} >
+                        <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} iconActivate={1} />
+                    </TouchableOpacity>
+                    )
+                })
+            }
         </View>
     )
 }

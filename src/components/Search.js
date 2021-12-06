@@ -20,7 +20,7 @@ export default function Search(props) {
                 value={searchInput}
                 onChangeText={(name)=>setSearchInput(name)}
                 onFocus={()=> {
-                    navigation.navigate('SearchDetail')
+                    navigation.navigate('SearchDetailScreen')
                 }}
                 
             />

@@ -22,14 +22,18 @@ import ProfileScreen from "../screens/ProfileScreen";
 import FriendsRequestScreen from "../screens/FriendsRequestScreen";
 import AcceptFriendRequestScreen from "../screens/AcceptFriendRequestScreen";
 import FriendsInvitationScreen from "../screens/FriendsInvitationScreen";
-import SearchDetail from "../components/SearchDetail/SearchDetail";
+import SearchDetailScreen from "../screens/SearchDetailScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AccAndSecScreen from "../screens/AccAndSecScreen";
 import UpdatePasswordScreen from "../screens/UpdatePasswordScreen";
+<<<<<<< HEAD
 import AddPostScreen from "../screens/AddPostScreen";
 import ImageBrowserScreen from "../screens/ImageBrowserScreen";
 //import DemoPost from "../screens/DemoPost";
 
+=======
+import SuggestFriendScreen from "../screens/SuggestFriendScreen";
+>>>>>>> 82f8f437ee8160841342cd1de9e17e45f21758a1
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -115,7 +119,7 @@ const RootNavigator = () => {
           <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
           <Stack.Screen name="ChatScreen" component={ChatScreen} />
           <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
-          <Stack.Screen name="SearchDetail" component={SearchDetail} />
+          <Stack.Screen name="SearchDetailScreen" component={SearchDetailScreen} />
           <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
           <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
@@ -124,6 +128,7 @@ const RootNavigator = () => {
           <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen} />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
           <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+<<<<<<< HEAD
           <Stack.Screen name="AddPostScreen" component={AddPostScreen} />
           {/* <Stack.Screen name="DemoPost" component={DemoPost} /> */}
           <Stack.Screen name='ImageBrowserScreen' component={ImageBrowserScreen}
@@ -132,6 +137,9 @@ const RootNavigator = () => {
             title: 'Selected 0 files',
           }}
         />
+=======
+          <Stack.Screen name="SuggestFriendScreen" component={SuggestFriendScreen} />
+>>>>>>> 82f8f437ee8160841342cd1de9e17e45f21758a1
         </Stack.Navigator>
       )}
     </NavigationContainer>

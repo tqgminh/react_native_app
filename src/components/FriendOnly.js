@@ -2,33 +2,20 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button,Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import {defaultColor} from '../../styles';
+import {defaultColor} from '../styles';
 
 
-function FriendItem(props){
+function FriendOnly(props){
 
-    const {name, imageUri,iconActivate} = props
+    const {name, imageUri} = props
     return (
 
         <View style={styles.container}>
             <View style={styles.lefContainer}>
                 <Image source={{ uri: imageUri }} style={styles.avatar} />
-                {iconActivate && <View style={styles.iconActivate}/>}
-                {!iconActivate && <View style={styles.iconInActivate}/>}
                 <View style={styles.midContainer}>
                     <Text style={styles.username}>{name}</Text>
                 </View>
-            </View>
-            <View style={styles.devices}>
-                <TouchableOpacity >
-                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='call' size={20} color={defaultColor} 
-                        />
-                </TouchableOpacity>
-
-                <TouchableOpacity >
-                    <MaterialIcons style={[styles.icon, {paddingLeft: 10}]} name='video-call' size={20} color={defaultColor} 
-                        />
-                </TouchableOpacity>
             </View>
         </View>
 
@@ -36,19 +23,18 @@ function FriendItem(props){
     )
 }
 
-export default FriendItem;
+export default FriendOnly;
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        width: "100%",
         justifyContent: "space-between",
         padding: 10,
     },
     devices:{
         flexDirection: 'row',
         alignItems:'center',
-        width:'20%',
+        width:'35%',
         justifyContent: "space-between",
         marginRight:10
     },
@@ -68,6 +54,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         left:-5
+    },
+    description:{
+        left:-5
+
     },
     status: {
         fontSize: 16,
@@ -92,6 +82,21 @@ const styles = StyleSheet.create({
         borderRadius:6,
         left:-20,
         bottom:-40,
+    },
+    middle:{
+        
+        backgroundColor: defaultColor,
+        height: 40,
+        borderRadius: 25,
+        justifyContent: 'center', 
+
+    },
+    addFriend:{
+        marginHorizontal:20,
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'white',
+        
     }
 })
 
