@@ -21,14 +21,14 @@ export default function ProfileHeader({ navigation, name }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    height: 80,
     backgroundColor: defaultColor,
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
   },
   icon: {
-    marginTop: 10,
+    marginTop: 40,
     marginHorizontal: 10,
   },
   text: {
@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "800",
     textAlign: "center",
+    marginTop: 40,
   },
 });

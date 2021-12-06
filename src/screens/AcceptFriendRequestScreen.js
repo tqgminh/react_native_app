@@ -76,7 +76,9 @@ export default function FriendsRequestScreen({ navigation }) {
           </Text>
           <Toggle style={{ marginTop: 30 }} />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("FriendsRequestScreen")}
+        >
           <Text
             style={{
               width: "95%",

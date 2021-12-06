@@ -22,7 +22,70 @@ const userinfo = [
     name: "Bui Viet Hoang",
   },
 ];
-
+const modal = [
+  {
+    id: "1",
+    icon: "visibility",
+    name: "Xem anh dai dien",
+    color: "black",
+    event: () => {
+      console.log("");
+    },
+  },
+  {
+    id: "2",
+    icon: "photo-camera",
+    name: "Chup anh moi",
+    color: "black",
+    event: () => {
+      console.log("");
+    },
+  },
+  {
+    id: "3",
+    icon: "image",
+    name: "Chon anh tu thiet bi",
+    color: "black",
+    event: () => {
+      console.log("");
+    },
+  },
+  {
+    id: "4",
+    icon: "collections",
+    name: "Chon anh dai dien co san",
+    color: "black",
+    event: () => {
+      console.log("");
+    },
+  },
+];
+const media = [
+  {
+    id: "1",
+    count: "100",
+    title: "Yeu thich nhat",
+    image: require("../assets/images/winter.jpg"),
+  },
+  {
+    id: "2",
+    count: "100",
+    title: "Yeu thich nhat",
+    image: require("../assets/images/nguoi.jpeg"),
+  },
+  {
+    id: "3",
+    count: "100",
+    title: "Yeu thich nhat",
+    image: require("../assets/images/scenary.jpeg"),
+  },
+  {
+    id: "4",
+    count: "100",
+    title: "Yeu thich nhat",
+    image: require("../assets/images/bridge.jpeg"),
+  },
+];
 export default function UserInfoScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   // console.log(userinfo[0].name);
@@ -35,22 +98,17 @@ export default function UserInfoScreen({ navigation }) {
         style={{ backgroundColor: "#fafafa" }}
       >
         <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+          style={
+            {
+              // alignItems: "center",
+              // justifyContent: "center",
+            }
+          }
         >
           <Image
             source={require("../assets/images/nguoi.jpeg")}
             style={styles.background_image}
           />
-          <TouchableOpacity>
-            <MaterialIcons
-              name="add-a-photo"
-              size={40}
-              style={styles.adding_camera}
-            />
-          </TouchableOpacity>
           <Modal
             animationType="slide"
             transparent={true}
@@ -64,39 +122,89 @@ export default function UserInfoScreen({ navigation }) {
               <View
                 style={{
                   backgroundColor: "#ffffff",
-                  marginTop: 50,
+                  marginTop: 100,
                   padding: 40,
                   borderRadius: 10,
-                  flex: 1,
+                  // flex: 1,
                 }}
               >
-                <Text style={{ fontSize: 50 }}>Hello World!</Text>
+                <FlatList
+                  style={{ width: "100%" }}
+                  data={modal}
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity onPress={item.event}>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            height: 50,
+                            marginLeft: 10,
+                          }}
+                        >
+                          <MaterialIcons
+                            style={[{ margin: 12 }]}
+                            name={item.icon}
+                            size={25}
+                            color={item.color}
+                          />
+                          <Text
+                            style={{
+                              fontSize: 20,
+                              color: item.color,
+                              margin: 10,
+                            }}
+                          >
+                            {item.name}
+                          </Text>
+                        </View>
+                        <Divider style={{ borderBottomColor: defaultColor }} />
+                      </TouchableOpacity>
+                    );
+                  }}
+                  keyExtractor={(item) => item.id}
+                />
+                <Text style={{ fontSize: 50, textAlign: "center" }}>
+                  Anh dai dien
+                </Text>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
-                  <Text style={styles.textStyle}>Hide Modal</Text>
+                  <Text style={styles.textStyle}>An cai dat</Text>
                 </Pressable>
               </View>
             </View>
           </Modal>
-          <TouchableOpacity
-            style={{}}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <Image
-              source={{
-                uri: "https://scontent.fhph1-3.fna.fbcdn.net/v/t1.6435-9/54524031_435375897022452_1255296843290509312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-Fh1ptSCHgwAX-oJCI7&_nc_ht=scontent.fhph1-3.fna&oh=782b737a7021379d0d5cc7c895f351b0&oe=619F8B7A",
-              }}
+          <View style={{ alignSelf: "center", top: -50 }}>
+            <View style={{}}>
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <Image
+                  source={{
+                    uri: "https://scontent.fhph1-3.fna.fbcdn.net/v/t1.6435-9/54524031_435375897022452_1255296843290509312_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-Fh1ptSCHgwAX-oJCI7&_nc_ht=scontent.fhph1-3.fna&oh=782b737a7021379d0d5cc7c895f351b0&oe=619F8B7A",
+                  }}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 50,
+                    overflow: "hidden",
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
               style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                top: -50,
-                // position: "absolute",
+                color: "black",
+                position: "absolute",
+                top: 20,
+                width: 20,
+                height: 20,
+                alignItems: "center",
+                justifyContent: "center",
               }}
-            />
-          </TouchableOpacity>
+            >
+              <MaterialIcons name="add-a-photo" size={20} color="#cdcdcd" />
+            </View>
+          </View>
         </View>
         <View
           style={{
@@ -107,7 +215,7 @@ export default function UserInfoScreen({ navigation }) {
           <Text
             style={{
               fontWeight: "bold",
-              // marginTop: 10,
+              marginTop: -30,
               fontSize: 20,
               // color: "white",
             }}
@@ -155,126 +263,54 @@ export default function UserInfoScreen({ navigation }) {
         </TouchableOpacity>
         <View style={{ marginTop: 32 }}>
           <ScrollView horizontal={true}>
-            <TouchableOpacity>
-              <View style={styles.mediaImageContainer}>
-                <Image
-                  source={require("../assets/images/winter.jpg")}
-                  style={styles.image}
-                  resizeMode="cover"
-                ></Image>
-                <View style={styles.mediaCount}>
-                  <Text
-                    style={[
-                      styles.text,
-                      { fontSize: 24, color: "#dfd8c8", fontWeight: "300" },
-                    ]}
+            <FlatList
+              style={{ flexDirection: "row" }}
+              numColumns={4}
+              data={media}
+              renderItem={({ item }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("PhotoAlbumScreen");
+                    }}
                   >
-                    100
-                  </Text>
-                  <Text
-                    style={[
-                      styles.text,
-                      {
-                        fontSize: 12,
-                        color: "#dfd8c8",
-                      },
-                    ]}
-                  >
-                    Yeu thich nhat
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={styles.mediaImageContainer}>
-                <Image
-                  source={require("../assets/images/sunset.jpeg")}
-                  style={styles.image}
-                  resizeMode="cover"
-                ></Image>
-                <View style={styles.mediaCount}>
-                  <Text
-                    style={[
-                      styles.text,
-                      { fontSize: 24, color: "#dfd8c8", fontWeight: "300" },
-                    ]}
-                  >
-                    5
-                  </Text>
-                  <Text
-                    style={[
-                      styles.text,
-                      {
-                        fontSize: 12,
-                        color: "#dfd8c8",
-                      },
-                    ]}
-                  >
-                    Nhieu binh luan nhat
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={styles.mediaImageContainer}>
-                <Image
-                  source={require("../assets/images/dao.jpg")}
-                  style={styles.image}
-                  resizeMode="cover"
-                ></Image>
-                <View style={styles.mediaCount}>
-                  <Text
-                    style={[
-                      styles.text,
-                      { fontSize: 24, color: "#dfd8c8", fontWeight: "300" },
-                    ]}
-                  >
-                    20
-                  </Text>
-                  <Text
-                    style={[
-                      styles.text,
-                      {
-                        fontSize: 12,
-                        color: "#dfd8c8",
-                      },
-                    ]}
-                  >
-                    Album
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={styles.mediaImageContainer}>
-                <Image
-                  source={require("../assets/images/nguoi.jpeg")}
-                  style={styles.image}
-                  resizeMode="cover"
-                ></Image>
-                <View style={styles.mediaCount}>
-                  <Text
-                    style={[
-                      styles.text,
-                      { fontSize: 24, color: "#dfd8c8", fontWeight: "300" },
-                    ]}
-                  >
-                    1
-                  </Text>
-                  <Text
-                    style={[
-                      styles.text,
-                      {
-                        fontSize: 12,
-                        color: "#dfd8c8",
-                      },
-                    ]}
-                  >
-                    Video
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
+                    <View style={styles.mediaImageContainer}>
+                      <Image
+                        source={item.image}
+                        style={styles.image}
+                        resizeMode="cover"
+                      ></Image>
+                      <View style={styles.mediaCount}>
+                        <Text
+                          style={[
+                            styles.text,
+                            {
+                              fontSize: 24,
+                              color: "#dfd8c8",
+                              fontWeight: "300",
+                            },
+                          ]}
+                        >
+                          {item.count}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.text,
+                            {
+                              fontSize: 12,
+                              color: "#dfd8c8",
+                            },
+                          ]}
+                        >
+                          {item.title}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+              keyExtractor={(item) => item.id}
+            />
           </ScrollView>
           <View
             style={{
@@ -352,21 +388,13 @@ const styles = StyleSheet.create({
   background_image: {
     width: "100%",
     height: 200,
-    position: "absolute",
-  },
-  adding_camera: {
-    position: "absolute",
-    right: 10,
-    top: -20,
-    color: "#c1c1c1",
-    // opacity: 0.2,
+    overflow: "hidden",
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    position: "absolute",
-    // top: -50,
+    // alignContent: "center",
   },
   mediaImageContainer: {
     width: 150,
