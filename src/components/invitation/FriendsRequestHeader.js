@@ -15,7 +15,7 @@ export default function FriendsRequestHeader({ navigation }) {
             color="white"
           />
         </TouchableOpacity>
-        <Text style={styles.text}>Loi moi ket ban</Text>
+        <Text style={styles.text}>Lời mời kết bạn</Text>
         <TouchableOpacity>
           <MaterialIcons
             style={[styles.icon, { marginRight: 20 }]}

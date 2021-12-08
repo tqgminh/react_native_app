@@ -43,10 +43,10 @@ export default function FriendsRequestScreen({ navigation }) {
           </View>
           <View style={{ marginLeft: 10, marginTop: 20 }}>
             <Text style={{ fontSize: 20, color: "black", fontWeight: "bold" }}>
-              Bui Viet Hoang
+              Bùi Việt Hoàng
             </Text>
             <Text style={{ color: "gray", fontSize: 14, fontWeight: "200" }}>
-              Vua ket ban
+              Vừa kết bạn
             </Text>
           </View>
         </View>
@@ -55,10 +55,10 @@ export default function FriendsRequestScreen({ navigation }) {
         <View style={{ marginTop: 10 }}>
           <View>
             <Text style={{ marginVertical: 5, color: "#1a1a1a" }}>
-              Ten goi nho:{" "}
+              Tên gợi nhớ:{" "}
             </Text>
             <TextInput
-              placeholder={"Nhap ten goi nho"}
+              placeholder={"Nhập tên gợi nhớ"}
               style={{ height: 50, borderRadius: 5, color: "#323533" }}
             ></TextInput>
           </View>
@@ -72,7 +72,7 @@ export default function FriendsRequestScreen({ navigation }) {
           }}
         >
           <Text style={{ color: "#1a1a1a" }}>
-            Chan nguoi nay xem nhat ki cua toi
+            Chặn người này xem nhật kí của tôi
           </Text>
           <Toggle style={{ marginTop: 30 }} />
         </View>

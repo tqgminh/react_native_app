@@ -31,6 +31,8 @@ import ImageBrowserScreen from "../screens/ImageBrowserScreen";
 //import DemoPost from "../screens/DemoPost";
 import SuggestFriendScreen from "../screens/SuggestFriendScreen";
 import PhotoAlbumScreen from "../screens/PhotoAlbumScreen";
+import EditProfileScreen from "../screens/EditProfileScreen";
+import ChangeInfoScreen from "../screens/ChangeInfoScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -96,51 +98,91 @@ function Home() {
   );
 }
 
-
-
 const RootNavigator = () => {
-  const { token, phone, username, isLogin } = useSelector(state => state.userReducer);
+  const { token, phone, username, isLogin } = useSelector(
+    (state) => state.userReducer
+  );
   return (
     <NavigationContainer>
       {isLogin == false ? (
-        <Stack.Navigator screenOptions={{headerShown: false, }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="RegisterNameScreen" component={RegisterNameScreen} />
-          <Stack.Screen name="RegisterPhoneScreen" component={RegisterPhoneScreen} />
-          <Stack.Screen name="RegisterPasswordScreen" component={RegisterPasswordScreen} />
+          <Stack.Screen
+            name="RegisterNameScreen"
+            component={RegisterNameScreen}
+          />
+          <Stack.Screen
+            name="RegisterPhoneScreen"
+            component={RegisterPhoneScreen}
+          />
+          <Stack.Screen
+            name="RegisterPasswordScreen"
+            component={RegisterPasswordScreen}
+          />
         </Stack.Navigator>
       ) : (
-        <Stack.Navigator screenOptions={{headerShown: false, }}>
-          <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          // initialRouteName="ChangeInfoScreen"
+        >
+          <Stack.Screen
+            name="HomeScreen"
+            component={Home}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
           <Stack.Screen name="ChatScreen" component={ChatScreen} />
           <Stack.Screen name="OptionsScreen" component={OptionsScreen} />
-          <Stack.Screen name="SearchDetailScreen" component={SearchDetailScreen} />
+          <Stack.Screen
+            name="SearchDetailScreen"
+            component={SearchDetailScreen}
+          />
           <Stack.Screen name="UserInfoScreen" component={UserInfoScreen} />
           <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="AccAndSecScreen" component={AccAndSecScreen} />
-          <Stack.Screen name="FriendsRequestScreen" component={FriendsRequestScreen} />
-          <Stack.Screen name="AcceptFriendRequestScreen" component={AcceptFriendRequestScreen} />
-          <Stack.Screen name="FriendsInvitationScreen" component={FriendsInvitationScreen} />
+          <Stack.Screen
+            name="FriendsRequestScreen"
+            component={FriendsRequestScreen}
+          />
+          <Stack.Screen
+            name="AcceptFriendRequestScreen"
+            component={AcceptFriendRequestScreen}
+          />
+          <Stack.Screen
+            name="FriendsInvitationScreen"
+            component={FriendsInvitationScreen}
+          />
           <Stack.Screen name="SearchScreen" component={SearchScreen} />
-          <Stack.Screen name="UpdatePasswordScreen" component={UpdatePasswordScreen} />
+          <Stack.Screen
+            name="UpdatePasswordScreen"
+            component={UpdatePasswordScreen}
+          />
           <Stack.Screen name="AddPostScreen" component={AddPostScreen} />
           {/* <Stack.Screen name="DemoPost" component={DemoPost} /> */}
-          <Stack.Screen name='ImageBrowserScreen' component={ImageBrowserScreen}
-          options={{
-            headerShown: true,
-            title: 'Selected 0 files',
-          }}
-        />
-          <Stack.Screen name="SuggestFriendScreen" component={SuggestFriendScreen} />
+          <Stack.Screen
+            name="ImageBrowserScreen"
+            component={ImageBrowserScreen}
+            options={{
+              headerShown: true,
+              title: "Selected 0 files",
+            }}
+          />
+          <Stack.Screen
+            name="SuggestFriendScreen"
+            component={SuggestFriendScreen}
+          />
           <Stack.Screen name="PhotoAlbumScreen" component={PhotoAlbumScreen} />
+          <Stack.Screen
+            name="EditProfileScreen"
+            component={EditProfileScreen}
+          />
+          <Stack.Screen name="ChangeInfoScreen" component={ChangeInfoScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
-  )
+  );
 };
-
 
 /* return (
   <NavigationContainer>

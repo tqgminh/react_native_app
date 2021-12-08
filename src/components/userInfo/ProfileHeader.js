@@ -4,9 +4,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { defaultColor } from "../../styles";
 
 export default function ProfileHeader({ navigation, name }) {
+  const goBack = () => {
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("UserInfoScreen")}>
+      <TouchableOpacity onPress={() => goBack()}>
         <MaterialIcons
           style={[styles.icon, { marginLeft: 20 }]}
           name="arrow-back"

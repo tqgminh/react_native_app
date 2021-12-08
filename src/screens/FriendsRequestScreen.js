@@ -43,10 +43,10 @@ export default function FriendsRequestScreen({ navigation }) {
               <Text
                 style={{ fontSize: 20, color: "black", fontWeight: "bold" }}
               >
-                Bui Viet Hoang
+                Bùi Việt Hoàng
               </Text>
               <Text style={{ color: "gray", fontSize: 14, fontWeight: "200" }}>
-                Tu so dien thoai
+                Từ số điện thoại
               </Text>
             </View>
           </View>
@@ -65,7 +65,7 @@ export default function FriendsRequestScreen({ navigation }) {
                     navigation.navigate("AcceptFriendRequestScreen")
                   }
                 >
-                  DONG Y
+                  ĐỒNG Ý
                 </Text>
               </TouchableOpacity>
               <MaterialIcons name={"close"} size={25} color="gray" />
@@ -73,7 +73,9 @@ export default function FriendsRequestScreen({ navigation }) {
           </View>
         </View>
         <View style={{ backgroundColor: "white", marginBottom: 20 }}>
-          <Text style={styles.text}>Hi, Im Hoang, be my friend</Text>
+          <Text style={styles.text}>
+            Xin chào. Tôi là Hoàng, kết bạn với tôi nhé!
+          </Text>
         </View>
       </View>
     </View>

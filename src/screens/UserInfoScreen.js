@@ -19,14 +19,14 @@ import { defaultColor } from "../styles";
 const userinfo = [
   {
     id: "1",
-    name: "Bui Viet Hoang",
+    name: "Bùi Việt Hoàng",
   },
 ];
 const modal = [
   {
     id: "1",
     icon: "visibility",
-    name: "Xem anh dai dien",
+    name: "Xem ảnh đại diện",
     color: "black",
     event: () => {
       console.log("");
@@ -35,7 +35,7 @@ const modal = [
   {
     id: "2",
     icon: "photo-camera",
-    name: "Chup anh moi",
+    name: "Chụp ảnh mới",
     color: "black",
     event: () => {
       console.log("");
@@ -44,7 +44,7 @@ const modal = [
   {
     id: "3",
     icon: "image",
-    name: "Chon anh tu thiet bi",
+    name: "Chọn ảnh từ thiết bị",
     color: "black",
     event: () => {
       console.log("");
@@ -53,7 +53,7 @@ const modal = [
   {
     id: "4",
     icon: "collections",
-    name: "Chon anh dai dien co san",
+    name: "Chọn ảnh đại diện có sẵn",
     color: "black",
     event: () => {
       console.log("");
@@ -64,25 +64,25 @@ const media = [
   {
     id: "1",
     count: "100",
-    title: "Yeu thich nhat",
+    title: "Yêu thích nhất",
     image: require("../assets/images/winter.jpg"),
   },
   {
     id: "2",
     count: "100",
-    title: "Yeu thich nhat",
+    title: "Xem nhiều nhất",
     image: require("../assets/images/nguoi.jpeg"),
   },
   {
     id: "3",
     count: "100",
-    title: "Yeu thich nhat",
+    title: "Album",
     image: require("../assets/images/scenary.jpeg"),
   },
   {
     id: "4",
     count: "100",
-    title: "Yeu thich nhat",
+    title: "Video",
     image: require("../assets/images/bridge.jpeg"),
   },
 ];
@@ -164,13 +164,13 @@ export default function UserInfoScreen({ navigation }) {
                   keyExtractor={(item) => item.id}
                 />
                 <Text style={{ fontSize: 50, textAlign: "center" }}>
-                  Anh dai dien
+                  Ảnh đại diện
                 </Text>
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
-                  <Text style={styles.textStyle}>An cai dat</Text>
+                  <Text style={styles.textStyle}>Ẩn cài đặt</Text>
                 </Pressable>
               </View>
             </View>
@@ -220,7 +220,7 @@ export default function UserInfoScreen({ navigation }) {
               // color: "white",
             }}
           >
-            Bui Viet Hoang
+            Bùi Việt Hoàng
           </Text>
           <Text style={{ color: "#aeb5bc" }}>Nothing so special</Text>
         </View>
@@ -257,7 +257,7 @@ export default function UserInfoScreen({ navigation }) {
                 fontSize: 20,
               }}
             >
-              Them bai viet
+              Thêm bài viết
             </Text>
           </View>
         </TouchableOpacity>
@@ -342,8 +342,8 @@ export default function UserInfoScreen({ navigation }) {
                 <Text
                   style={{ textAlign: "left", marginTop: 20, width: "50%" }}
                 >
-                  Nhat ma dut tui: Tham lam! Nhat ma tra lai: Ngu dot! Con cai
-                  nit
+                  Nhặt mà đút túi: Tham lam! Nhặt mà trả lại: Ngu dốt! Còn cái
+                  nịt
                 </Text>
                 <View
                   style={{

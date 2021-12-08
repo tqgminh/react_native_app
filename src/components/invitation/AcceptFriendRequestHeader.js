@@ -17,7 +17,7 @@ export default function FriendsRequestHeader({ navigation }) {
             color="white"
           />
         </TouchableOpacity>
-        <Text style={styles.text}>Tuy chon ket ban</Text>
+        <Text style={styles.text}>Tùy chọn kết bạn</Text>
       </View>
     </View>
   );
