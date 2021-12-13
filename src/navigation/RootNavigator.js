@@ -31,6 +31,7 @@ import ImageBrowserScreen from "../screens/ImageBrowserScreen";
 //import DemoPost from "../screens/DemoPost";
 import SuggestFriendScreen from "../screens/SuggestFriendScreen";
 import PhotoAlbumScreen from "../screens/PhotoAlbumScreen";
+import CommentScreen from "../screens/CommentScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -135,6 +136,7 @@ const RootNavigator = () => {
         />
           <Stack.Screen name="SuggestFriendScreen" component={SuggestFriendScreen} />
           <Stack.Screen name="PhotoAlbumScreen" component={PhotoAlbumScreen} />
+          <Stack.Screen name="CommentScreen" component={CommentScreen} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

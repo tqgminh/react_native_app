@@ -8,6 +8,7 @@ import axios from 'axios';
 import { API_URL } from '../api/config';
 import * as FileSystem from 'expo-file-system';
 import { convertBase64 } from '../helpers/Utils'; 
+import { showMessage } from 'react-native-flash-message';
 
 export default function AddPostScreen({ navigation, route }) {
     const { token, phone, username, isLogin } = useSelector(state => state.userReducer);
@@ -36,14 +37,31 @@ export default function AddPostScreen({ navigation, route }) {
             images: base64Imgs,
         };
 
+        showMessage({
+            title: 'Posting!',
+            message: 'Đang đăng bài viết của bạn!',
+            type: 'success',
+            backgroundColor: "darkgray",
+          });
+        navigation.navigate("TimelineScreen");
+
         axios.post(
             API_URL + '/posts/create', bodyParameters, config
         )
             .then((response) => {
-                //alert(JSON.stringify(response.data));
+                showMessage({
+                    title: 'Post success',
+                    message: 'Đăng bài thành công!',
+                    type: 'success',
+                  });
+                
             })
             .catch(function (error) {
-                //alert(error);
+                showMessage({
+                    title: 'post fail!',
+                    message: 'Đăng bài thất bại!',
+                    type: 'fail',
+                  });
             });
     }
 

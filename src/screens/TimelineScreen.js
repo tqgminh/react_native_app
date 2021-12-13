@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Dimensions, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import Search from '../components/Search';
-import { useSelector } from 'react-redux';
 import { FILE_URL } from '../api/config';
 import { Ionicons, FontAwesome, Entypo, FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { getList } from '../api/PostAPI';
+import { getList, likeAPI } from '../api/PostAPI';
 import { showMessage } from 'react-native-flash-message';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function TimelineScreen({ navigation }) {
   const { token, phone, username, isLogin, avatar } = useSelector(state => state.userReducer);
   const [listPosts, setListPosts] = useState([]);
+  //var listPosts = [];
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     getList(token)
@@ -28,115 +31,145 @@ export default function TimelineScreen({ navigation }) {
     //return () => mounted = false;
   }, []);
 
-  const likePress = () => {
+  const likePress = async (id) => {
+    // gọi api
+    let list = [...listPosts];
+    for (let i = 0; i < list.length; i++) {
+      if (list[i]._id == id) {
+        likeAPI({ token, id }).then(res => {
+          list[i].isLike = !list[i].isLike;
+          list[i].like = res.data.data.like;
+        }).catch(err => { });
+      }
+      setListPosts(list);
+    }
+  }
+
+  /* const likePress = (id) => {
+    // gọi api
+    let list = [...listPosts];
+    for(let i=0; i < list.length; i++){
+      if(list[i]._id==id){
+        list[i].isLike=!list[i].isLike;
+        if(list[i].isLike) list[i].like.push("Me");
+        if(!list[i].isLike) list[i].like.pop();
+      }
+      setListPosts(list);
+    }
+  } */
+
+  const cmtPress = (item) => {
+    navigation.navigate('CommentScreen', {
+      item: item,
+    });
 
   }
 
-  const renderDemo = ({item}) =>{
+  const renderDemo = ({ item }) => {
     return (<View><Text>{item.described}</Text></View>);
   }
 
 
-  const RenderImg = ({photos}) => {
+  const RenderImg = ({ photos }) => {
     let count = photos.length;
 
     if (count == 1) {
-        return (
-            <View style={{ justifyContent: 'center', alignContent: 'center', padding: 20 }}>
-                <Image style={styles.image}
-                    source={{ uri: FILE_URL + photos[0].fileName }}
-                    key={count}>
-                </Image>
-            </View>
-        );
+      return (
+        <View style={{ justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+          <Image style={styles.image}
+            source={{ uri: FILE_URL + photos[0].fileName }}
+            key={count}>
+          </Image>
+        </View>
+      );
     } if (count == 2) {
-        return (
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
-                <View style={{ width: '50%' }}>
-                    <Image style={styles.image}
-                        source={{ uri: FILE_URL + photos[0].fileName }}
-                        key={1}>
-                    </Image>
-                </View>
-                <View style={{ width: '50%' }}>
-                    <Image style={styles.image}
-                        source={{ uri: FILE_URL + photos[1].fileName }}
-                        key={2}>
-                    </Image>
-                </View>
-            </View>
-        );
+      return (
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+          <View style={{ width: '50%' }}>
+            <Image style={styles.image}
+              source={{ uri: FILE_URL + photos[0].fileName }}
+              key={1}>
+            </Image>
+          </View>
+          <View style={{ width: '50%' }}>
+            <Image style={styles.image}
+              source={{ uri: FILE_URL + photos[1].fileName }}
+              key={2}>
+            </Image>
+          </View>
+        </View>
+      );
     }
     if (count == 3) {
-        return (
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
-                <View style={{ width: '50%' }}>
-                    <Image style={styles.image}
-                        source={{ uri: FILE_URL + photos[0].fileName }}
-                        key={1}>
-                    </Image>
-                </View>
-                <View style={{ width: '50%' }}>
-                    <View style={{ width: '100%' }}>
-                        <Image style={styles.image2}
-                            source={{ uri: FILE_URL + photos[1].fileName }}
-                            key={2}>
-                        </Image>
-                    </View>
-                    <View style={{ width: '100%' }}>
-                        <Image style={styles.image2}
-                            source={{ uri: FILE_URL + photos[2].fileName }}
-                            key={3}>
-                        </Image>
-                    </View>
-
-                </View>
+      return (
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+          <View style={{ width: '50%' }}>
+            <Image style={styles.image}
+              source={{ uri: FILE_URL + photos[0].fileName }}
+              key={1}>
+            </Image>
+          </View>
+          <View style={{ width: '50%' }}>
+            <View style={{ width: '100%' }}>
+              <Image style={styles.image2}
+                source={{ uri: FILE_URL + photos[1].fileName }}
+                key={2}>
+              </Image>
             </View>
-        );
+            <View style={{ width: '100%' }}>
+              <Image style={styles.image2}
+                source={{ uri: FILE_URL + photos[2].fileName }}
+                key={3}>
+              </Image>
+            </View>
+
+          </View>
+        </View>
+      );
     }
     if (count == 4) {
-        return (
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
-                <View style={{ width: '50%' }}>
-                    <View style={{ width: '100%' }}>
-                        <Image style={styles.image2}
-                            source={{ uri: FILE_URL + photos[0].fileName }}
-                            key={1}>
-                        </Image>
-                    </View>
-                    <View style={{ width: '100%' }}>
-                        <Image style={styles.image2}
-                            source={{ uri: FILE_URL + photos[1].fileName }}
-                            key={2}>
-                        </Image>
-                    </View>
-
-                </View>
-                <View style={{ width: '50%' }}>
-                    <View style={{ width: '100%' }}>
-                        <Image style={styles.image2}
-                            source={{ uri: FILE_URL + photos[2].fileName }}
-                            key={3}>
-                        </Image>
-                    </View>
-                    <View style={{ width: '100%' }}>
-                        <Image style={styles.image2}
-                            source={{ uri: FILE_URL + photos[3].fileName }}
-                            key={4}>
-                        </Image>
-                    </View>
-
-                </View>
+      return (
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', padding: 20 }}>
+          <View style={{ width: '50%' }}>
+            <View style={{ width: '100%' }}>
+              <Image style={styles.image2}
+                source={{ uri: FILE_URL + photos[0].fileName }}
+                key={1}>
+              </Image>
             </View>
-        );
+            <View style={{ width: '100%' }}>
+              <Image style={styles.image2}
+                source={{ uri: FILE_URL + photos[1].fileName }}
+                key={2}>
+              </Image>
+            </View>
+
+          </View>
+          <View style={{ width: '50%' }}>
+            <View style={{ width: '100%' }}>
+              <Image style={styles.image2}
+                source={{ uri: FILE_URL + photos[2].fileName }}
+                key={3}>
+              </Image>
+            </View>
+            <View style={{ width: '100%' }}>
+              <Image style={styles.image2}
+                source={{ uri: FILE_URL + photos[3].fileName }}
+                key={4}>
+              </Image>
+            </View>
+
+          </View>
+        </View>
+      );
     }
     else {
-        return (<View></View>);
+      return (<View></View>);
     }
-}
+  }
 
-  const renderPosts = ({item}) => {
-    <View style={{ borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)', padding: 15 }}>
+  const renderPosts = ({ item }) => {
+    return (<View style={{ borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)', padding: 15 }}>
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <View style={{ width: '20%' }}>
           <Image
@@ -164,23 +197,31 @@ export default function TimelineScreen({ navigation }) {
           <Text style={{ fontSize: 20 }}>{item.described}</Text>
         </View>
 
-        {/* <View>
-          <RenderImg photos={item.images}/>
-        </View> */}
+        <View>
+          <RenderImg photos={item.images} />
+        </View>
       </View>
 
       <View style={{ flexDirection: 'row', fontSize: 20 }}>
         <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }}>
-          <AntDesign name="heart" size={24} color="red" />
+          <TouchableOpacity onPress={() => likePress(item._id)}>
+            {(item.isLike == true) && <AntDesign name="heart" size={24} color="red" />}
+            {(item.isLike == false) && <AntDesign name="heart" size={24} color="#dcdcdc" />}
+          </TouchableOpacity>
+
           <Text style={{ marginLeft: 10, fontSize: 20 }}>{item.like.length}</Text>
         </View>
+
         <View style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }}>
-          <FontAwesome5 name="comment-dots" size={24} color="black" />
-          <Text style={{ marginLeft: 10, fontSize: 20 }}>{item.countComments}</Text>
+          <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center' }} onPress={() => cmtPress(item)}>
+            <FontAwesome5 name="comment-dots" size={24} color="black" />
+            <Text style={{ marginLeft: 10, fontSize: 20 }}>{item.countComments}</Text>
+          </TouchableOpacity>
         </View>
+
       </View>
 
-    </View>
+    </View>);
   }
 
   return (
@@ -197,7 +238,7 @@ export default function TimelineScreen({ navigation }) {
               marginLeft: 5,
             }}
           />
-          <TouchableOpacity style={{ width: '80%', paddingLeft: 10 }}>
+          <TouchableOpacity style={{ width: '80%', paddingLeft: 10 }} onPress={() => { navigation.navigate('AddPostScreen') }}>
             <Text style={{ fontSize: 17, color: 'rgb(100,100,100)' }}>Hôm nay bạn thế nào?</Text>
           </TouchableOpacity>
         </View>
@@ -217,15 +258,22 @@ export default function TimelineScreen({ navigation }) {
         </View>
       </View>
 
-      <SafeAreaView style={styles.container}>
-        <FlatList
+      <SafeAreaView>
+
+        <FlatList nestedScrollEnabled
+          style={{ height: "100%" }}
+          LisHeaderComponent={
+            <>
+            </>}
+          extraData={listPosts}
           data={listPosts}
-          renderItem={renderDemo}
+          renderItem={renderPosts}
           keyExtractor={item => item._id}
-        />
+          ListFooterComponent={ <>
+            </>} />
       </SafeAreaView>
 
-      <View style={{ borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)', padding: 15 }}>
+      {/* <View style={{ borderBottomWidth: 7, borderBottomColor: 'rgb(230,230,230)', padding: 15 }}>
         <View style={{ flexDirection: 'row', marginTop: 10 }}>
           <View style={{ width: '20%' }}>
             <Image
@@ -279,7 +327,7 @@ export default function TimelineScreen({ navigation }) {
           </View>
         </View>
 
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -311,9 +359,9 @@ const styles = StyleSheet.create({
     borderColor: "rgb(200,200,200)",
     borderRadius: 10,
     overflow: "hidden",
-},
+  },
 
-image2: {
+  image2: {
     flex: 1,
     width: '100%',
     height: 200,
@@ -322,5 +370,5 @@ image2: {
     borderColor: "rgb(200,200,200)",
     borderRadius: 10,
     overflow: "hidden",
-},
+  },
 });
