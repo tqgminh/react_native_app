@@ -3,18 +3,23 @@ import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Button,Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import {defaultColor} from '../../styles';
+import { FILE_URL } from "../../api/config";
 
 
-function FriendItem(props){
+function FriendItem({item}){
 
-    const {name, imageUri,iconActivate} = props
+    //const {name, imageUri,iconActivate} = props
+    let name = item.username;
+    let iconActivate = true;
+    let imageUri = FILE_URL + item.avatar.fileName;
+
     return (
 
         <View style={styles.container}>
             <View style={styles.lefContainer}>
                 <Image source={{ uri: imageUri }} style={styles.avatar} />
                 {iconActivate && <View style={styles.iconActivate}/>}
-                {!iconActivate && <View style={styles.iconInActivate}/>}
+                {/* {!iconActivate && <View style={styles.iconInActivate}/>} */}
                 <View style={styles.midContainer}>
                     <Text style={styles.username}>{name}</Text>
                 </View>

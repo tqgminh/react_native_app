@@ -7,11 +7,13 @@ import { AntDesign } from '@expo/vector-icons';
 import { API_URL } from '../api/config';
 import { defaultColor } from '../styles';
 import axios from 'axios';
-
 import { phoneValidator } from '../helpers/phoneValidator';
+import Spinner from 'react-native-loading-spinner-overlay';
+
 
 export default function RegisterPhoneScreen({ navigation, route }) {
     const name = route.params.name;
+    const [spinner, setSpinner] = useState(false);
     const [phone, setPhone] = useState({ value: '', error: '' });
 
     const onLoginPressed = () => {
@@ -24,14 +26,16 @@ export default function RegisterPhoneScreen({ navigation, route }) {
     };
 
     const postToLoginAPI = (navigation) => {
+        setSpinner(true);
         axios
             .post(API_URL + '/users/register', {
                 phonenumber: phone.value,
             })
             .then(function (response) {
-                //
+                setSpinner(false);
             })
             .catch(function (error) {
+                setSpinner(false);
                 // handle error
                 //alert(JSON.stringify(error.response.data));
                 if (JSON.stringify(error.response.data) == '{"message":"Phone number already exists"}')
@@ -49,7 +53,12 @@ export default function RegisterPhoneScreen({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <TitleBar navigation={navigation} data={{text: 'Tạo tài khoản'}} />
+            <Spinner
+                visible={spinner}
+                textContent={'Loading...'}
+                textStyle={styles.spinnerTextStyle}
+            />
+            <TitleBar navigation={navigation} data={{ text: 'Tạo tài khoản' }} />
 
             <NotifiBar text='Nhập số điện thoại của bạn để tạo tài khoản mới.' />
 
@@ -108,5 +117,8 @@ const styles = StyleSheet.create({
     btn: {
         width: 50,
         height: 50
-    }
+    },
+    spinnerTextStyle: {
+        color: '#FFF'
+      },
 });

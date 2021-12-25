@@ -1,8 +1,11 @@
-import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN, SET_ID, SET_AVATAR, SET_COVER_IMAGE } from "../actions/types";
+import { POST_LOGIN, SET_TOKEN, SET_PHONE, SET_USERNAME, SET_LOGIN, SET_ID, SET_AVATAR,
+   SET_COVER_IMAGE, SET_GENDER, SET_BIRTHDAY, SET_LIST_POST, SET_LIST_CHAT, SET_LIST_PROFILE_CHAT } from "../actions/types";
 
 const initialState = {
   isLogin: false,
   phone: '',
+  gender: "secret",
+  birthday: "01/01/2000",
   username: '',
   token: '',
   id: '',
@@ -15,7 +18,10 @@ const initialState = {
     type: '',
     _id: '',
     fileName: ''
-  }
+  },
+  listPosts: [],
+  listChats: [],
+  listProfileChats: [],
 };
 
 
@@ -37,6 +43,16 @@ function userReducer(state = initialState, action) {
       return { ...state, avatar: action.payload };
     case SET_COVER_IMAGE:
       return { ...state, coverImage: action.payload };
+      case SET_GENDER:
+      return { ...state, gender: action.payload };
+      case SET_BIRTHDAY:
+      return { ...state, birthday: action.payload };
+      case SET_LIST_POST:
+      return { ...state, listPosts: action.payload };
+      case SET_LIST_CHAT:
+      return { ...state, listChats: action.payload };
+      case SET_LIST_PROFILE_CHAT:
+      return { ...state, listProfileChats: action.payload };
     /* case REMOVE_FROM_BOOKMARK_LIST:
       return {
         ...state,

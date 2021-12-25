@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { FILE_URL } from "../api/config";
 
 
-export default function UserInfoScreen({ navigation }) {
+export default function OtherUserInfoScreen({ navigation }) {
 
   const ImagePress = () =>{
     

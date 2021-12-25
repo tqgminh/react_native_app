@@ -11,8 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { showMessage } from 'react-native-flash-message';
 import { setToken } from '../redux/actions/userAction';
-
-
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function UpdatePasswordScreen({ navigation }) {
     const dispatch = useDispatch();
@@ -26,8 +25,9 @@ export default function UpdatePasswordScreen({ navigation }) {
     const [err3, setErr3] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
     const [nameHidePassword, setNameHidePassword] = useState('eye');
+    const [spinner, setSpinner] = useState(false);
 
-    const PressUpdatePassword=()=>{
+    const PressUpdatePassword = () => {
         /* showMessage({
             title: 'Login success!',
             message: 'Will show this message green',
@@ -44,7 +44,7 @@ export default function UpdatePasswordScreen({ navigation }) {
             setErr2(newPasswordError);
             return;
         }
-        if(newPassword==currentPassword){
+        if (newPassword == currentPassword) {
             setErr2("Mật khẩu không thay đổi!");
             return;
         }
@@ -58,40 +58,44 @@ export default function UpdatePasswordScreen({ navigation }) {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
-        
+
         const bodyParameters = {
             currentPassword: currentPassword,
             newPassword: newPassword
         };
 
-          axios.post( 
-            API_URL+ '/users/change-password', bodyParameters, config
-            )
-            .then( ( response ) => {
+        setSpinner(true);
+        axios.post(
+            API_URL + '/users/change-password', bodyParameters, config
+        )
+            .then((response) => {
+                setSpinner(false);
                 addToken(response.data.token);
                 showMessage({
                     title: 'Update password success!',
                     message: 'Cập nhật mật khẩu thành công!',
                     type: 'success',
-                  });
+                    position: 'center'
+                });
                 navigation.navigate("AccAndSecScreen");
-            } )
+            })
             .catch(function (error) {
-                if(error.response.data.code=="CURRENT_PASSWORD_INCORRECT"){
+                setSpinner(false);
+                if (error.response.data.code == "CURRENT_PASSWORD_INCORRECT") {
                     setErr1("Mật khẩu hiện tại không đúng!");
                     showMessage({
                         title: 'Update password fail!',
                         message: 'Mật khẩu hiện tại không đúng!',
                         type: 'danger',
-                      });
-                      return;
+                    });
+                    return;
                 }
                 showMessage({
                     title: 'Update password fail!',
                     message: 'Có lỗi xảy ra vui lòng thử lại!',
                     type: 'danger',
-                  });
-              });
+                });
+            });
     }
 
     const showHidePassword = () => {
@@ -114,6 +118,13 @@ export default function UpdatePasswordScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+            <Spinner
+                visible={spinner}
+                textContent={'Loading...'}
+                textStyle={styles.spinnerTextStyle}
+            />
+
+
             <TitleBar navigation={navigation} data={{ text: 'Cập nhật mật khẩu' }} />
             <NotifiBar text='Mật khẩu từ 6 đến 10 ký tự.' />
 
@@ -159,11 +170,11 @@ export default function UpdatePasswordScreen({ navigation }) {
             </View>
             <Text style={styles.text_err}>{err3}</Text>
 
-            <View style={{marginLeft: 100, marginRight: 100}}>
-            <TouchableOpacity onPress={PressUpdatePassword}
-                style={styles.btn}>
-                <Text style={styles.title_btn}>CẬP NHẬT</Text>
-            </TouchableOpacity>
+            <View style={{ marginLeft: 100, marginRight: 100 }}>
+                <TouchableOpacity onPress={PressUpdatePassword}
+                    style={styles.btn}>
+                    <Text style={styles.title_btn}>CẬP NHẬT</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -203,13 +214,16 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderWidth: 1,
         borderColor: '#fff',
-      },
-      title_btn: {
+    },
+    title_btn: {
         color: 'white',
         fontSize: 17,
         //marginRight: 60,
-       // marginLeft: 60,
+        // marginLeft: 60,
         textAlign: 'center',
+    },
+    spinnerTextStyle: {
+        color: '#FFF'
       },
-    
+
 });

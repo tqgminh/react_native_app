@@ -2,11 +2,16 @@ import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { defaultColor } from "../../styles";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function ProfileHeader({ navigation, name }) {
+export default function ProfileHeader({ navigation}) {
+  const { token, phone, username, isLogin, avatar, coverImage } = useSelector(state => state.userReducer);
+  const goBack = () => {
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate("UserInfoScreen")}>
+      <TouchableOpacity onPress={() => goBack()}>
         <MaterialIcons
           style={[styles.icon, { marginLeft: 20 }]}
           name="arrow-back"
@@ -14,7 +19,7 @@ export default function ProfileHeader({ navigation, name }) {
           color="white"
         />
       </TouchableOpacity>
-      <Text style={styles.text}>{name}</Text>
+      <Text style={styles.text}>{username}</Text>
     </View>
   );
 }

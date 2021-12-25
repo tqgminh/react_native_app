@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import Search from "../components/Search";
 import RequestFriend from "../components/Contact/RequestFriend";
 import ActiveFriend from "../components/Contact/ActiveFriend";
@@ -10,12 +10,12 @@ export default function ContactsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Search type={1} navigation={navigation} />
-      <ScrollView>
+      <SafeAreaView>
         <RequestFriend navigation={navigation} />
         <SuggestFriend navigation={navigation}/>
         <ActiveFriend navigation={navigation} />
         <UpdateFriend />
-      </ScrollView>
+      </SafeAreaView>
     </View>
   );
 }

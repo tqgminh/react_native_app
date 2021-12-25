@@ -10,12 +10,14 @@ import NotifiBar from '../components/NotifiBar';
 import { API_URL } from '../api/config';
 import { setToken, setNumberPhone, setUsername, setLogin, login } from '../redux/actions/userAction';
 import { useSelector, useDispatch } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 export default function LoginScreen({ navigation }) {
   //const { phone } = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
 
+  const [spinner, setSpinner] = useState(false);
   const [phone, setPhone] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
   const [err, setErr] = useState('');
@@ -33,7 +35,9 @@ export default function LoginScreen({ navigation }) {
 
     const data= {phone: phone.value, password: password.value}
 
+    setSpinner(true);
     const rs = await login(data, dispatch);
+    setSpinner(false);
     if(rs.success){
       return;
     }else{
@@ -64,6 +68,11 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Spinner
+        visible={spinner}
+        textContent={'Loading...'}
+        textStyle={styles.spinnerTextStyle}
+      />
       <TitleBar navigation={navigation} data={{text: 'Đăng nhập'}} />
 
       <NotifiBar text='Vui lòng nhập số điện thoại và mật khẩu để đăng nhập' />
@@ -147,5 +156,8 @@ const styles = StyleSheet.create({
   btn_login: {
     width: 50,
     height: 50
-  }
+  },
+  spinnerTextStyle: {
+    color: '#FFF'
+  },
 });

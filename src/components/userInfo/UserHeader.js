@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { defaultColor } from "../../styles";
 
-export default function UserHeader({ navigation, name }) {
+export default function UserHeader({ navigation}) {
   const goBack = () => {
     navigation.goBack();
   };
@@ -19,7 +19,7 @@ export default function UserHeader({ navigation, name }) {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("ProfileScreen", { name: name })}
+        onPress={() => navigation.navigate("ProfileScreen")}
       >
         <MaterialIcons
           style={[styles.icon, { marginRight: 20 }]}

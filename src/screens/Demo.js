@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import TitleBar from '../components/TitleBar';
 import { defaultColor } from '../styles';
@@ -6,19 +6,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { API_URL } from '../api/config';
 import { setToken, setLogin } from '../redux/actions/userAction';
 import ApiService from '../api/APIService';
-import Spinner from 'react-native-loading-spinner-overlay';
-import { setListP } from '../redux/actions/postAction';
-import { setListProfileChatState } from '../redux/actions/chatAction';
 
 export default function AccAndSecScreen({ navigation }) {
-    const [spinner, setSpinner] = useState(false);
 
-    const { token, isLogin } = useSelector(state => state.userReducer);
+    const { token, isLogin, username } = useSelector(state => state.userReducer);
 
     const dispatch = useDispatch();
     const deleteToken = new_token => dispatch(setToken(new_token));
     const deleteLogin = isLogin => dispatch(setLogin(isLogin));
-    const deleteListPost = listPost => dispatch(setListP([]));
 
 
     const LogoutPress = () => {
@@ -26,9 +21,6 @@ export default function AccAndSecScreen({ navigation }) {
     };
 
     const LogoutAPI = (navigation) => {
-        setSpinner(true);
-        deleteListPost([]);
-        dispatch(setListProfileChatState([]));
         ApiService
             .post(API_URL + '/users/logout', {
                 token: token,
@@ -37,7 +29,6 @@ export default function AccAndSecScreen({ navigation }) {
                 // handle success
                 deleteToken('');
                 deleteLogin(false);
-                setSpinner(false);
                 /* navigation.reset({
                     index: 0,
                     routes: [{ name: 'StartScreen' }],
@@ -48,7 +39,6 @@ export default function AccAndSecScreen({ navigation }) {
                 // do chưa có api logout để tạm như này
                 deleteToken('');
                 deleteLogin(false);
-                setSpinner(false);
                 /* navigation.reset({
                     index: 0,
                     routes: [{ name: 'StartScreen' }],
@@ -60,12 +50,12 @@ export default function AccAndSecScreen({ navigation }) {
     };
 
 
-    const ChangePhonePress = () => {
+    const DefautPress = () => {
         //navigation.navigate(screen);
     }
 
-    const ChangePasswordPress = () => {
-        navigation.navigate("UpdatePasswordScreen");
+    const InfoPress = () => {
+        navigation.navigate("EditProfileScreen");
     }
 
 
@@ -79,20 +69,19 @@ export default function AccAndSecScreen({ navigation }) {
     };
     return (
         <View style={styles.container}>
-            <Spinner
-                visible={spinner}
-                textContent={'Loading...'}
-                textStyle={styles.spinnerTextStyle}
-            />
-
-            <TitleBar navigation={navigation} data={{ text: 'Tài khoản và bảo mật' }} />
+            <TitleBar navigation={navigation} data={{ text: username }} />
             <View>
                 <Text style={{ backgroundColor: "#fff", color: defaultColor, fontSize: 18, padding: 10 }}>Tài Khoản</Text>
-                <BlockComponent data={{ text: "Đổi số điện thoại", funcPress: ChangePhonePress }} />
+                <BlockComponent data={{ text: "Thông tin", funcPress: InfoPress }} />
             </View>
-            <BlockComponent data={{ text: "Đổi mật khẩu", funcPress: ChangePasswordPress }} />
-            <View style={{ paddingTop: 7 }}>
-                <BlockComponent data={{ text: "Đăng xuất", funcPress: LogoutPress }} />
+            <BlockComponent data={{ text: "Cập nhật giới thiệu bản thân", funcPress: DefautPress }} />
+            <BlockComponent data={{ text: "Ví của tôi", funcPress: DefautPress }} />
+            <View style={{ paddingTop: 15 }}>
+                <Text style={{ backgroundColor: "#fff", color: defaultColor, fontSize: 18, padding: 10 }}>Cài đặt</Text>
+                <BlockComponent data={{ text: "Mã QR của tôi", funcPress: DefautPress }} />
+                <BlockComponent data={{ text: "Quyền riêng tư", funcPress: DefautPress }} />
+                <BlockComponent data={{ text: "Quản lý tài khoản", funcPress: DefautPress }} />
+                <BlockComponent data={{ text: "Cài đặt chung", funcPress: DefautPress }} />
             </View>
 
         </View>
@@ -124,7 +113,4 @@ const styles = StyleSheet.create({
         fontSize: 17,
 
     },
-    spinnerTextStyle: {
-        color: '#FFF'
-      },
 });

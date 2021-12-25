@@ -15,7 +15,7 @@ import { Button, Divider } from "react-native-paper";
 const userinfo = [
   {
     id: "1",
-    name: "Bui Viet Hoang",
+    name: "Bùi Việt Hoàng",
   },
 ];
 
@@ -55,7 +55,7 @@ export default function FriendInfoScreen({ navigation }) {
               color: "white",
             }}
           >
-            Bui Viet Hoang
+            Bùi Việt Hoàng
           </Text>
           <Text style={{ color: "#aeb5bc" }}>Nothing so special</Text>
         </View>
@@ -93,7 +93,7 @@ export default function FriendInfoScreen({ navigation }) {
                       },
                     ]}
                   >
-                    Yeu thich nhat
+                    Yêu thích nhất
                   </Text>
                 </View>
               </View>
@@ -123,7 +123,7 @@ export default function FriendInfoScreen({ navigation }) {
                       },
                     ]}
                   >
-                    Nhieu binh luan nhat
+                    Nhiều bình luận nhất
                   </Text>
                 </View>
               </View>
@@ -191,7 +191,7 @@ export default function FriendInfoScreen({ navigation }) {
           </ScrollView>
           <Divider style={{ marginTop: 20 }} />
           <Text style={{ fontWeight: "bold", color: "white", fontSize: 20 }}>
-            Bai Viet
+            Bài viết
           </Text>
           <View style={styles.newPost}>
             <View style={{ width: "50%" }}>
@@ -207,7 +207,7 @@ export default function FriendInfoScreen({ navigation }) {
                 12/06/2000 at 16:11
               </Text>
               <Text style={{ textAlign: "left", marginTop: 20 }}>
-                Nhat ma dut tui: Tham lam! Nhat ma tra lai: Ngu dot! Con cai nit
+                Nhặt mà đút túi: Tham lam! Nhặt mà trả lại: Ngu dốt! Còn cái nịt
               </Text>
             </View>
             <View style={{ width: "50%" }}>

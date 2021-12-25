@@ -7,11 +7,12 @@ import ProfileHeader from "../components/userInfo/ProfileHeader";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import { defaultColor } from "../styles";
+import { useSelector, useDispatch } from "react-redux";
 const personal = [
   {
     id: "1",
     icon: "account-circle",
-    name: "Tai khoan",
+    name: "Tài khoản",
     color: "black",
     event: () => {
       console.warn("Đến trang cá nhân");
@@ -20,7 +21,7 @@ const personal = [
   {
     id: "2",
     icon: "history",
-    name: "Luu tru",
+    name: "Lưu trữ",
     color: "black",
     event: () => {
       console.warn("Chặn người này");
@@ -29,7 +30,7 @@ const personal = [
   {
     id: "3",
     icon: "local-activity",
-    name: "Hoat dong",
+    name: "Hoạt động",
     color: "black",
     event: () => {
       console.warn("Xóa cuộc trò chuyện này");
@@ -37,17 +38,18 @@ const personal = [
   },
   {
     id: "4",
-    icon: "privacy-tip",
-    name: "Quyen rieng tu",
+    icon: "report",
+    name: "Phản hồi",
     color: "black",
     event: () => {
-      console.warn("Xóa cuộc trò chuyện này");
+      console.log("");
     },
+    screen: "AccAndSecScreen",
   },
   {
     id: "5",
     icon: "support",
-    name: "Ho tro",
+    name: "Hỗ trợ",
     color: "black",
     event: () => {
       console.warn("Xóa cuộc trò chuyện này");
@@ -58,7 +60,7 @@ const generalsetting = [
   {
     id: "1",
     icon: "settings",
-    name: "Cai dat",
+    name: "Cài đặt",
     color: "black",
     event: () => {
       console.log("");
@@ -67,41 +69,43 @@ const generalsetting = [
   {
     id: "2",
     icon: "perm-identity",
-    name: "Chinh sua thong tin ca nhan",
+    name: "Chỉnh sửa thông tin cá nhân",
     color: "black",
     event: () => {
       console.log("");
     },
+    screen: "EditProfileScreen",
   },
   {
     id: "3",
-    icon: "report",
-    name: "Phan hoi",
+    icon: "privacy-tip",
+    name: "Quyền riêng tư",
     color: "black",
     event: () => {
-      console.log("");
+      console.warn("Xóa cuộc trò chuyện này");
     },
   },
   {
     id: "4",
     icon: "logout",
-    name: "Thoat dang nhap",
+    name: "Thoát đăng nhập",
     color: "red",
-    event: () => {
+    event: (navigation) => {
       console.log("");
     },
+    screen: "AccAndSecScreen",
   },
 ];
-export default function ProfileScreen({ navigation, route }) {
-  const { name } = route.params;
-  console.log(name);
+export default function ProfileScreen({ navigation}) {
+  const { token, phone, username, isLogin, avatar, coverImage } = useSelector(state => state.userReducer);
+  // console.log(name);
   return (
     <View style={styles.container}>
       <View style={{ backgroundColor: "#fafafa", flex: 1 }}>
         <View>
-          <ProfileHeader navigation={navigation} name={name} />
+          <ProfileHeader navigation={navigation} />
         </View>
-        <Text style={styles.text}>Ca Nhan</Text>
+        <Text style={styles.text}>Cá nhân</Text>
         <FlatList
           style={{ width: "100%" }}
           data={personal}
@@ -127,13 +131,15 @@ export default function ProfileScreen({ navigation, route }) {
           }}
           keyExtractor={(item) => item.id}
         />
-        <Text style={styles.text}>Cai dat chung</Text>
+        <Text style={styles.text}>Cài đặt chung</Text>
         <FlatList
           style={{ width: "100%" }}
           data={generalsetting}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity onPress={item.event}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('EditProfileScreen')}
+              >
                 <View
                   style={{ flexDirection: "row", height: 50, marginLeft: 10 }}
                 >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image, Button, ScrollView } from 'react-native';
 import BackButton from '../components/BackButton';
 import { MaterialIcons, Feather, Foundation, EvilIcons } from '@expo/vector-icons';
@@ -7,23 +7,36 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { API_URL } from '../api/config';
 import * as FileSystem from 'expo-file-system';
-import { convertBase64 } from '../helpers/Utils'; 
+import { convertBase64 } from '../helpers/Utils';
 import { showMessage } from 'react-native-flash-message';
 import { setListP } from '../redux/actions/postAction';
+import { FILE_URL } from '../api/config';
 
-export default function AddPostScreen({ navigation, route }) {
+export default function EditPostScreen({ navigation, route }) {
     const dispatch = useDispatch();
     const { token, phone, username, isLogin, listPosts } = useSelector(state => state.userReducer);
-    const [described, setDescribed] = useState('');
+    let postId;
     let photos = [];
     let count = 0;
-    if (route.params) {
-        photos = route.params.photos;
-        count = route.params.count;
+    const [described, setDescribed] = useState('');
+    let described1 = "";
+    let index = 0;
+
+    if (route.params.item) {
+        photos = route.params.item.photos;
+        count = route.params.item.count;
+        described1 = route.params.item.described;
+        postId = route.params.item.id;
+        index =  route.params.item.index;
     }
 
-    const PostPress = () =>{
-        navigation.navigate("TimelineScreen", {photos: photos});
+    useEffect(() => {
+        setDescribed(described1);
+      }, []);
+
+    if (route.params.photos) {
+        photos = route.params.photos;
+        count = route.params.count;
     }
 
     const OnPressPost = async () => {
@@ -45,36 +58,34 @@ export default function AddPostScreen({ navigation, route }) {
 
         showMessage({
             title: 'Posting!',
-            message: 'Đang đăng bài viết của bạn!',
+            message: 'Đang chỉnh sửa bài viết của bạn!',
             type: 'success',
             backgroundColor: "darkgray",
             position: "center"
-          });
+        });
         navigation.navigate("TimelineScreen");
 
         axios.post(
-            API_URL + '/posts/create', bodyParameters, config
+            API_URL + '/posts/edit/'+postId, bodyParameters, config
         )
             .then((response) => {
                 showMessage({
                     title: 'Post success',
-                    message: 'Đăng bài thành công!',
+                    message: 'Chỉnh sửa thành công!',
                     type: 'success',
                     position: "center"
-                  });
-                  let list = [...listPosts];
-                  list.reverse();
-                  list.push(response.data.data);
-                  list.reverse();
-                  dispatch(setListP(list));
+                });
+                let list = [...listPosts];
+                list[index] = (response.data.data);
+                dispatch(setListP(list));
             })
             .catch(function (error) {
                 showMessage({
                     title: 'post fail!',
-                    message: 'Đăng bài thất bại!',
+                    message: 'Chỉnh sửa thất bại vui lòng thử lại!',
                     type: 'fail',
                     position: "center"
-                  });
+                });
             });
     }
 
@@ -84,7 +95,7 @@ export default function AddPostScreen({ navigation, route }) {
                 <View style={{ justifyContent: 'center', alignContent: 'center', padding: 20 }}>
                     <Image style={styles.image}
                         source={{ uri: photos[0].uri }}
-                        key={count}>
+                        key={1}>
                     </Image>
                 </View>
             );
@@ -181,13 +192,13 @@ export default function AddPostScreen({ navigation, route }) {
                 <BackButton style={styles.back_btn} goBack={navigation.goBack} />
                 <Text style={styles.text_head}>Tạo bài viết mới</Text>
                 <TouchableOpacity style={styles.post_btn} onPress={OnPressPost}>
-                    <Text style={styles.text_btn_post}>Đăng</Text>
+                    <Text style={styles.text_btn_post}>Sửa</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={{ flex: 10, paddingBottom: 20 }}>
                 <ScrollView style={styles.main}>
-                    <TextInput placeholder='bạn đang nghĩ gì?'
+                    <TextInput placeholder="Bạn đang nghĩ gì?"
                         returnKeyType="done"
                         value={described}
                         multiline
@@ -204,11 +215,11 @@ export default function AddPostScreen({ navigation, route }) {
                     <MaterialIcons style={{ flex: 3 }} name="insert-emoticon" size={24} color="black" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => { navigation.navigate('ImageBrowserScreen'); }}>
+                <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => { navigation.navigate('ImageEditPostScreen'); }}>
                     <Feather style={{ flex: 1 }} name="image" size={24} color="black" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => { navigation.navigate('ImageBrowserScreen'); }}>
+                <TouchableOpacity style={{ flexDirection: 'row', flex: 1 }} onPress={() => { navigation.navigate('ImageEditPostScreen'); }}>
                     <Foundation style={{ flex: 1 }} name="play-video" size={24} color="black" />
                 </TouchableOpacity>
 
