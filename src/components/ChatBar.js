@@ -3,14 +3,14 @@ import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { defaultColor } from "../styles";
 
-export default function ChatBar({ name, imageUri, navigation }) {
+export default function ChatBar({ userId, name, imageUri, navigation }) {
 
     const goBack = () => {
         navigation.goBack();
     }
 
     const moreOptions = () => {
-        navigation.navigate('OptionsScreen', {name: name, imageUri: imageUri});
+        navigation.navigate('OptionsScreen', {userId: userId, name: name, imageUri: imageUri});
     }
 
     return (

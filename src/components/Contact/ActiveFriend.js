@@ -5,11 +5,13 @@ import FriendItem from "./FriendItem";
 import { getListFriendAPI } from "../../api/FriendAPI";
 import { useSelector, useDispatch } from 'react-redux';
 import { showMessage } from 'react-native-flash-message';
+import { setListFriendState } from "../../redux/actions/friendAction";
 
 
 function ActiveFriend({ navigation }) {
-  const { token, phone, username, isLogin, listPosts } = useSelector(state => state.userReducer);
-  const [listFriend, setListFriend] = useState([]);
+  const dispatch = useDispatch();
+  const { token, phone, username, isLogin, listPosts, friends, blocks } = useSelector(state => state.userReducer);
+ // const [listFriend, setListFriend] = useState([]);
 
 
   useEffect(() => {
@@ -18,7 +20,7 @@ function ActiveFriend({ navigation }) {
         //alert(res)
         //console.log(JSON.stringify(res.data.data));
         //setListPosts(res.data.data.reverse());
-        setListFriend(res.data.data.friends);
+        dispatch(setListFriendState(res.data.data.friends));
       } else {
         showMessage({
           title: "lấy yêu cầu kết bạn thất bại!",
@@ -29,6 +31,19 @@ function ActiveFriend({ navigation }) {
       }
     });
   }, []);
+
+  const renderUser = ({ item }) => {
+    return (
+        <View>
+            {blocks.indexOf(item._id) == -1 && 
+        <TouchableOpacity onPress={()=>{
+            navigation.navigate("OtherUserInfoScreen", { info: item });
+        }}>
+            <FriendItem item={item} iconActivate={1} />
+        </TouchableOpacity>}
+        </View>
+    )
+}
 
   /* const ListPeople = [
     {
@@ -198,9 +213,9 @@ function ActiveFriend({ navigation }) {
             LisHeaderComponent={
               <>
               </>}
-            extraData={listFriend}
-            data={listFriend}
-            renderItem={FriendItem}
+            extraData={friends}
+            data={friends}
+            renderItem={renderUser}
             keyExtractor={item => item._id}
             ListFooterComponent={<>
             </>} />

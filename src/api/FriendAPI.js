@@ -124,6 +124,64 @@ export async function getRequestedFriend(token) {
 
 
 
+  export async function setRequestFriendAPI({token, userId}) {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    const bodyParameters = {
+       user_id: userId
+   };
+
+    return new Promise(async resolve => {
+      await axios.post(API_URL + '/friends/set-request-friend', bodyParameters, config)
+        .then(response => {
+          return resolve({
+            success: true,
+            data: response.data,
+            error: null,
+          });
+        })
+        .catch(error => {
+           // alert(JSON.stringify(error.response))
+          return resolve({
+            success: false,
+            data: null,
+            error: error.response,
+          });
+        });
+    });
+  }
 
 
-   
+  export async function setRemoveFriendAPI({token, userId}) {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
+    const bodyParameters = {
+       user_id: userId
+   };
+
+    return new Promise(async resolve => {
+      await axios.post(API_URL + '/friends/set-remove', bodyParameters, config)
+        .then(response => {
+          return resolve({
+            success: true,
+            data: response.data,
+            error: null,
+          });
+        })
+        .catch(error => {
+           // alert(JSON.stringify(error.response))
+          return resolve({
+            success: false,
+            data: null,
+            error: error.response,
+          });
+        });
+    });
+  }
+
+
+

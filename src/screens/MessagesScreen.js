@@ -13,6 +13,7 @@ import { showMessage } from 'react-native-flash-message';
 import { setListChatState, setListProfileChatState } from '../redux/actions/chatAction';
 import { FILE_URL } from '../api/config';
 import { showOUserAPI } from '../redux/actions/userAction';
+import { removeBlockMess } from '../helpers/blockHelpers';
 
 const conversations = [{
   id: '1',
@@ -88,16 +89,18 @@ const conversations = [{
 
 export default function MessagesScreen({ navigation }) {
   const dispatch = useDispatch();
-  const { token, isLogin, username, listChats, id, listProfileChats } = useSelector(state => state.userReducer);
+  const { token, isLogin, username, listChats, id, listProfileChats, blocks } = useSelector(state => state.userReducer);
   let fileName = "avatar_2.png"
 
   useEffect(() => {
-    getAllChatInfo({token, dispatch, id}).then((res) => {
+    getAllChatInfo(token, dispatch, id, blocks).then((res) => {
       if (res) {
         //console.log(JSON.stringify(res.data.data));
         //setListPosts(res.data.data.reverse()); 
         //dispatch(setListProfileChatState(list.reverse()));
         //dispatch(setListChatState(res.data.data.reverse()));
+        /* let list = removeBlockMess(listProfileChats, blocks);
+        dispatch(setListProfileChatState(list.reverse())); */
       } else {
         showMessage({
           title: "get list Post fail!",
@@ -127,7 +130,7 @@ export default function MessagesScreen({ navigation }) {
             {name: item.name,
             imageUri: FILE_URL + item.avatarFileName,
             isFriend: true,
-            chatId: item.chatId,
+            chatId1: item.chatId,
             receivedId: item.receivedId
             })}>
             <View style={conversationStyles.container}>

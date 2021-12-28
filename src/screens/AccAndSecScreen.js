@@ -9,6 +9,7 @@ import ApiService from '../api/APIService';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { setListP } from '../redux/actions/postAction';
 import { setListProfileChatState } from '../redux/actions/chatAction';
+import { setListBlockState } from '../redux/actions/userAction';
 
 export default function AccAndSecScreen({ navigation }) {
     const [spinner, setSpinner] = useState(false);
@@ -29,6 +30,7 @@ export default function AccAndSecScreen({ navigation }) {
         setSpinner(true);
         deleteListPost([]);
         dispatch(setListProfileChatState([]));
+        dispatch(setListBlockState([]));
         ApiService
             .post(API_URL + '/users/logout', {
                 token: token,

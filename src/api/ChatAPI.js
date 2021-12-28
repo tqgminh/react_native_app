@@ -28,7 +28,7 @@ export async function getAllChat({ token }) {
   });
 }
 
-export async function getAllChatInfo({ token, dispatch, id }) {
+export async function getAllChatInfo(token, dispatch, id, blocks) {
 
   let list = [];
   let chats = await getAllChat({ token });
@@ -67,13 +67,19 @@ export async function getAllChatInfo({ token, dispatch, id }) {
       }
     }
 
-    dispatch(setListProfileChatState(list.reverse()));
+    let newMess = [];
+    for(let m of list){
+        if(blocks.indexOf(m.receivedId)==-1){
+            newMess.push(m);
+        }
+    } 
+    dispatch(setListProfileChatState(newMess.reverse()));
     return true;
   }else return false;
 }
 
-export async function getAllMessage({ token, chatId }) {
-  // alert("ngoài");
+export async function getAllMessage(token, chatId) {
+  //alert(chatId);
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
@@ -94,7 +100,7 @@ export async function getAllMessage({ token, chatId }) {
         });
       })
       .catch(error => {
-        alert(error);
+        //alert(error);
         return resolve({
           success: false,
           data: null,

@@ -37,6 +37,8 @@ import ChangeInfoScreen from "../screens/ChangeInfoScreen";
 import Demo from "../screens/Demo";
 import EditPostScreen from "../screens/EditPostScreen";
 import ImageEditPostScreen from "../screens/ImageEditPostScreen";
+import OtherUserInfoScreen from "../screens/OtherUserInfoScreen";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -183,6 +185,7 @@ const RootNavigator = () => {
             component={EditProfileScreen}
           />
           <Stack.Screen name="ChangeInfoScreen" component={ChangeInfoScreen} />
+          <Stack.Screen name="OtherUserInfoScreen" component={OtherUserInfoScreen} />
           <Stack.Screen name="Demo" component={Demo} />
           <Stack.Screen name="EditPostScreen" component={EditPostScreen} />
           <Stack.Screen name="ImageEditPostScreen" component={ImageEditPostScreen} 

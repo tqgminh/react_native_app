@@ -13,3 +13,7 @@ export const SET_LIST_POST = 'GET_LIST_POST';
 
 export const SET_LIST_CHAT = 'SET_LIST_CHAT';
 export const SET_LIST_PROFILE_CHAT = 'SET_LIST_PROFILE_CHAT';
+
+export const SET_LIST_FRIEND = 'SET_LIST_FRIEND';
+
+export const SET_LIST_BLOCK = 'SET_LIST_BLOCK';

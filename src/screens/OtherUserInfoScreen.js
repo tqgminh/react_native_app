@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,20 +19,37 @@ import SafeViewAndroid from "../components/SafeViewAndroid";
 import { defaultColor } from "../styles";
 import { useSelector, useDispatch } from "react-redux";
 import { FILE_URL } from "../api/config";
+import { setRequestFriendAPI, setRemoveFriendAPI } from "../api/FriendAPI";
+import { showOUserAPI } from "../redux/actions/userAction";
+import { showMessage } from 'react-native-flash-message';
+import { blockUser } from "../redux/actions/userAction";
+import { setListBlockState } from "../redux/actions/userAction";
+import { getAllChatInfo } from "../api/ChatAPI";
 
 
-export default function OtherUserInfoScreen({ navigation }) {
+export default function OtherUserInfoScreen({ navigation, route }) {
+  const dispatch = useDispatch();
+  const [isFriend, setIsFriend] = useState(false);
+  const [addFriend, setaddFriend] = useState("Kết bạn");
+  const { token, friends, isLogin, username, listChats, id, listProfileChats, blocks } = useSelector(state => state.userReducer);
 
-  const ImagePress = () =>{
-    
-  }
 
-  const userinfo = [
-    {
-      id: "1",
-      name: "Bùi Việt Hoàng",
-    },
-  ];
+  const info1 = route.params.info;
+
+  useEffect(() => {
+
+    for (let friend of friends) {
+      if (friend._id == info1._id) {
+        setIsFriend(true);
+      }
+    }
+  }, []);
+
+
+
+  const [info, setInfo] = useState(info1);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const modal = [
     {
       id: "1",
@@ -71,6 +88,8 @@ export default function OtherUserInfoScreen({ navigation }) {
       },
     },
   ];
+
+
   const media = [
     {
       id: "1",
@@ -98,9 +117,102 @@ export default function OtherUserInfoScreen({ navigation }) {
     },
   ];
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const { token, phone, username, isLogin, avatar, coverImage } = useSelector(state => state.userReducer);
-  // console.log(userinfo[0].name);
+
+  const addFriendPress = () => {
+    let userId = info._id;
+    setRequestFriendAPI({ token, userId })
+      .then(res => {
+        if (res.success) {
+          setaddFriend("Đã gửi lời mời");
+          showMessage({
+            title: "Gửi lời mời kết bạn thành công!",
+            message: "Gửi lời mời kết bạn thành công!",
+            type: "success",
+            position: "center"
+          });
+        } else {
+          showMessage({
+            title: "get list Post fail!",
+            message: "Có lỗi xảy ra vui lòng thử lại!",
+            type: "fail",
+            position: "center"
+          });
+        }
+      });
+  }
+
+  const removeFriendPress = () => {
+    let userId = info._id;
+    setRemoveFriendAPI({ token, userId })
+      .then(res => {
+        if (res.success) {
+          setaddFriend("Kết bạn");
+          setIsFriend(false);
+          showMessage({
+            title: "Hủy kết bạn thành công!",
+            message: "Hủy kết bạn thành công!",
+            type: "success",
+            position: "center"
+          });
+        } else {
+          showMessage({
+            title: "get list Post fail!",
+            message: "Có lỗi xảy ra vui lòng thử lại!",
+            type: "fail",
+            position: "center"
+          });
+        }
+      });
+  }
+
+  const sendMessagePress = () => {
+    let chatId = null;
+    for (let mess of listProfileChats) {
+      if (mess.receivedId == info._id) {
+        chatId = mess.chatId;
+      }
+    }
+    navigation.navigate('ChatScreen',
+      {
+        name: info.username,
+        imageUri: FILE_URL + info.avatar.fileName,
+        isFriend: isFriend,
+        chatId1: chatId,
+        receivedId: info._id
+      });
+  }
+
+
+  const blockPress = async () => {
+    blockUser(token, info._id)
+      .then(res => {
+        if (res.success) {
+          showMessage({
+            title: "Block thành công!",
+            message: "Bạn đã block " + info.username + " thành công!" ,
+            type: "success",
+            position: "center"
+          });
+          let newBlocks =  [];
+          if(blocks!=undefined){
+            newBlocks = [...blocks];
+          }
+          
+          newBlocks.push(info._id);
+          getAllChatInfo(token, dispatch, id, newBlocks);
+          dispatch(setListBlockState(newBlocks));
+          navigation.navigate("HomeScreen");
+        } else {
+          showMessage({
+            title: "Block lỗi!",
+            message: "Có lỗi xảy ra vui lòng thử lại!",
+            type: "fail",
+            position: "center"
+          });
+        }
+      });
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -117,7 +229,7 @@ export default function OtherUserInfoScreen({ navigation }) {
           }
         >
           <Image
-            source={{ uri: FILE_URL + coverImage.fileName }}
+            source={{ uri: FILE_URL + info.cover_image.fileName }}
             style={styles.background_image}
           />
           <View style={{ position: "absolute", top: 10, right: 20, alignSelf: 'flex-end' }}>
@@ -200,7 +312,7 @@ export default function OtherUserInfoScreen({ navigation }) {
             <View style={{}}>
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <Image
-                  source={{ uri: FILE_URL + avatar.fileName }}
+                  source={{ uri: FILE_URL + info.avatar.fileName }}
                   style={{
                     width: 100,
                     height: 100,
@@ -239,47 +351,112 @@ export default function OtherUserInfoScreen({ navigation }) {
               // color: "white",
             }}
           >
-            {username}
+            {info.username}
           </Text>
           <Text style={{ color: "#aeb5bc" }}>Nothing so special</Text>
         </View>
-        <TouchableOpacity
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 20,
-          }}
-        >
-          <View
+
+        <View style={{ flexDirection: "row", marginLeft: 10 }}>
+          <TouchableOpacity
             style={{
-              borderRadius: 30,
-              backgroundColor: "#00bfff",
-              width: "60%",
-              height: 40,
-              color: "white",
-              flex: 1,
-              flexDirection: "row",
+              justifyContent: "center",
               alignItems: "center",
-              // marginTop: 20,
+              marginTop: 20,
+              width: '33%',
+              backgroundColor: "#e9967a",
+              borderRadius: 30
             }}
+            onPress={sendMessagePress}
           >
-            <MaterialIcons
-              name="add-circle-outline"
-              size={30}
-              style={{ color: "white", marginVertical: 5, marginLeft: 10 }}
-            />
+            <Text
+              style={{
+                marginVertical: 5,
+                color: "#483d8b",
+                fontSize: 18,
+              }}
+            >
+              Nhắn tin
+            </Text>
+          </TouchableOpacity>
+
+
+          {(isFriend) && <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
+              width: '33%',
+              backgroundColor: "#1e90ff",
+              borderRadius: 30
+            }}
+            onPress={removeFriendPress}
+          >
             <Text
               style={{
                 marginVertical: 5,
                 color: "white",
-                marginLeft: 20,
-                fontSize: 20,
+                fontSize: 17,
               }}
             >
-              Thêm bài viết
+              Hủy Kết bạn
             </Text>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>}
+
+
+          {(!isFriend) && <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
+              width: '33%',
+              backgroundColor: "#1e90ff",
+              borderRadius: 30
+            }}
+            onPress={addFriendPress}
+          >
+            <Text
+              style={{
+                marginVertical: 5,
+                color: "white",
+                fontSize: 17,
+              }}
+            >
+              {addFriend}
+            </Text>
+          </TouchableOpacity>}
+
+
+
+
+
+
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
+              width: '33%',
+              backgroundColor: "#808080",
+              borderRadius: 30
+            }}
+            onPress={blockPress}
+          >
+
+            <Text
+              style={{
+                color: "white",
+                fontSize: 17,
+              }}
+            >
+              Chặn
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+
+
+
+
         <View style={{ marginTop: 32 }}>
           <ScrollView horizontal={true}>
             <FlatList

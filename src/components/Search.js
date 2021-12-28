@@ -29,6 +29,7 @@ export default function Search(props) {
                 {typeDisplay && <MaterialIcons style={[styles.icon, {paddingRight: 10}]} name='person-add' size={25} color='white'/>}
 
             </TouchableOpacity>
+            
         </View>
     );
 }

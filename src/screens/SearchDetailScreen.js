@@ -1,48 +1,74 @@
 import { useNavigation } from "@react-navigation/native";
-import React,{useState,useEffect} from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import SearchFriend from "../components/SearchDetail/SearchFriend";
 import SearchFake from "../components/SearchDetail/SearchFake";
-import {ListPeople} from '../components/SearchDetail/data'
+import { ListPeople } from '../components/SearchDetail/data'
 import FriendItem from "../components/Contact/FriendItem";
 import SearchRecently from "../components/SearchRecently";
+import { searchUser } from "../redux/actions/userAction";
+import { useSelector, useDispatch } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
 
-function SearchDetail({navigation}){
+function SearchDetail({ navigation }) {
+    const { token, phone, username, isLogin, avatar, id, blocks, listPosts } = useSelector(
+        (state) => state.userReducer
+    );
     const [searchInput, setSearchInput] = useState('');
     const [arrFriend, setArrFriend] = useState([]);
     const [listFriendSearch, setlistFriendSearch] = useState([]);
 
-    const hanleChangeValue = (event)=>{
+    const hanleChangeValue = (event) => {
         setSearchInput(event)
     }
 
-    useEffect(()=>{
-        const arrResult = ListPeople.filter(people=>{
-            const arrComName = people.partner.name.split(' ')
-            if(arrComName.includes(searchInput)){
-                return 1
-            }
-            return 0
-        })
-        setArrFriend(arrResult)
+    useEffect(() => {
+        searchUser({ token, searchInput })
+            .then(res => {
+                if (res.success) {
+                    setArrFriend(res.data.data);
+                } else {
+                    showMessage({
+                        title: "search user fail!",
+                        message: "Có lỗi xảy ra vui lòng thử lại!",
+                        type: "fail",
+                        position: "center"
+                    });
+                }
+            })
+    }, [searchInput]);
 
-    },[searchInput])
 
 
-    
-    const handleGetSearchFriend = (friendId)=>{
+    const handleGetSearchFriend = (friendId) => {
 
-        if(!listFriendSearch.find(people=>people[0].id == friendId)){
-            let getFriend = arrFriend.filter(people=>people.id== friendId)
-            setlistFriendSearch(prev =>[...prev,getFriend])
+        if (!listFriendSearch.find(people => people[0].id == friendId)) {
+            let getFriend = arrFriend.filter(people => people.id == friendId)
+            setlistFriendSearch(prev => [...prev, getFriend])
         }
     }
 
-    const handleRemove = function(friendId){
-        setlistFriendSearch(listFriendSearch.filter(people => people[0].id!=friendId))
+    const handleRemove = function (friendId) {
+        setlistFriendSearch(listFriendSearch.filter(people => people[0].id != friendId))
     }
 
+    const userPress = ({ item }) => {
+        navigation.navigate("OtherUserInfoScreen", { info: item });
+    }
+
+    const renderUser = ({ item }) => {
+        return (
+            <View>
+                {blocks.indexOf(item._id) == -1 && 
+            <TouchableOpacity onPress={()=>{
+                navigation.navigate("OtherUserInfoScreen", { info: item });
+            }}>
+                <FriendItem item={item} iconActivate={1} />
+            </TouchableOpacity>}
+            </View>
+        )
+    }
 
 
 
@@ -50,27 +76,29 @@ function SearchDetail({navigation}){
     return (
 
         <View>
-            <SearchFake navigation={navigation} searchInput={searchInput} hanleChangeValue = {hanleChangeValue}/>
+            <SearchFake navigation={navigation} searchInput={searchInput} hanleChangeValue={hanleChangeValue} />
             {
-                searchInput!=0&&<Text style={{marginTop:5}}>Liên hệ</Text>
+                searchInput != 0 && <Text style={{ marginTop: 5 }}>Liên hệ</Text>
 
             }
-            {
-                arrFriend.length!=0 && <View>
-                {
-                    arrFriend.map(item =>{
-                        return (
-                        <TouchableOpacity key ={item.id} onPress={()=>handleGetSearchFriend(item.id)}>
-                            <FriendItem name={item.partner.name} imageUri = {item.partner.imageUri} iconActivate={1} />
-                        </TouchableOpacity>
-                        )
-                    })
-                }
-            </View>
-            }
-            {
+
+            {searchInput !="" &&
+            <FlatList nestedScrollEnabled
+                style={{ height: "100%" }}
+                LisHeaderComponent={
+                    <>
+                    </>}
+                extraData={arrFriend}
+                data={arrFriend}
+                renderItem={renderUser}
+                keyExtractor={item => item._id}
+                ListFooterComponent={<>
+                </>} />}
+
+
+            {/* {
                 searchInput==''&& <SearchRecently listFriendSearch={listFriendSearch} handleRemove={handleRemove}/>
-            }
+            } */}
         </View>
     )
 }
@@ -78,8 +106,8 @@ function SearchDetail({navigation}){
 export default SearchDetail;
 
 const styles = StyleSheet.create({
-    container:{
-        borderBottomWidth:5 ,
+    container: {
+        borderBottomWidth: 5,
         borderBottomColor: '#DCDCDC'
 
     },
@@ -88,14 +116,14 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
 
-        alignItems:'center',
+        alignItems: 'center',
     },
     icon: {
         // backgroundColor:'blue'
     },
-    text:{
-        marginHorizontal:20,
-        fontSize:20,
-        
+    text: {
+        marginHorizontal: 20,
+        fontSize: 20,
+
     }
 })

@@ -75,6 +75,7 @@ export default function AccAndSecScreen({ navigation }) {
                 <BlockComponent data={{ text: "Thông tin", funcPress: InfoPress }} />
             </View>
             <BlockComponent data={{ text: "Cập nhật giới thiệu bản thân", funcPress: DefautPress }} />
+            <BlockComponent data={{ text: "Danh sách chặn", funcPress: DefautPress }} />
             <BlockComponent data={{ text: "Ví của tôi", funcPress: DefautPress }} />
             <View style={{ paddingTop: 15 }}>
                 <Text style={{ backgroundColor: "#fff", color: defaultColor, fontSize: 18, padding: 10 }}>Cài đặt</Text>

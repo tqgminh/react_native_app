@@ -190,7 +190,7 @@ export default function EditPostScreen({ navigation, route }) {
         <View style={styles.container}>
             <View style={styles.head}>
                 <BackButton style={styles.back_btn} goBack={navigation.goBack} />
-                <Text style={styles.text_head}>Tạo bài viết mới</Text>
+                <Text style={styles.text_head}>Chỉnh sửa bài viết</Text>
                 <TouchableOpacity style={styles.post_btn} onPress={OnPressPost}>
                     <Text style={styles.text_btn_post}>Sửa</Text>
                 </TouchableOpacity>

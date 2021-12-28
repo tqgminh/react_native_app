@@ -8,16 +8,19 @@ import ChatBar from '../components/ChatBar';
 import { defaultColor } from '../styles';
 import { render } from 'react-dom';
 import { FontAwesome5, MaterialCommunityIcons, Entypo, Fontisto, MaterialIcons } from "@expo/vector-icons";
-import { getAllChat, getAllMessage, sendMessagePrivate } from '../api/ChatAPI';
+import { getAllChat, getAllMessage, sendMessagePrivate, createChatPrivate, getAllChatInfo } from '../api/ChatAPI';
 import { useSelector, useDispatch } from 'react-redux';
 import { showMessage } from 'react-native-flash-message';
 
 export default function ChatScreen({ route, navigation }) {
+	const dispatch = useDispatch();
 	const { name } = route.params;
 	const { imageUri } = route.params;
-	const { isFriend } = route.params;
-	const { chatId } = route.params;
+	const { isFriend } = false;// route.params;
+	const { chatId1 } = route.params;
 	const { receivedId } = route.params;
+
+	const [chatId, setChatId] = useState(chatId1); 
 
 	const { token, phone, username, isLogin, avatar, id, listPosts } = useSelector(
 		(state) => state.userReducer
@@ -36,21 +39,23 @@ export default function ChatScreen({ route, navigation }) {
 	const [message, setMessage] = useState('');
 
 	useEffect(() => {
-		getAllMessage({ token, chatId }).then((res) => {
-			if (res.success) {
-				//alert(res)
-				//console.log(JSON.stringify(res.data.data));
-				//setListPosts(res.data.data.reverse());
-				setMessages(res.data.data.reverse());
-			} else {
-				showMessage({
-					title: "gửi tin nhắn thất bại!",
-					message: "Có lỗi xảy ra vui lòng thử lại!",
-					type: "fail",
-					position: "center"
-				});
-			}
-		});
+		if (chatId != null) {
+			getAllMessage(token, chatId).then((res) => {
+				if (res.success) {
+					//alert(res)
+					//console.log(JSON.stringify(res.data.data));
+					//setListPosts(res.data.data.reverse());
+					setMessages(res.data.data.reverse());
+				} else {
+					showMessage({
+						title: "gửi tin nhắn thất bại!",
+						message: "Có lỗi xảy ra vui lòng thử lại!",
+						type: "fail",
+						position: "center"
+					});
+				}
+			});
+		}
 	}, []);
 
 
@@ -58,36 +63,81 @@ export default function ChatScreen({ route, navigation }) {
 		console.warn("Microphone")
 	}
 
-	const onSendPress = () => {
+	const onSendPress = async () => {
 		/* console.warn(`Sending: ${message}`); */
 		let content = message;
-		sendMessagePrivate({ token, chatId, receivedId, content }).
-			then(res => {
-				if (res.success) {
-					getAllMessage({ token, chatId }).then((res) => {
-						if (res.success) {
-							//alert(res)
-							//console.log(JSON.stringify(res.data.data));
-							//setListPosts(res.data.data.reverse());
-							setMessages(res.data.data.reverse());
+		if (chatId != null) {
+			sendMessagePrivate({ token, chatId, receivedId, content }).
+				then(res => {
+					if (res.success) {
+						getAllMessage({ token, chatId }).then((res) => {
+							if (res.success) {
+								//alert(res)
+								//console.log(JSON.stringify(res.data.data));
+								//setListPosts(res.data.data.reverse());
+								setMessages(res.data.data.reverse());
+							} else {
+								showMessage({
+									title: "Gửi tin nhắn thất bại!",
+									message: "Có lỗi xảy ra vui lòng thử lại!",
+									type: "fail",
+									position: "center"
+								});
+							}
+						});
+					} else {
+						showMessage({
+							title: "lấy tin nhắn thất bại!",
+							message: "Có lỗi xảy ra vui lòng thử lại!",
+							type: "fail",
+							position: "center"
+						});
+					}
+				});
+		} else {
+			createChatPrivate({ token, receivedId, content }).
+			
+				then(res => {
+					if (res.success) {
+						getAllMessage(token,res.data.data.chat._id).then((res) => {
+							if (res.success) {
+								setMessages(res.data.data.reverse());
+							} else {
+								showMessage({
+									title: "Gửi tin nhắn thất bại!",
+									message: "Có lỗi xảy ra vui lòng thử lại!",
+									type: "fail",
+									position: "center"
+								});
+							}
+						});
+					} else {
+						showMessage({
+							title: "Lấy tin nhắn thất bại!",
+							message: "Có lỗi xảy ra vui lòng thử lại!",
+							type: "fail",
+							position: "center"
+						});
+					}
+
+					getAllChatInfo({token, dispatch, id}).then((res) => {
+						if (res) {
+						  //console.log(JSON.stringify(res.data.data));
+						  //setListPosts(res.data.data.reverse()); 
+						  //dispatch(setListProfileChatState(list.reverse()));
+						  //dispatch(setListChatState(res.data.data.reverse()));
 						} else {
-							showMessage({
-								title: "lấy yêu cầu kết bạn thất bại!",
-								message: "Có lỗi xảy ra vui lòng thử lại!",
-								type: "fail",
-								position: "center"
-							});
+						  showMessage({
+							title: "get list Post fail!",
+							message: "Có lỗi xảy ra vui lòng thử lại!",
+							type: "fail",
+							position: "center"
+						  });
 						}
-					});
-				} else {
-					showMessage({
-						title: "lấy yêu cầu kết bạn thất bại!",
-						message: "Có lỗi xảy ra vui lòng thử lại!",
-						type: "fail",
-						position: "center"
-					});
-				}
-			});
+					  });
+				});
+		}
+
 		setMessage('');
 	}
 
@@ -177,7 +227,7 @@ export default function ChatScreen({ route, navigation }) {
 	return (
 
 		<View width='100%' height='100%' backgroundColor='f0f0f0' >
-			<ChatBar name={name} imageUri={imageUri} navigation={navigation} />
+			<ChatBar userId={receivedId} name={name} imageUri={imageUri} navigation={navigation} />
 			{!isFriend &&
 				<View style={{
 					flexDirection: 'row',

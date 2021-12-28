@@ -19,20 +19,63 @@ import SafeViewAndroid from "../components/SafeViewAndroid";
 import { defaultColor } from "../styles";
 import { useSelector, useDispatch } from "react-redux";
 import { FILE_URL } from "../api/config";
-
+import * as ImagePicker from 'expo-image-picker';
+import { updateAvatarAPI } from "../redux/actions/userAction";
+import { setAvatar } from "../redux/actions/userAction";
+import { showMessage } from 'react-native-flash-message';
 
 export default function UserInfoScreen({ navigation }) {
+  const dispatch = useDispatch();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
+  const { token, phone, username, isLogin, avatar, coverImage } = useSelector(state => state.userReducer);
 
-  const ImagePress = () =>{
-    
+  const [selectedImage, setSelectedImage] = React.useState(null);
+
+  let openImagePickerAsync = async () => {
+    setModalVisible(false);
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (pickerResult.cancelled === true) {
+      return;
+    }
+    setModalVisible2(true);
+    setSelectedImage({ uri: pickerResult.uri });
+  };
+
+
+  const avatarPress = () =>{
+    updateAvatarAPI(token, selectedImage)
+    .then(res=>{
+      if(res.success){
+        let newAvatar =  {
+          type: '',
+          _id: '',
+          fileName: ''
+        };
+        newAvatar.type = res.data.data.avatar.type;
+        newAvatar._id = res.data.data.avatar._id;
+        newAvatar.fileName = res.data.data.avatar.fileName;
+        dispatch(setAvatar(newAvatar));
+      }else{
+        showMessage({
+          title: "Lỗi update avatar!",
+          message: "Có lỗi xảy ra vui lòng thử lại!",
+          type: "fail",
+          position: "center"
+        });
+      }
+    })
   }
 
-  const userinfo = [
-    {
-      id: "1",
-      name: "Bùi Việt Hoàng",
-    },
-  ];
+
   const modal = [
     {
       id: "1",
@@ -57,9 +100,7 @@ export default function UserInfoScreen({ navigation }) {
       icon: "image",
       name: "Chọn ảnh từ thiết bị",
       color: "black",
-      event: () => {
-        console.log("");
-      },
+      event: openImagePickerAsync
     },
     {
       id: "4",
@@ -98,9 +139,8 @@ export default function UserInfoScreen({ navigation }) {
     },
   ];
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const { token, phone, username, isLogin, avatar, coverImage } = useSelector(state => state.userReducer);
-  // console.log(userinfo[0].name);
+
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -196,6 +236,59 @@ export default function UserInfoScreen({ navigation }) {
               </View>
             </View>
           </Modal>
+
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible2}
+            onRequestClose={() => {
+              //Alert.alert("Modal has been closed.");
+              setModalVisible2(!modalVisible2);
+            }}
+          >
+            <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
+              <View
+                style={{
+                  backgroundColor: "#ffffff",
+                  marginTop: 90,
+                  alignItems: "center",
+                  borderRadius: 10,
+                  paddingBottom: 20,
+                  paddingTop: 20
+                  // flex: 1,
+                }}
+              >
+                {selectedImage != null && <Image
+                  source={{ uri: selectedImage.uri }}
+                  style={{width: 300, height: 300, borderRadius: 300, borderColor: "#00bfff", borderWidth: 10}}
+                  resizeMode="cover"
+                ></Image>}
+                <Text style={{ fontSize: 20, textAlign: "center" }}>
+                  Ảnh đại diện
+                </Text>
+                <View style={{flexDirection: 'row'}}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose, {width: 100}]}
+                  onPress={() => setModalVisible2(!modalVisible2)}
+                >
+                  <Text style={styles.textStyle}>Bỏ qua</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose, {marginLeft: 20, width: 100}]}
+                  onPress={() =>{
+                    avatarPress();
+                    setModalVisible2(!modalVisible2)
+                  } }
+                >
+                  <Text style={styles.textStyle}>Cập nhật</Text>
+                </Pressable>
+                </View>
+                
+              </View>
+            </View>
+          </Modal>
+
           <View style={{ alignSelf: "center", top: -50 }}>
             <View style={{}}>
               <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
