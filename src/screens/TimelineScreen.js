@@ -133,7 +133,7 @@ export default function TimelineScreen({ navigation }) {
       id: "",
       photos: [],
       described: "",
-      count : 0
+      count: 0
     }
     let postId = deleteId;
     let list = [...listPosts];
@@ -153,7 +153,7 @@ export default function TimelineScreen({ navigation }) {
       }
     }
     setModalVisible1(!modalVisible1);
-    navigation.navigate("EditPostScreen", { item: items});
+    navigation.navigate("EditPostScreen", { item: items });
   }
 
   const reportPress = () => {
@@ -280,7 +280,7 @@ export default function TimelineScreen({ navigation }) {
       <View style={{ flexDirection: 'row', marginTop: 10 }}>
         <View style={{ width: '20%' }}>
           <Image
-            source={{ uri: FILE_URL + "avatar_2.png" }}
+            source={{ uri: FILE_URL + avatar.fileName }}
             style={{
               width: 50,
               height: 50,
@@ -296,15 +296,15 @@ export default function TimelineScreen({ navigation }) {
           </Text>
           <Text>{item.createdAt}</Text>
         </TouchableOpacity>
-        {(item.author._id==id) && 
+        {(item.author._id == id) &&
           <TouchableOpacity style={{ width: "10%" }} onPress={() => { setDeleteId(item._id); setModalVisible1(!modalVisible1); }}>
-          <Entypo name="dots-three-horizontal" size={24} color="black" />
-        </TouchableOpacity>
+            <Entypo name="dots-three-horizontal" size={24} color="black" />
+          </TouchableOpacity>
         }
-        {(item.author._id!=id) && 
+        {(item.author._id != id) &&
           <TouchableOpacity style={{ width: "10%" }} onPress={() => { setDeleteId(item._id); setModalVisible2(!modalVisible2); }}>
-          <Entypo name="dots-three-horizontal" size={24} color="black" />
-        </TouchableOpacity>
+            <Entypo name="dots-three-horizontal" size={24} color="black" />
+          </TouchableOpacity>
         }
       </View>
 
@@ -427,61 +427,61 @@ export default function TimelineScreen({ navigation }) {
 
 
       <Search navigation={navigation} />
-      <View style={{ width: "100%" }}>
-        <View
-          style={{
-            width: "100%",
-            flexDirection: "row",
-            alignItems: "center",
-            borderTopWidth: 7,
-            borderTopColor: "rgb(230,230,230)",
-            padding: 10,
-            borderBottomWidth: 1,
-          }}
-        >
-          <Image
-            source={{ uri: FILE_URL + avatar.fileName }}
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 50,
-              marginLeft: 5,
-            }}
-          />
-          <TouchableOpacity style={{ width: '80%', paddingLeft: 10 }} onPress={() => { navigation.navigate('AddPostScreen') }}>
-            <Text style={{ fontSize: 17, color: 'rgb(100,100,100)' }}>Hôm nay bạn thế nào?</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: "100%",
-            flexDirection: "row",
-            borderBottomWidth: 7,
-            borderBottomColor: "rgb(230,230,230)",
-          }}
-        >
-          <TouchableOpacity style={styles.post_icon}>
-            <Ionicons name="image" size={24} color="#006400" />
-            <Text style={styles.post_icon_text}>Đăng ảnh</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.post_icon]}>
-            <FontAwesome name="video-camera" size={24} color="#e9967a" />
-            <Text style={styles.post_icon_text}>Đăng video</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.post_icon]}>
-            <Ionicons name="cloud-circle-sharp" size={24} color="#1e90ff" />
-            <Text style={styles.post_icon_text}>Tạo album</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+
 
       <SafeAreaView>
 
         <FlatList nestedScrollEnabled
           style={{ height: "100%" }}
-          LisHeaderComponent={
-            <>
-            </>}
+          ListHeaderComponent={
+            <View style={{ width: "100%" }}>
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  borderTopWidth: 7,
+                  borderTopColor: "rgb(230,230,230)",
+                  padding: 10,
+                  borderBottomWidth: 1,
+                }}
+              >
+                <Image
+                  source={{ uri: FILE_URL + avatar.fileName }}
+                  style={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 50,
+                    marginLeft: 5,
+                  }}
+                />
+                <TouchableOpacity style={{ width: '80%', paddingLeft: 10 }} onPress={() => { navigation.navigate('AddPostScreen') }}>
+                  <Text style={{ fontSize: 17, color: 'rgb(100,100,100)' }}>Hôm nay bạn thế nào?</Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  borderBottomWidth: 7,
+                  borderBottomColor: "rgb(230,230,230)",
+                }}
+              >
+                <TouchableOpacity style={styles.post_icon}>
+                  <Ionicons name="image" size={24} color="#006400" />
+                  <Text style={styles.post_icon_text}>Đăng ảnh</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.post_icon]}>
+                  <FontAwesome name="video-camera" size={24} color="#e9967a" />
+                  <Text style={styles.post_icon_text}>Đăng video</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.post_icon]}>
+                  <Ionicons name="cloud-circle-sharp" size={24} color="#1e90ff" />
+                  <Text style={styles.post_icon_text}>Tạo album</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          }
           extraData={listPosts}
           data={listPosts}
           renderItem={renderPosts}
@@ -587,7 +587,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
-    height: 400,
+    height: 360,
     resizeMode: "cover",
     borderWidth: 2,
     borderColor: "rgb(200,200,200)",

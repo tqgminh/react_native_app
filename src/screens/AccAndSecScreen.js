@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import TitleBar from '../components/TitleBar';
 import { defaultColor } from '../styles';
@@ -9,7 +9,7 @@ import ApiService from '../api/APIService';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { setListP } from '../redux/actions/postAction';
 import { setListProfileChatState } from '../redux/actions/chatAction';
-import { setListBlockState } from '../redux/actions/userAction';
+import { setListBlockState, setBirthday, setNumberPhone, setAvatar } from '../redux/actions/userAction';
 
 export default function AccAndSecScreen({ navigation }) {
     const [spinner, setSpinner] = useState(false);
@@ -31,6 +31,13 @@ export default function AccAndSecScreen({ navigation }) {
         deleteListPost([]);
         dispatch(setListProfileChatState([]));
         dispatch(setListBlockState([]));
+        dispatch(setAvatar(
+            {
+                type: '',
+                _id: '',
+                fileName: 'avatar_2.png'
+            }
+        ));
         ApiService
             .post(API_URL + '/users/logout', {
                 token: token,
@@ -128,5 +135,5 @@ const styles = StyleSheet.create({
     },
     spinnerTextStyle: {
         color: '#FFF'
-      },
+    },
 });

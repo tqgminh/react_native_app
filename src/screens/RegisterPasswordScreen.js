@@ -58,7 +58,7 @@ export default function RegisterPasswordScreen({ navigation, route }) {
                 addLogin('true');
                 navigation.reset({
                     index: 0,
-                    routes: [{ name: 'Home' }],
+                    routes: [{ name: 'HomeScreen' }],
                 });
             })
             .catch(function (error) {

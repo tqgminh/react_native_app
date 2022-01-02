@@ -18,7 +18,7 @@ export async function getAllChat({ token }) {
         });
       })
       .catch(error => {
-        alert(error);
+        //alert(error);
         return resolve({
           success: false,
           data: null,
@@ -101,6 +101,7 @@ export async function getAllMessage(token, chatId) {
       })
       .catch(error => {
         //alert(error);
+        alert(JSON.stringify(error));
         return resolve({
           success: false,
           data: null,

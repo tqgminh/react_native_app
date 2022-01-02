@@ -70,7 +70,7 @@ export default function ChatScreen({ route, navigation }) {
 			sendMessagePrivate({ token, chatId, receivedId, content }).
 				then(res => {
 					if (res.success) {
-						getAllMessage({ token, chatId }).then((res) => {
+						getAllMessage(token, chatId).then((res) => {
 							if (res.success) {
 								//alert(res)
 								//console.log(JSON.stringify(res.data.data));

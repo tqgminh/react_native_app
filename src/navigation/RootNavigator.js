@@ -70,7 +70,7 @@ function Home() {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="DiscoveryScreen"
         component={DiscoveryScreen}
         options={{
@@ -79,7 +79,7 @@ function Home() {
             <AntDesign name="appstore-o" size={24} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="TimelineScreen"
         component={TimelineScreen}
