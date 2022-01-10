@@ -15,6 +15,7 @@ function SearchDetail({ navigation }) {
     const { token, phone, username, isLogin, avatar, id, blocks, listPosts } = useSelector(
         (state) => state.userReducer
     );
+    console.log(phone)
     const [searchInput, setSearchInput] = useState('');
     const [arrFriend, setArrFriend] = useState([]);
     const [listFriendSearch, setlistFriendSearch] = useState([]);
@@ -22,6 +23,7 @@ function SearchDetail({ navigation }) {
     const hanleChangeValue = (event) => {
         setSearchInput(event)
     }
+    console.log(searchInput,arrFriend)
 
     useEffect(() => {
         searchUser({ token, searchInput })
@@ -41,16 +43,16 @@ function SearchDetail({ navigation }) {
 
 
 
-    const handleGetSearchFriend = (friendId) => {
+    const handleGetSearchFriend = (phonenumber) => {
 
-        if (!listFriendSearch.find(people => people[0].id == friendId)) {
-            let getFriend = arrFriend.filter(people => people.id == friendId)
+        if (!listFriendSearch.find(people => people[0].phonenumber == phonenumber)) {
+            let getFriend = arrFriend.filter(people => people.phonenumber == phonenumber)
             setlistFriendSearch(prev => [...prev, getFriend])
         }
     }
 
-    const handleRemove = function (friendId) {
-        setlistFriendSearch(listFriendSearch.filter(people => people[0].id != friendId))
+    const handleRemove = function (phonenumber) {
+        setlistFriendSearch(listFriendSearch.filter(people => people[0].phonenumber != phonenumber))
     }
 
     const userPress = ({ item }) => {
@@ -62,6 +64,7 @@ function SearchDetail({ navigation }) {
             <View>
                 {blocks.indexOf(item._id) == -1 && 
             <TouchableOpacity onPress={()=>{
+                handleGetSearchFriend(item.phonenumber)
                 navigation.navigate("OtherUserInfoScreen", { info: item });
             }}>
                 <FriendItem item={item} iconActivate={1} />
@@ -96,9 +99,9 @@ function SearchDetail({ navigation }) {
                 </>} />}
 
 
-            {/* {
-                searchInput==''&& <SearchRecently listFriendSearch={listFriendSearch} handleRemove={handleRemove}/>
-            } */}
+            {
+                searchInput==''&& listFriendSearch.length!==0 && <SearchRecently listFriendSearch={listFriendSearch} navigation={navigation} handleRemove={handleRemove}/>
+            }
         </View>
     )
 }
