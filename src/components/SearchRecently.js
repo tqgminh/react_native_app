@@ -21,7 +21,7 @@ function SearchRecently({listFriendSearch,handleRemove,navigation}){
                         
                     <View key ={item._id} style={styles.content}>
                         <TouchableOpacity style={styles.friendOnly} onPress={()=>navigation.navigate("OtherUserInfoScreen", { info: item })}>
-                            <FriendOnly name={item.username} imageUri={item.avatar.fileName} item = {item}/>
+                            <FriendOnly name={item.username} imageUri={item.avatar.fileName}/>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={()=>handleRemove(item.phonenumber)}>
                             <MaterialIcons style={styles.icon} name='highlight-remove' size={25} color={defaultColor} />
