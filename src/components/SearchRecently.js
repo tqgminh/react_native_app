@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import FriendOnly from "./FriendOnly"
 import {defaultColor} from '../styles';
 
-function SearchRecently({listFriendSearch,handleRemove}){
+function SearchRecently({listFriendSearch,handleRemove,navigation}){
 
     return (
         <View>
@@ -16,12 +16,14 @@ function SearchRecently({listFriendSearch,handleRemove}){
             </View>
             {
                 listFriendSearch.map(item =>{
+                    item = item[0]
                     return (
-                    <View key ={item[0].id} style={styles.content}>
-                        <TouchableOpacity style={styles.friendOnly}>
-                            <FriendOnly name={item[0].partner.name} imageUri = {item[0].partner.imageUri} />
+                        
+                    <View key ={item._id} style={styles.content}>
+                        <TouchableOpacity style={styles.friendOnly} onPress={()=>navigation.navigate("OtherUserInfoScreen", { info: item })}>
+                            <FriendOnly name={item.username} imageUri={item.avatar.fileName}/>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>handleRemove(item[0].id)}>
+                        <TouchableOpacity onPress={()=>handleRemove(item.phonenumber)}>
                             <MaterialIcons style={styles.icon} name='highlight-remove' size={25} color={defaultColor} />
                         </TouchableOpacity>
                     </View>

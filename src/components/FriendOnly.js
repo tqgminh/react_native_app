@@ -8,6 +8,7 @@ import {defaultColor} from '../styles';
 function FriendOnly(props){
 
     const {name, imageUri} = props
+    // console.log("item",item)
     return (
 
         <View style={styles.container}>

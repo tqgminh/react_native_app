@@ -108,6 +108,8 @@ const RootNavigator = () => {
   const { token, phone, username, isLogin } = useSelector(
     (state) => state.userReducer
   );
+
+  console.log('islogin',isLogin)
   return (
     <NavigationContainer>
       {isLogin == false ? (
